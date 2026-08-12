@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Yatriva — Offline</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1B2B4B;
+      --saffron: #E87722;
+      --cream: #FDF6EC;
+    }
+    html, body {
+      height: 100%;
+      background: var(--cream);
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color: var(--navy);
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding: 2rem;
+      text-align: center;
+      gap: 1rem;
+    }
+    .icon-ring {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(27,43,75,0.08);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    svg { display: block; }
+    h1 { font-size: 1.5rem; font-weight: 900; }
+    .en { margin-bottom: 0.25rem; }
+    .hi { font-size: 1rem; color: #555; }
+    .mr { font-size: 1rem; color: #555; }
+    p { font-size: 0.875rem; color: #5a5a5a; max-width: 20rem; line-height: 1.6; margin-top: 0.5rem; }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      background: var(--saffron);
+      color: white;
+      font-weight: 700;
+      font-size: 0.875rem;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      min-height: 44px;
+    }
+    button:active { transform: scale(0.95); }
+    .badge {
+      margin-top: 1.5rem;
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #92400e;
+      background: #fef3c7;
+      border: 1px solid #fbbf24;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon-ring">
+      <!-- WiFi-off icon -->
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
+           stroke="#1B2B4B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="1" y1="1" x2="23" y2="23"/>
+        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+        <path d="M10.71 5.05A16 16 0 0 1 22.56 9"/>
+        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+        <line x1="12" y1="20" x2="12.01" y2="20"/>
+      </svg>
+    </div>
+
+    <h1 class="en">You're Offline</h1>
+    <p class="hi">आप ऑफलाइन हैं</p>
+    <p class="mr">तुम्ही ऑफलाइन आहात</p>
+
+    <p>
+      No internet connection detected. Key information is saved on your device.
+      <br /><br />
+      <span lang="hi">इंटरनेट कनेक्शन नहीं है। मुख्य जानकारी आपके डिवाइस पर सहेजी गई है।</span>
+    </p>
+
+    <button onclick="window.location.reload()">
+      Try Again / पुनः प्रयास / पुन्हा प्रयत्न
+    </button>
+
+    <p class="badge">⚠️ Unofficial guide — not a government resource</p>
+  </div>
+</body>
+</html>

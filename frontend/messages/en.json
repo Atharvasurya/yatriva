@@ -1,0 +1,241 @@
+{
+  "meta": {
+    "siteTitle": "Yatriva — Nashik Kumbh Mela 2027",
+    "siteDescription": "Independent visitor guide for Nashik-Trimbakeshwar Simhastha Kumbh Mela 2027. Find ghats, temples, transport, emergency help, and spiritual heritage."
+  },
+  "disclaimer": {
+    "text": "This is an independent visitor guide — not an official government resource.",
+    "close": "Dismiss"
+  },
+  "nav": {
+    "home": "Home",
+    "map": "Map",
+    "transport": "Transport",
+    "emergency": "Emergency",
+    "more": "More",
+    "ghats": "Ghats",
+    "temples": "Temples",
+    "culture": "Culture & Heritage",
+    "parking": "Parking",
+    "assistant": "AI Assistant",
+    "about": "About"
+  },
+  "assistant": {
+    "title": "AI Pilgrim Assistant",
+    "subtitle": "Grounded Multilingual Q&A & Safety Handoff",
+    "placeholder": "Ask about Ghats, Snan dates, transport, parking...",
+    "send": "Send",
+    "clear": "Clear Chat",
+    "suggestedTitle": "Popular Pilgrim Questions:",
+    "groundedTag": "Official Dataset Grounded",
+    "safetyTag": "Emergency Safety Handoff",
+    "offlineNotice": "Offline Mode: Answering from local cached knowledge."
+  },
+  "home": {
+    "heroTagline": "Your Kumbh Companion",
+    "heroSubtitle": "Nashik Simhastha Kumbh Mela 2027",
+    "heroDescription": "Navigate the world's largest pilgrimage — find ghats, temples, transport, and emergency help, even offline.",
+    "snanSectionTitle": "Amrit Snan Dates",
+    "snanPlaceholderNote": "PLACEHOLDER — verify with official source",
+    "quickGuideTitle": "Quick Guide",
+    "countdown": {
+      "days": "days away",
+      "hours": "hours away",
+      "minutes": "minutes away",
+      "today": "Today!",
+      "passed": "Passed"
+    },
+    "snanDates": {
+      "snan1": {
+        "label": "1st Amrit Snan",
+        "date": "2 August 2027"
+      },
+      "snan2": {
+        "label": "2nd Amrit Snan",
+        "date": "31 August 2027"
+      },
+      "snan3": {
+        "label": "3rd Amrit Snan",
+        "date": "11–12 September 2027"
+      }
+    },
+    "tiles": {
+      "ghats": "Ghats",
+      "temples": "Temples",
+      "transport": "Transport",
+      "parking": "Parking",
+      "emergency": "Emergency",
+      "about": "About"
+    },
+    "tilesDescription": {
+      "ghats": "Sacred bathing sites",
+      "temples": "Shrines & mandirs",
+      "transport": "Buses, trains & routes",
+      "parking": "Vehicle parking zones",
+      "emergency": "Police, medical, helpline",
+      "about": "About this guide"
+    }
+  },
+  "ghats": {
+    "title": "Sacred Bathing Ghats",
+    "description": "Bathing ghats along the Godavari river in Nashik and Kushavarta in Trimbakeshwar.",
+    "filterAll": "All Ghats",
+    "filterPrimary": "Amrit Snan (Priority 1)",
+    "priorityLabel": "Snan Priority",
+    "riverLabel": "River / Tank",
+    "viewDetails": "View Details & Map",
+    "backToGhats": "← Back to all Ghats",
+    "coordinatesLabel": "Approx. Coordinates",
+    "unverifiedNotice": "Coordinates & details are approximate (OpenStreetMap). Field survey pending."
+  },
+  "temples": {
+    "title": "Temples & Shrines",
+    "description": "Holy temples in Nashik, Trimbakeshwar, and surrounding pilgrimage sites.",
+    "deityLabel": "Deity",
+    "timingsLabel": "Timings",
+    "viewDetails": "View Details & Map",
+    "backToTemples": "← Back to all Temples",
+    "unverifiedNotice": "Temple timings and official announcements await verification from temple trusts."
+  },
+  "transport": {
+    "title": "Transport & Pilgrim Logistics",
+    "description": "Traveler guidance by scenario: arriving by car, train, bus, or walking between ghats.",
+    "scenarioTitle": "Choose Your Traveler Scenario",
+    "scenarioCar": "Arriving by Car",
+    "scenarioTrain": "Arriving by Train",
+    "scenarioBus": "Arriving by Bus",
+    "scenarioFoot": "Walking & Foot Routes",
+    "splitTitle": "Nashik-Trimbakeshwar 28 km Logistics Split",
+    "splitDescription": "The Kumbh Mela takes place at two main centers separated by ~28 km along NH848: Nashik City (Godavari Ramkund) and Trimbakeshwar (Jyotirlinga & Kushavarta Kund). Shuttle buses connect outer parking zones to both locations.",
+    "hubsTitle": "Transport Hubs",
+    "routesTitle": "Shuttle & Bus Routes",
+    "hubTypeLabel": "Hub Type",
+    "operatorLabel": "Operator",
+    "frequencyLabel": "Frequency",
+    "routeLabel": "Route",
+    "unverifiedNotice": "[PLACEHOLDER — verify with official source] Specific timetables, fares, and shuttle frequencies will be updated when MSRTC and Railway Mela schedules are released."
+  },
+  "culture": {
+    "title": "Spiritual Culture & Heritage",
+    "description": "Authoritative explainer guides on the sacred history, rivers, temples, and monastic traditions of the Nashik Simhastha Kumbh Mela.",
+    "readGuide": "Read Full Heritage Guide",
+    "backToCulture": "← Back to Culture & Heritage",
+    "topicsTitle": "Kumbh Heritage Guides"
+  },
+  "parking": {
+    "title": "Vehicle Parking Zones",
+    "description": "Designated vehicle parking areas in Nashik and Trimbakeshwar for Kumbh Mela.",
+    "vehicleTypesLabel": "Allowed Vehicles",
+    "capacityLabel": "Capacity",
+    "distanceLabel": "Distance to Main Ghat",
+    "shuttleLabel": "Shuttle Bus",
+    "shuttleYes": "Available",
+    "shuttleNo": "Not available / Unknown",
+    "unverifiedNotice": "Parking capacities and official shuttle routes await official Kumbh traffic plan release."
+  },
+  "emergency": {
+    "title": "Emergency Contacts & Helplines",
+    "description": "Direct contact numbers for Police, Medical Emergency, Kumbh Helpline, and Women Helpline.",
+    "bannerTitle": "Official Helplines Pending Announcement",
+    "bannerText": "Official 24x7 emergency helpline numbers for Nashik Kumbh Mela 2027 are awaiting release by authorities. No phone numbers are invented.",
+    "categoryPolice": "Police Control Room",
+    "categoryMedical": "Medical & Ambulance",
+    "categoryKumbh": "Kumbh Helpline",
+    "categoryWomen": "Women Helpline",
+    "callAction": "Call Now"
+  },
+  "about": {
+    "title": "About Yatriva",
+    "subtitle": "Independent Kumbh Mela Visitor Guide",
+    "missionTitle": "Our Mission",
+    "missionText": "Yatriva is created to provide accessible, multi-lingual, and reliable guidance for millions of pilgrims visiting the Nashik-Trimbakeshwar Simhastha Kumbh Mela 2027.",
+    "dataTitle": "Data Integrity & Transparency",
+    "dataText": "We strictly adhere to data integrity rules. Unverified coordinates, timings, and contact numbers are clearly tagged with PLACEHOLDER badges until officially verified.",
+    "offlineTitle": "Offline First Design",
+    "offlineText": "Designed to function under heavy network congestion with PWA support and local caching.",
+    "legalTitle": "Disclaimer & Governance",
+    "legalText": "Yatriva is an independent project. It is not affiliated with, endorsed by, or connected to any government body, district administration, or religious trust."
+  },
+  "map": {
+    "title": "Interactive Pilgrim Map",
+    "description": "Explore all Ghats, Temples, Parking Zones, and Transport Hubs across Nashik & Trimbakeshwar.",
+    "filterAll": "All Locations",
+    "filterGhats": "Ghats",
+    "filterTemples": "Temples",
+    "filterParking": "Parking",
+    "filterTransport": "Transport Hubs"
+  },
+  "more": {
+    "title": "More Options & Help",
+    "selectLanguage": "Select Language",
+    "quickLinks": "Explore Guide",
+    "offlineGuide": "Offline Mode Ready"
+  },
+  "offline": {
+    "title": "You're Offline",
+    "description": "No internet connection detected. Some features may be unavailable. Key information is saved on your device.",
+    "retry": "Try Again"
+  },
+  "registration": {
+    "title": "Family & Group Safety Registration",
+    "subtitle": "Create optional printable ID cards with QR codes for children and elderly family members to prevent separation.",
+    "disclaimer": "This is an independent, unofficial tool. It does not replace police, NTKMA, or official emergency services. In an emergency, contact Police 112 / Ambulance 108 directly.",
+    "groupInfo": "Group Details",
+    "groupName": "Family / Group Name",
+    "visitDate": "Planned Visit Date",
+    "primaryPhone": "Primary Emergency Contact Phone",
+    "members": "Group Members",
+    "addMember": "+ Add Member",
+    "memberName": "Member Full Name",
+    "ageRange": "Age Category",
+    "relationship": "Relationship",
+    "submit": "Generate Group Safety Cards",
+    "cardsTitle": "Digital Safety Cards",
+    "cardsSubtitle": "Download or print these bearer cards. Keep them with children and elderly group members during your visit.",
+    "downloadPng": "Download Card (PNG)",
+    "printAll": "Print Cards",
+    "deleteData": "Delete Registration Data",
+    "verifyTitle": "Pilgrim Safety Verification",
+    "verifySubtitle": "Read-only emergency contact details for separated group member.",
+    "ageCategories": {
+      "child_0_12": "Child (0–12 yrs)",
+      "teen_13_17": "Teen (13–17 yrs)",
+      "adult_18_59": "Adult (18–59 yrs)",
+      "senior_60_plus": "Senior (60+ yrs)"
+    },
+    "relationships": {
+      "self": "Self / Leader",
+      "child": "Child",
+      "parent": "Parent",
+      "spouse": "Spouse",
+      "elderly_parent": "Elderly Parent",
+      "relative": "Relative"
+    }
+  },
+  "auth": {
+    "loginTitle": "Group Leader Mobile Sign In",
+    "loginSubtitle": "Optional: Enter your mobile number to retrieve and manage your saved group registrations across devices.",
+    "phoneLabel": "Mobile Phone Number (India)",
+    "sendOtp": "Send Verification OTP",
+    "otpLabel": "Enter 4-Digit OTP Code",
+    "verifyOtp": "Verify & Continue",
+    "rateLimitError": "Maximum 3 OTP requests allowed per 10 minutes. Please wait before retrying.",
+    "expiredError": "OTP code has expired. Please request a new code.",
+    "attemptsExceeded": "Maximum verification attempts exceeded. OTP invalidated.",
+    "saveLaterBanner": "Save this registration for later? Attach to your mobile account.",
+    "saveToAccount": "Attach Registration to My Mobile Account",
+    "accountTitle": "Leader Account Dashboard",
+    "deleteAccount": "Delete My Account & All Associated Data",
+    "deleteConfirm": "Are you sure you want to delete your account and permanently purge all saved group registrations?",
+    "logout": "Log Out"
+  },
+  "footer": {
+    "unofficialNote": "Yatriva is an independent, unofficial visitor guide. It is not affiliated with, endorsed by, or connected to any government authority, the Kumbh Mela administration, or any religious organisation.",
+    "copyright": "© 2027 Yatriva. Built for pilgrims, by pilgrims.",
+    "links": {
+      "about": "About",
+      "privacy": "Privacy",
+      "contact": "Contact"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+# render.yaml — Yatriva FastAPI backend deployment config
+# Docs: https://render.com/docs/blueprint-spec
+#
+# Place this file at the repo root OR in the backend/ directory.
+# If at repo root, set rootDir below; if inside backend/, omit rootDir.
+
+services:
+  - type: web
+    name: yatriva-api
+    runtime: python
+    rootDir: backend          # path relative to the repo root
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free                # free tier — sleeps after 15 min of inactivity
+
+    healthCheckPath: /health  # Render pings this; must return HTTP 200
+
+    envVars:
+      # Set the values of these in the Render dashboard (not here).
+      # Listing them here documents what is required.
+      - key: DATABASE_URL
+        sync: false           # "sync: false" = you fill this in the dashboard
+      - key: FRONTEND_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: OTP_SMS_PROVIDER
+        value: demo_mode      # safe default — override in dashboard for prod
