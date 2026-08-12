@@ -63,14 +63,14 @@ export default function SnanDateCard({
 
   return (
     <div
-      className={`card overflow-hidden animate-fade-up delay-${(index + 1) * 100}`}
-      style={{ background: GRADIENT_STYLES[index % 3] }}
+      className={`card animate-fade-up delay-${(index + 1) * 100}`}
+      style={{ background: GRADIENT_STYLES[index % 3], overflow: 'visible' }}
       role="article"
       aria-label={label}
     >
-      {/* Top decorative strip */}
+      {/* Top decorative strip — clipped independently so card badge is not affected */}
       <div
-        className="h-1 w-full"
+        className="h-1 w-full rounded-t-[var(--radius-card)]"
         style={{ background: '#E87722' }}
         aria-hidden="true"
       />
@@ -122,10 +122,13 @@ export default function SnanDateCard({
 
       {/* Placeholder badge */}
       {!verified && (
-        <div className="px-5 pb-3">
-          <span className="placeholder-badge inline-flex items-center gap-1">
-            <AlertTriangle className="h-3 w-3 text-amber-600" />
-            <span>{t('snanPlaceholderNote')}</span>
+        <div className="px-5 pb-4">
+          <span
+            className="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-amber-300 bg-amber-50 text-amber-800 font-bold"
+            style={{ fontSize: '0.6rem', letterSpacing: '0.03em', flexWrap: 'wrap', lineHeight: 1.4 }}
+          >
+            <AlertTriangle className="h-3 w-3 text-amber-600 shrink-0" />
+            <span style={{ whiteSpace: 'normal' }}>{t('snanPlaceholderNote')}</span>
           </span>
         </div>
       )}
