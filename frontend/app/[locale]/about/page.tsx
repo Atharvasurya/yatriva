@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { ShieldCheck, Heart, Cpu, Globe, Info, Users, Code, Sparkles, Mail } from 'lucide-react';
+import { ShieldCheck, Globe, Info, Users, Sparkles, MapPin, Mail } from 'lucide-react';
 
 export default function AboutPage() {
   const t = useTranslations('about');
@@ -10,17 +10,15 @@ export default function AboutPage() {
   const teamMembers = [
     {
       name: 'Atharva Ravindra Suryawanshi',
-      role: 'Co-Founder & Lead Developer',
-      bio: 'Passionate full-stack developer dedicated to building high-performance, offline-first digital experiences for millions of pilgrims visiting Nashik Kumbh Mela 2027.',
+      location: 'Nashik, Maharashtra, India',
+      email: 'atharvasuryawanshi@gmail.com',
       image: '/images/team/atharva.png',
-      tags: ['Full Stack', 'Next.js', 'System Architecture'],
     },
     {
       name: 'Khushal Kulkarni',
-      role: 'Co-Founder & Product Architect',
-      bio: 'Innovator and product strategist focused on user experience, AI assistance integration, and accessible smart navigation tools for sacred heritage exploration.',
+      location: 'Nashik, Maharashtra, India',
+      email: 'khushalkulkarni@gmail.com',
       image: '/images/team/khushal.png',
-      tags: ['Product Design', 'AI Integration', 'UX Strategy'],
     },
   ];
 
@@ -75,52 +73,45 @@ export default function AboutPage() {
         <div className="text-center space-y-2">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 text-xs font-bold uppercase tracking-wider">
             <Users className="w-4 h-4 text-amber-600" />
-            <span>The Minds Behind Yatriva</span>
+            <span>Core Creators</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900">Meet Our Team</h2>
-          <p className="text-sm text-slate-600 max-w-xl mx-auto">
-            Engineers and designers building multi-lingual, resilient digital tools for Nashik Simhastha Kumbh Mela 2027.
-          </p>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
           {teamMembers.map((member) => (
             <div
               key={member.name}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200/80 flex flex-col justify-between hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group"
+              className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200/80 text-center space-y-4 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             >
-              <div>
-                {/* Team Member Photo */}
-                <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-100">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                  
-                  <div className="absolute bottom-3 left-4 right-4 text-white">
-                    <h3 className="text-xl font-bold tracking-tight drop-shadow-md">{member.name}</h3>
-                    <p className="text-xs font-semibold text-amber-300 drop-shadow">{member.role}</p>
-                  </div>
+              {/* Circle Profile Image */}
+              <div className="relative w-32 h-32 mx-auto">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full rounded-full object-cover object-top border-4 border-amber-500 shadow-xl"
+                />
+              </div>
+
+              {/* Member Details */}
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold text-slate-900 tracking-tight">
+                  {member.name}
+                </h3>
+
+                <div className="flex items-center justify-center gap-1.5 text-xs text-slate-500 font-semibold">
+                  <MapPin className="w-3.5 h-3.5 text-rose-500" />
+                  <span>{member.location}</span>
                 </div>
 
-                {/* Team Member Info */}
-                <div className="p-5 space-y-3">
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                    {member.bio}
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {member.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[11px] font-semibold px-2.5 py-0.5 bg-slate-100 text-slate-700 rounded-md border border-slate-200"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                <div className="pt-2">
+                  <a
+                    href={`mailto:${member.email}`}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-amber-50 text-slate-700 hover:text-amber-800 text-xs font-bold transition-all border border-slate-200"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-amber-600" />
+                    <span>{member.email}</span>
+                  </a>
                 </div>
               </div>
             </div>
