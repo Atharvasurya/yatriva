@@ -182,16 +182,16 @@ export default function HomePageContent() {
 
               <button
                 type="button"
-                onClick={() => setActiveNearestCategory(activeNearestCategory === 'food' ? null : 'food')}
-                aria-pressed={activeNearestCategory === 'food'}
+                onClick={() => setActiveNearestCategory(activeNearestCategory === 'parking' ? null : 'parking')}
+                aria-pressed={activeNearestCategory === 'parking'}
                 className={`p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[44px] ${
-                  activeNearestCategory === 'food'
-                    ? 'bg-emerald-800 text-white border-emerald-900 shadow-sm'
+                  activeNearestCategory === 'parking'
+                    ? 'bg-amber-800 text-white border-amber-900 shadow-sm'
                     : 'bg-[var(--color-surface-alt)] border-slate-200 text-slate-800 hover:bg-slate-100'
                 }`}
               >
-                <Utensils className="h-4 w-4 shrink-0" aria-hidden="true" />
-                <span>Free Meals</span>
+                <ParkingCircle className="h-4 w-4 shrink-0 text-amber-600" aria-hidden="true" />
+                <span>Nearest Parking</span>
               </button>
             </div>
           </div>
