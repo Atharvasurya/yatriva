@@ -61,6 +61,11 @@ export interface Ghat extends Place {
   category: 'ghat';
   snanPriority: 1 | 2 | 3;
   riverName: string; // "Godavari" for most Nashik ghats
+  imageUrl?: string;
+  history?: LocalisedDescription;
+  importance?: LocalisedDescription;
+  highlights?: LocalisedDescription;
+  youtubeVideoId?: string;
 }
 
 /**
