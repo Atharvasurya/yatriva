@@ -83,16 +83,6 @@ export default function SidebarNav() {
         borderRight: '1px solid rgba(255,255,255,0.08)',
       }}
     >
-      {/* Logo */}
-      <Link
-        href={`/${locale}`}
-        className="flex items-center px-3 mb-8 focus-visible:outline-white rounded-lg"
-      >
-        <div>
-          <span className="block text-white font-bold text-xl tracking-tight leading-none">YATRIVA</span>
-          <span className="block text-xs font-medium mt-0.5" style={{ color: '#E87722' }}>Kumbh Mela 2027</span>
-        </div>
-      </Link>
 
       {/* Primary nav */}
       <div className="space-y-0.5 mb-6">
