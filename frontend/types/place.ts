@@ -73,6 +73,7 @@ export interface Temple extends Place {
   history?: LocalisedDescription;
   importance?: LocalisedDescription;
   highlights?: LocalisedDescription;
+  youtubeVideoId?: string;
 }
 
 /**

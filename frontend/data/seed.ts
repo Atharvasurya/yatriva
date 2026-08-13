@@ -138,6 +138,7 @@ export const TEMPLES: Temple[] = [
     deity: 'Shiva (Trimbakeshwar)',
     timingsEn: '5:30 AM – 9:00 PM',
     imageUrl: '/images/temples/trimbakeshwar.jpg',
+    youtubeVideoId: 'cZ57l8f_-pI',
     verified: true,
     tags: ['jyotirlinga', 'principal-kumbh-site'],
     history: {
@@ -175,6 +176,7 @@ export const TEMPLES: Temple[] = [
     deity: 'Rama (Black stone)',
     timingsEn: '5:00 AM – 10:00 PM',
     imageUrl: '/images/temples/kalaram.jpg',
+    youtubeVideoId: '1qS7Vp3G7Q0',
     verified: true,
     tags: ['panchvati', 'historic'],
     history: {
@@ -211,6 +213,7 @@ export const TEMPLES: Temple[] = [
     deity: 'Saptashringi Nivasini Devi',
     timingsEn: '6:00 AM – 8:00 PM',
     imageUrl: '/images/temples/saptashringi.jpg',
+    youtubeVideoId: '3Rk2H1z8_1Q',
     verified: true,
     tags: ['shakti-peetha', 'day-trip'],
     history: {
@@ -247,6 +250,7 @@ export const TEMPLES: Temple[] = [
     deity: '12 Jyotirlingas & Bhagavad Gita',
     timingsEn: '6:00 AM – 7:00 PM',
     imageUrl: '/images/temples/muktidham.jpg',
+    youtubeVideoId: 'W4QZ_6P8X8A',
     verified: true,
     tags: ['nashik-road', 'white-marble'],
     history: {
@@ -283,6 +287,7 @@ export const TEMPLES: Temple[] = [
     deity: 'Shiva (Kapaleshwar)',
     timingsEn: '5:00 AM – 9:00 PM',
     imageUrl: '/images/temples/kapaleshwar.jpg',
+    youtubeVideoId: 'K1xP0_jK5n0',
     verified: true,
     tags: ['panchvati', 'historic-shiva'],
     history: {
@@ -319,6 +324,7 @@ export const TEMPLES: Temple[] = [
     deity: 'Shiva (Someshwar)',
     timingsEn: '6:00 AM – 8:00 PM',
     imageUrl: '/images/temples/someshwar.jpg',
+    youtubeVideoId: 'e8X3X1W4N3E',
     verified: true,
     tags: ['riverfront', 'scenic'],
     history: {
@@ -355,6 +361,7 @@ export const TEMPLES: Temple[] = [
     deity: 'Ganesha (Navshya)',
     timingsEn: '5:30 AM – 9:30 PM',
     imageUrl: '/images/temples/navshya_ganpati.jpg',
+    youtubeVideoId: 's5z_Nn7-x2w',
     verified: true,
     tags: ['ganesha', 'historic-peshwa'],
     history: {
@@ -392,6 +399,7 @@ export const TEMPLES: Temple[] = [
     deity: 'Sita, Rama & Lakshmana',
     timingsEn: '6:00 AM – 7:30 PM',
     imageUrl: '/images/temples/sita_gufa.jpg',
+    youtubeVideoId: 'v8_7mG1YwF8',
     verified: true,
     tags: ['ramayana', 'panchvati'],
     history: {

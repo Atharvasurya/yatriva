@@ -6,6 +6,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Church, MapPin, ArrowLeft, ShieldCheck, Tag, Clock, AlertTriangle, BookOpen, Flame, Star } from 'lucide-react';
 import { TEMPLES } from '@/data/seed';
 import AiAudioReader from '@/components/ui/AiAudioReader';
+import TempleVideoPlayer from '@/components/ui/TempleVideoPlayer';
 
 export default function TempleDetailPage() {
   const params = useParams();
@@ -177,6 +178,11 @@ export default function TempleDetailPage() {
                 {highlightsText}
               </p>
             </div>
+          )}
+
+          {/* ── YouTube Virtual Video Tour ───────────────────────────────── */}
+          {temple.youtubeVideoId && (
+            <TempleVideoPlayer youtubeVideoId={temple.youtubeVideoId} templeName={name} />
           )}
 
           {/* Tags */}
