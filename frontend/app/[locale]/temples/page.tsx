@@ -36,14 +36,15 @@ export default function TemplesPage() {
 
       {/* Temple Cards Grid */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {TEMPLES.map((temple, index) => {
+        {TEMPLES.map((temple) => {
           const name = temple.name[locale] || temple.name.en;
           const desc = temple.description?.[locale] || temple.description?.en || '';
 
           return (
-            <div
+            <Link
               key={temple.id}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1"
+              href={`/${locale}/temples/${temple.slug}`}
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
             >
               <div>
                 {/* Temple Image Banner */}
@@ -129,25 +130,23 @@ export default function TemplesPage() {
 
               {/* Card Footer */}
               <div className="p-4 px-5 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
-                <Link
-                  href={`/${locale}/temples/${temple.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 hover:text-amber-600 transition-colors"
-                >
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 group-hover:text-amber-600 transition-colors">
                   <span>{t('viewDetails')}</span>
                   <ExternalLink className="h-3.5 w-3.5" />
-                </Link>
+                </span>
 
                 <a
                   href={`https://maps.google.com/?q=${temple.coordinates.lat},${temple.coordinates.lng}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                   className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors"
                 >
                   <MapPin className="h-3.5 w-3.5 text-rose-500" />
                   <span>Map</span>
                 </a>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
