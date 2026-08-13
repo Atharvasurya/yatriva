@@ -15,7 +15,7 @@ export default function AboutPage() {
       image: '/images/team/atharva.png',
     },
     {
-      name: 'Khushal Kulkarni',
+      name: 'Khushal Hemant Kulkarni',
       location: 'Nashik, Maharashtra, India',
       email: 'khushalkulkarni@gmail.com',
       image: '/images/team/khushal.png',
