@@ -50,34 +50,40 @@ export default function HomePageContent() {
     <>
       {/* ── Hero Section ──────────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden bg-cover bg-center bg-no-repeat"
+        className="relative overflow-hidden bg-cover bg-center bg-no-repeat shadow-inner"
         aria-labelledby="hero-heading"
         style={{
-          backgroundImage: `linear-gradient(180deg, rgba(13, 21, 36, 0.82) 0%, rgba(27, 43, 75, 0.76) 50%, rgba(45, 27, 14, 0.88) 100%), url('/images/godaghat_hero.jpg')`,
+          backgroundImage: `linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.25) 50%, rgba(15, 23, 42, 0.65) 100%), url('/images/godaghat_hero.jpg')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center 40%',
-          minHeight: '300px',
+          backgroundPosition: 'center 45%',
+          minHeight: '340px',
         }}
       >
         <div
-          className="absolute inset-0 pointer-events-none opacity-30 shimmer-effect"
+          className="absolute inset-0 pointer-events-none opacity-20 shimmer-effect"
           aria-hidden="true"
         />
 
-        <div className="relative z-10 px-5 pt-8 pb-12 max-w-2xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] mb-2 animate-fade-down text-saffron-400" style={{ color: '#E87722' }}>
+        <div className="relative z-10 px-5 pt-10 pb-16 max-w-2xl mx-auto text-center">
+          <p
+            className="text-xs font-black uppercase tracking-[0.2em] mb-2 animate-fade-down text-amber-300 drop-shadow-md"
+            style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}
+          >
             {t('heroTagline')}
           </p>
 
           <h1
             id="hero-heading"
-            className="text-white font-black text-3xl sm:text-4xl leading-tight mb-2 animate-fade-up delay-100"
-            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)' }}
+            className="text-white font-black text-3xl sm:text-5xl leading-tight mb-2.5 animate-fade-up delay-100 drop-shadow-xl"
+            style={{ textShadow: '0 3px 15px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)' }}
           >
             {t('heroSubtitle')}
           </h1>
 
-          <p className="text-white/80 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto mb-5 animate-fade-up delay-200">
+          <p
+            className="text-white font-semibold text-xs sm:text-sm leading-relaxed max-w-md mx-auto mb-6 animate-fade-up delay-200 drop-shadow-md"
+            style={{ textShadow: '0 2px 10px rgba(0,0,0,0.85)' }}
+          >
             {t('heroDescription')}
           </p>
 
