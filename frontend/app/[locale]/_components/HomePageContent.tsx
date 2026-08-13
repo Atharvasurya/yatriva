@@ -50,15 +50,17 @@ export default function HomePageContent() {
     <>
       {/* ── Hero Section ──────────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden hero-silhouette"
+        className="relative overflow-hidden bg-cover bg-center bg-no-repeat"
         aria-labelledby="hero-heading"
         style={{
-          background: 'linear-gradient(180deg, var(--color-primary-deep) 0%, var(--color-primary) 35%, var(--color-primary-mid) 65%, #4A2E10 100%)',
-          minHeight: '280px',
+          backgroundImage: `linear-gradient(180deg, rgba(13, 21, 36, 0.82) 0%, rgba(27, 43, 75, 0.76) 50%, rgba(45, 27, 14, 0.88) 100%), url('/images/godaghat_hero.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 40%',
+          minHeight: '300px',
         }}
       >
         <div
-          className="absolute inset-0 pointer-events-none opacity-40 shimmer-effect"
+          className="absolute inset-0 pointer-events-none opacity-30 shimmer-effect"
           aria-hidden="true"
         />
 
