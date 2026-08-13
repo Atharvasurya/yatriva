@@ -232,15 +232,15 @@ export default function AssistantPage() {
       </div>
 
       {/* Main Container Card */}
-      <div className="card overflow-hidden bg-white shadow-xl rounded-2xl border border-slate-200 flex flex-col h-[750px]">
+      <div className="card overflow-hidden bg-white shadow-xl rounded-[var(--radius-card)] border border-slate-200 flex flex-col h-[750px]">
         {/* Banner Bar */}
         <div
           className="p-5 text-white flex items-center justify-between"
-          style={{ background: 'linear-gradient(135deg, #1B2B4B 0%, #2D4A7A 100%)' }}
+          style={{ background: 'linear-gradient(135deg, var(--color-primary-deep) 0%, var(--color-primary) 100%)' }}
         >
           <div className="flex items-center gap-3">
-            <div className="h-12 w-12 rounded-xl flex items-center justify-center border border-white/20" style={{ background: 'rgba(232,119,34,0.25)' }}>
-              <Bot className="h-7 w-7 text-saffron-400" style={{ color: '#E87722' }} />
+            <div className="h-12 w-12 rounded-xl flex items-center justify-center border border-white/20" style={{ background: 'rgba(232,119,34,0.20)' }}>
+              <Bot className="h-7 w-7 text-amber-300" />
             </div>
             <div>
               <h1 className="text-xl font-black text-white">{t('title')}</h1>
@@ -253,36 +253,36 @@ export default function AssistantPage() {
 
         {/* Offline Notice Banner — proactive */}
         {(!isOnline || isOfflineMode) && (
-          <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 flex items-center justify-between text-xs text-amber-800">
-            <div className="flex items-center gap-2">
-              <WifiOff className="h-4 w-4 text-amber-600 shrink-0" />
-              <span className="font-semibold">{isOnline ? 'Offline Mode Active — Operating using cached local pilgrim knowledge base.' : 'You are offline — AI responses are from local cached knowledge.'}</span>
+          <div className="bg-amber-50 border-b border-amber-200 px-4 py-2.5 flex items-center justify-between text-xs text-amber-900">
+            <div className="flex items-center gap-2 font-medium">
+              <WifiOff className="h-4 w-4 text-amber-700 shrink-0" />
+              <span>{isOnline ? 'Offline Mode Active — Operating using cached local pilgrim knowledge base.' : 'You are offline — AI responses are served from cached local knowledge.'}</span>
             </div>
           </div>
         )}
 
         {/* Message Stream */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-[var(--color-surface-alt)]">
           {messages.map((msg) => (
             <div key={msg.id} className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
               {msg.sender === 'bot' && (
-                <div className="h-9 w-9 rounded-full shrink-0 flex items-center justify-center text-white text-xs font-bold shadow-sm" style={{ background: '#1B2B4B' }}>
+                <div className="h-9 w-9 rounded-full shrink-0 flex items-center justify-center text-white text-xs font-bold shadow-xs" style={{ background: 'var(--color-primary)' }}>
                   <Bot className="h-5 w-5" />
                 </div>
               )}
 
               <div
-                className={`max-w-[80%] rounded-2xl px-5 py-4 text-xs sm:text-sm leading-relaxed shadow-xs ${
+                className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-5 py-4 text-xs sm:text-sm leading-relaxed shadow-xs ${
                   msg.sender === 'user'
-                    ? 'bg-navy-700 text-white rounded-tr-xs'
+                    ? 'text-white rounded-tr-xs'
                     : msg.isSafetyHandoff
-                    ? 'bg-red-50 border-2 border-red-300 text-red-900 rounded-tl-xs'
-                    : 'bg-white border border-slate-200 text-slate-800 rounded-tl-xs'
+                    ? 'bg-red-50 border-2 border-red-300 text-red-950 rounded-tl-xs'
+                    : 'bg-white border border-slate-200 text-slate-900 rounded-tl-xs'
                 }`}
-                style={msg.sender === 'user' ? { background: '#1B2B4B' } : undefined}
+                style={msg.sender === 'user' ? { background: 'var(--color-primary)' } : undefined}
               >
                 {msg.isSafetyHandoff && (
-                  <div className="mb-2 pb-2 border-b border-red-200 flex items-center gap-2 text-red-700 font-bold text-xs">
+                  <div className="mb-2 pb-2 border-b border-red-200 flex items-center gap-2 text-red-800 font-bold text-xs">
                     <AlertTriangle className="h-4 w-4 text-red-600 shrink-0" />
                     <span>{t('safetyTag')}</span>
                   </div>
@@ -292,28 +292,35 @@ export default function AssistantPage() {
 
                 {msg.isSafetyHandoff && (
                   <div className="mt-3 pt-2 flex flex-wrap gap-2 border-t border-red-200">
-                    <a href="tel:108" className="inline-flex items-center gap-1.5 bg-red-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs">
-                      <PhoneCall className="h-3.5 w-3.5" /> Call Ambulance 108
+                    <a
+                      href="tel:108"
+                      className="inline-flex items-center gap-1.5 bg-red-700 hover:bg-red-800 text-white font-bold px-3.5 py-2.5 rounded-lg text-xs min-h-[44px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                    >
+                      <PhoneCall className="h-4 w-4" /> Call Ambulance 108
                     </a>
-                    <a href="tel:112" className="inline-flex items-center gap-1.5 bg-navy-800 text-white font-bold px-3 py-1.5 rounded-lg text-xs" style={{ background: '#1B2B4B' }}>
-                      <PhoneCall className="h-3.5 w-3.5" /> Call Police 112
+                    <a
+                      href="tel:112"
+                      className="inline-flex items-center gap-1.5 text-white font-bold px-3.5 py-2.5 rounded-lg text-xs min-h-[44px] hover:brightness-110 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-500"
+                      style={{ background: 'var(--color-primary)' }}
+                    >
+                      <PhoneCall className="h-4 w-4" /> Call Police 112
                     </a>
                   </div>
                 )}
 
                 {msg.sender === 'bot' && !msg.isSafetyHandoff && msg.sources && msg.sources.length > 0 && (
-                  <div className="mt-3 pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
+                  <div className="mt-3 pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5 text-[11px] text-slate-600">
                     <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                     <span className="font-semibold">{t('groundedTag')}:</span>
                     {msg.sources.map((src, i) => (
-                      <span key={i} className="bg-slate-100 px-2 py-0.5 rounded text-slate-700 font-medium">
+                      <span key={i} className="bg-slate-100 px-2 py-0.5 rounded text-slate-800 font-medium">
                         {src}
                       </span>
                     ))}
                   </div>
                 )}
 
-                <div className={`text-[10px] mt-1.5 text-right ${msg.sender === 'user' ? 'text-white/60' : 'text-slate-400'}`}>
+                <div className={`text-[10px] mt-1.5 text-right ${msg.sender === 'user' ? 'text-white/70' : 'text-slate-500'}`}>
                   {msg.timestamp}
                 </div>
               </div>
@@ -321,8 +328,8 @@ export default function AssistantPage() {
           ))}
 
           {loading && (
-            <div className="flex items-center gap-2 text-slate-500 text-xs py-2 px-4 bg-white border border-slate-200 rounded-2xl w-fit">
-              <Bot className="h-4 w-4 text-saffron-500 animate-spin" style={{ color: '#E87722' }} />
+            <div className="flex items-center gap-2.5 text-slate-700 text-xs py-3 px-4 bg-white border border-slate-200 rounded-2xl w-fit shadow-xs animate-pulse">
+              <Bot className="h-4 w-4 text-amber-600 animate-spin" />
               <span>Fetching grounded answer from Yatriva vector dataset...</span>
             </div>
           )}
@@ -330,8 +337,8 @@ export default function AssistantPage() {
 
         {/* Prompts Section */}
         <div className="px-4 py-3 bg-white border-t border-slate-100">
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-            <HelpCircle className="h-4 w-4 text-saffron-500" style={{ color: '#E87722' }} />
+          <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <HelpCircle className="h-4 w-4" style={{ color: '#AD4E11' }} />
             <span>{t('suggestedTitle')}</span>
           </p>
           <div className="flex flex-wrap gap-2">
@@ -339,7 +346,7 @@ export default function AssistantPage() {
               <button
                 key={i}
                 onClick={() => handleSend(prompt)}
-                className="text-xs text-navy-800 bg-slate-100 hover:bg-saffron-50 hover:text-saffron-700 border border-slate-200 rounded-full px-3.5 py-1.5 transition-colors"
+                className="text-xs text-slate-800 bg-[var(--color-surface-alt)] hover:bg-amber-50 hover:text-amber-900 border border-slate-200 rounded-full px-3.5 py-2 transition-all min-h-[44px] flex items-center active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
               >
                 {prompt}
               </button>
@@ -360,13 +367,13 @@ export default function AssistantPage() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder={t('placeholder')}
-            className="flex-1 bg-slate-100 border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-navy-700 focus:bg-white"
+            className="flex-1 bg-[var(--color-surface-alt)] border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:bg-white min-h-[44px]"
           />
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="h-11 px-5 rounded-xl text-white font-bold text-xs flex items-center gap-2 disabled:opacity-50 transition-all shadow-md shrink-0"
-            style={{ background: 'linear-gradient(135deg, #1B2B4B 0%, #E87722 100%)' }}
+            className="min-h-[44px] min-w-[44px] px-5 rounded-xl text-white font-bold text-xs flex items-center justify-center gap-2 disabled:opacity-50 transition-all shadow-md shrink-0 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+            style={{ background: 'var(--color-accent-dark)' }}
           >
             <Send className="h-4 w-4" />
             <span>{t('send')}</span>

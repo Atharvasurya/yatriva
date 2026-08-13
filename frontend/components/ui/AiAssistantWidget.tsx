@@ -252,8 +252,8 @@ export default function AiAssistantWidget() {
           isOpen ? 'hidden' : 'flex'
         }`}
         style={{
-          background: 'linear-gradient(135deg, #1B2B4B 0%, #2D4A7A 50%, #E87722 100%)',
-          boxShadow: '0 8px 30px rgba(27, 43, 75, 0.4)',
+          background: '#4338CA',
+          boxShadow: '0 4px 20px rgba(67, 56, 202, 0.4)',
         }}
       >
         <div className="relative">
@@ -273,9 +273,7 @@ export default function AiAssistantWidget() {
             {/* ── Header Bar ──────────────────────────────────────────────── */}
             <div
               className="p-4 text-white flex items-center justify-between shrink-0"
-              style={{
-                background: 'linear-gradient(135deg, #1B2B4B 0%, #2D4A7A 100%)',
-              }}
+              style={{ background: '#4338CA' }}
             >
               <div className="flex items-center gap-3">
                 <div
@@ -486,7 +484,7 @@ export default function AiAssistantWidget() {
                 type="submit"
                 disabled={!input.trim() || loading}
                 className="h-10 w-10 rounded-xl text-white flex items-center justify-center disabled:opacity-50 transition-all shrink-0 shadow-md"
-                style={{ background: 'linear-gradient(135deg, #1B2B4B 0%, #E87722 100%)' }}
+                style={{ background: '#E87722' }}
               >
                 <Send className="h-4 w-4" />
               </button>

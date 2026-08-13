@@ -56,11 +56,11 @@ export default function QuickActionTile({
 
       {/* Label */}
       <div>
-        <p className="font-bold text-sm leading-tight" style={{ color: '#1B2B4B' }}>
+        <p className="font-bold text-sm leading-tight" style={{ color: 'var(--color-primary)' }}>
           {label}
         </p>
         {description && (
-          <p className="text-xs text-gray-400 leading-snug mt-0.5">{description}</p>
+          <p className="text-xs text-slate-500 leading-snug mt-0.5">{description}</p>
         )}
       </div>
     </div>

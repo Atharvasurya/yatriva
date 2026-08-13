@@ -45,16 +45,28 @@
   --color-gold-500: #b8860b;
 
   /* Semantic aliases */
-  --color-background:   var(--color-cream-50);
-  --color-surface:      #ffffff;
-  --color-primary:      var(--color-navy-700);
-  --color-primary-dark: var(--color-navy-800);
-  --color-accent:       var(--color-saffron-500);
-  --color-accent-dark:  var(--color-saffron-600);
-  --color-text:         #1a1a1a;
-  --color-text-muted:   #5a5a5a;
-  --color-border:       rgba(27, 43, 75, 0.12);
-  --color-placeholder:  #e8a000;
+  --color-background:    var(--color-cream-50);
+  --color-surface:       #ffffff;
+  --color-surface-alt:   #F8F4EF;   /* warm off-white page bg */
+  --color-surface-raised: #fdf6ec;  /* cream — elevated surfaces */
+  --color-primary:       var(--color-navy-700);   /* #1B2B4B */
+  --color-primary-mid:   #2D4A7A;   /* gradient partner */
+  --color-primary-deep:  #0F1E35;   /* hero section base */
+  --color-primary-dark:  var(--color-navy-800);
+  --color-accent:        var(--color-saffron-500); /* #E87722 — decorative only: icons, borders, dots */
+  --color-accent-dark:   var(--color-saffron-600); /* #C2581A — 4.46:1 on white, AA-Large only      */
+  --color-accent-text:   #AD4E11;                  /* text-safe saffron — 5.42:1 on white (AA ✓)    */
+  --color-text:          #1C1917;   /* near-black, warm */
+  --color-text-muted:    #57534E;   /* warm gray */
+  --color-border:        rgba(27, 43, 75, 0.12);
+  --color-placeholder:   #e8a000;
+
+  /* Motion — standard durations & easing */
+  --duration-tap:     150ms;
+  --duration-reveal:  300ms;
+  --duration-page:    400ms;
+  --ease-standard:    cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decelerate:  cubic-bezier(0, 0, 0.2, 1);
 
   /* Typography */
   --font-sans:        'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
@@ -209,4 +221,17 @@ body {
   background-size: 100% auto;
   background-position: bottom;
   background-repeat: no-repeat;
+}
+
+/* ─── Motion — prefers-reduced-motion ────────────────────────────────────── */
+/* Must be the last rule so it overrides everything above */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
