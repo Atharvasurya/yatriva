@@ -127,7 +127,7 @@ export const TEMPLES: Temple[] = [
     name: {
       en: 'Trimbakeshwar Shiva Temple',
       hi: 'त्र्यंबकेश्वर शिव मंदिर',
-      mr: 'त्र्यंबकेश्वर शिव मंदिर',
+      mr: 'त्र्यंबkeश्वर शिव मंदिर',
     },
     coordinates: { lat: 19.9325, lng: 73.5306 },
     description: {
@@ -140,6 +140,21 @@ export const TEMPLES: Temple[] = [
     imageUrl: '/images/temples/trimbakeshwar.jpg',
     verified: true,
     tags: ['jyotirlinga', 'principal-kumbh-site'],
+    history: {
+      en: 'Reconstructed between 1755 and 1786 AD by Peshwa Balaji Baji Rao (Nana Saheb) using black basalt stone carved by master artisans over 31 years at a cost of 16 lakh rupees. The ancient site has been a major pilgrimage hub since Vedic antiquity.',
+      hi: 'पेशवा बालाजी बाजीराव (नाना साहब) द्वारा 1755 से 1786 ईस्वी के बीच काले बेसाल्ट पत्थर से 31 वर्षों के कठोर परिश्रम के बाद बनवाया गया था। यह स्थान वैदिक काल से ही शिव साधना का प्रमुख केंद्र रहा है।',
+      mr: 'पेशवे बालाजी बाजीराव (नानासाहेब) यांनी १७५५ ते १७८६ दरम्यान काळ्या दगडांमध्ये ३१ वर्षांच्या कालावधीत बांधले. वैदिक काळापासून हे स्थान अत्यंत पवित्र मानले जाते.',
+    },
+    importance: {
+      en: 'Unique among all 12 Jyotirlingas because the sacred Linga embodies the Holy Trinity—Brahma, Vishnu, and Maheshvara. Kushavarta Kund located nearby is the revered holy origin site of River Godavari.',
+      hi: 'यह सभी 12 ज्योतिर्लिंगों में अद्वितीय है क्योंकि यहाँ शिवलिंग में त्रिदेव—ब्रह्मा, विष्णु और महेश तीन रूपों में विराजमान हैं। पास ही स्थित कुशावर्त कुंड गोदावरी नदी का पवित्र उद्गम माना जाता है।',
+      mr: 'हे १२ ज्योतिर्लिंगांपैकी एकमेव असे मंदिर आहे जेथे ब्रह्मा, विष्णू आणि महेश या तीन देवांचे त्रिमुख लिंग आहे. जवळच असलेला कुशावर्त कुंड हा गोदावरीचा उगम मानला जातो.',
+    },
+    highlights: {
+      en: 'Principal seat of Shaiva Akhadas for Shahi Snan during Kumbh Mela; Golden crown studded with diamonds displayed every Monday between 4:00 PM and 5:00 PM.',
+      hi: 'कुंभ मेले के शाही स्नान का मुख्य केंद्र; प्रति सोमवार शाम 4 से 5 बजे के बीच हीरों से जड़ा स्वर्ण मुकुट दर्शन हेतु रखा जाता है।',
+      mr: 'कुंभमेळ्यातील शाही स्नानाचे प्रमुख केंद्र; दर सोमवारी दुपारी ४ ते ५ दरम्यान हिरे जडित सुवर्ण मुकुटाचे दर्शन घडते.',
+    },
   },
   {
     id: 'temple-kalaram',
@@ -162,6 +177,21 @@ export const TEMPLES: Temple[] = [
     imageUrl: '/images/temples/kalaram.jpg',
     verified: true,
     tags: ['panchvati', 'historic'],
+    history: {
+      en: 'Built in 1782 AD by Sardar Rangarao Odhekar after dreaming of a black idol of Lord Rama submerged in the Godavari River. Over 2,000 artisans worked for 12 years to construct this 70-foot tall architectural masterpiece using black basalt stone.',
+      hi: '1782 ईस्वी में सरदार रंगराव ओढेकर द्वारा गोदावरी नदी में भगवान राम की मूर्ति का स्वप्न देखने के बाद बनवाया गया था। 2000 से अधिक कारीगरों ने 12 वर्षों तक 70 फीट ऊंचे मंदिर का निर्माण किया।',
+      mr: '१७८२ मध्ये गोदावरी नदीतील राममूर्तीचा दृष्टांत झाल्यानंतर सरदार रंगराव ओढेकर यांनी बांधले. २०00 कारागिरांनी १२ वर्षे मेहनत करून ७० फूट उंच भव्य दगडी मंदिर उभारले.',
+    },
+    importance: {
+      en: 'Houses 2-foot tall idols of Lord Rama, Sita, and Lakshmana carved out of rare black stone. Famous historical site of the 1930 Temple Entry Movement led by Bharat Ratna Dr. B.R. Ambedkar.',
+      hi: 'दुर्लभ काले पत्थर से तराशी गई भगवान राम, माता सीता और लक्ष्मण जी की मूर्तियां स्थित हैं। यह 1930 में डॉ. बी.आर. आंबेडकर द्वारा चलाए गए ऐतिहासिक मंदिर प्रवेश सत्याग्रह का स्थान है।',
+      mr: 'काळ्या दगडात कोरलेल्या श्रीराम, सीता व लक्ष्मणाच्या मूर्ती आहेत. डॉ. बाबासाहेब आंबेडकर यांच्या १९३० मधील ऐतिहासिक सत्याग्रहाची ही कर्मभूमी आहे.',
+    },
+    highlights: {
+      en: '14-foot gold-plated pinnacle (Kalash); 40 intricately carved arches in the courtyard; Ram Navami grand Rath Yatra procession.',
+      hi: '14 फीट ऊंचा स्वर्णमंडित कलश; 40 नक्काशीदार मेहराबदार विशाल प्रांगण; राम नवमी की प्रसिद्ध रथयात्रा।',
+      mr: '१४ फूट उंच सुवर्ण कलश; ४० कोरीव कमानींचे प्रांगण; रामनवमीची भव्य पारंपरिक रथयात्रा.',
+    },
   },
   {
     id: 'temple-saptashringi',
@@ -183,6 +213,21 @@ export const TEMPLES: Temple[] = [
     imageUrl: '/images/temples/saptashringi.jpg',
     verified: true,
     tags: ['shakti-peetha', 'day-trip'],
+    history: {
+      en: 'Vedic shrine referenced in Ramayana and Mahabharata. Nestled among 7 mountain peaks ("Saptashrungi") at 4,659 feet altitude in Vani village near Nashik.',
+      hi: 'रामायण और महाभारत में वर्णित प्राचीन वैदिक पीठ। नाशिक के पास वणी गांव में 4,659 फीट की ऊंचाई पर 7 पर्वत शिखरों (सप्तश्रृंग) के बीच स्थित।',
+      mr: 'रामायण व महाभारतात उल्लेख असलेले अतिप्राचीन शक्तीपीठ. नाशिकजवळील वणी येथे ४,६५९ फूट उंचीवर ७ शिखरांच्या कुशीत वसलेले.',
+    },
+    importance: {
+      en: 'Counted among 51 sacred Shakti Peethas where Goddess Sati’s right arm fell. The 10-foot tall idol of Goddess Saptashringi is self-manifested (Swayambhu) with 18 arms holding divine weapons.',
+      hi: '51 शक्तिपीठों में से एक जहाँ सती की दाहिनी भुजा गिरी थी। 10 फीट ऊंची महाकाली/महालक्ष्मी की मूर्ति स्वयंभू है और उनकी 18 भुजाओं में दिव्य अस्त्र सुसज्जित हैं।',
+      mr: '५१ शक्तीपीठांपैकी एक जिथे सतीचा उजवा हात पडला होता. १० फूट उंच अष्टादशभुजा (१८ हात) असलेली देवीची स्वयंभू मूर्ती सिंदूरचर्चित आहे.',
+    },
+    highlights: {
+      en: '510 stone mountain steps; modern funicular ropeway transit; Navratri and Chaitra Purnima mega pilgrimage fairs.',
+      hi: '510 पर्वतीय सीढ़ियाँ; आधुनिक फनिक्युलर रोप-वे यात्रा; नवरात्रि एवं चैत्र पूर्णिमा का विशाल मेला।',
+      mr: '५१० पायऱ्यांचा डोंगर मार्ग; आधुनिक फनिकलर रोप-वे सुविधा; नवरात्र व चैत्र पौर्णिमेचा मोठा उत्सव.',
+    },
   },
   {
     id: 'temple-muktidham',
@@ -204,6 +249,21 @@ export const TEMPLES: Temple[] = [
     imageUrl: '/images/temples/muktidham.jpg',
     verified: true,
     tags: ['nashik-road', 'white-marble'],
+    history: {
+      en: 'Established in 1971 AD by industrialist and philanthropist Seth J.D. Chauhan Bytco to create a single spiritual destination representing India’s core sacred shrines.',
+      hi: '1971 में उद्योगपति और समाजसेवी सेठ जे.डी. चौहान बायटको द्वारा भारत के सभी पवित्र तीर्थों का एक स्थान पर दर्शन कराने हेतु निर्मित किया गया था।',
+      mr: '१९७१ मध्ये उद्योगपती सेठ जे.डी. चौहान बायटको यांनी भारतातील सर्व प्रमुख ज्योतिर्लिंगांचे एकाच ठिकाणी दर्शन व्हावे या उद्देशाने बांधले.',
+    },
+    importance: {
+      en: 'Contains exact architectural replicas of all 12 Jyotirlingas of India, allowing elderly and devout pilgrims to pay homage to all 12 Jyotirlingas under one roof.',
+      hi: 'भारत के सभी 12 ज्योतिर्लिंगों की हूबहू प्रतिकृतियां स्थापित हैं, जिससे श्रद्धालु एक ही स्थान पर 12 ज्योतिर्लिंगों का पुण्य लाभ ले सकते हैं।',
+      mr: 'भारतातील सर्व १२ ज्योतिर्लिंगांच्या हुबेहूब प्रतिकृती येथे आहेत, ज्यामुळे भाविकांना एकाच छताखाली सर्व ज्योतिर्लिंगांचे दर्शन घडते.',
+    },
+    highlights: {
+      en: 'All 18 chapters of the Srimad Bhagavad Gita engraved in Sanskrit on pure white Makrana marble walls; Krishna Janmashtami celebrations.',
+      hi: 'श्रीमद्भगवद्गीता के सभी 18 अध्याय मकराना संगमरमर की दीवारों पर संस्कृत में उकेरे गए हैं; कृष्ण जन्माष्टमी का विशेष उत्सव।',
+      mr: 'श्रीमद्भगवद्गीतेचे १८ अध्याय भिंतींवर संस्कृतमध्ये कोरलेले आहेत; पांढऱ्या संगमरवराचे अप्रतिम काम.',
+    },
   },
   {
     id: 'temple-kapaleshwar',
@@ -225,6 +285,21 @@ export const TEMPLES: Temple[] = [
     imageUrl: '/images/temples/kapaleshwar.jpg',
     verified: true,
     tags: ['panchvati', 'historic-shiva'],
+    history: {
+      en: 'One of the oldest documented temples in Nashik, restored during Maratha rule near Ramkund Ghat on the banks of Godavari River.',
+      hi: 'नाशिक के सबसे प्राचीन शिव मंदिरों में से एक, जिसका मराठा शासनकाल के दौरान रामकुंड घाट के पास जीर्णोद्धार किया गया था।',
+      mr: 'नाशिकमधील सर्वात जुन्या मंदिरांपैकी एक. मराठा काळात गोदावरी नदीकाठी रामकुंड जवळ याचा जीर्णोद्धार झाला.',
+    },
+    importance: {
+      en: 'World-unique Shiva temple where Nandi is absent. According to mythology, Lord Shiva accidentally committed Brahma-hatya and Nandi guided him to bathe at Ramkund to absolve the sin. Shiva honoured Nandi as his Guru, so Nandi is not seated facing Shiva here.',
+      hi: 'विश्व का दुर्लभ शिव मंदिर जहाँ नंदी की मूर्ति नहीं है। पौराणिक कथा के अनुसार शिवजी पर लगे ब्रह्महत्या के पाप का निवारण नंदी के मार्गदर्शन से रामकुंड स्नान से हुआ; अतः शिवजी ने नंदी को अपना गुरु माना।',
+      mr: 'नंदी नसलेले जगातील एकमेव शिव मंदिर. ब्रह्महत्येच्या पापातून मुक्ती मिळवण्यासाठी नंदीने शंकराला रामकुंडाचा मार्ग दाखवला. शंकराने नंदीला गुरू मानल्याने येथे नंदीची मूर्ती नाही.',
+    },
+    highlights: {
+      en: 'Overlooking Ramkund Ghat; Mahashivratri night vigil; traditional brass deepstambhas (lamp towers).',
+      hi: 'रामकुंड घाट का विहंगम दृश्य; महाशिवरात्रि का रात्रि जागरण; पीतल के प्राचीन दीपस्तंभ।',
+      mr: 'रामकुंड घाटाचे दृश्य; महाशिवरात्रीचा भव्य उत्सव; पारंपरिक दीपस्तंभ.',
+    },
   },
   {
     id: 'temple-someshwar',
@@ -246,6 +321,21 @@ export const TEMPLES: Temple[] = [
     imageUrl: '/images/temples/someshwar.jpg',
     verified: true,
     tags: ['riverfront', 'scenic'],
+    history: {
+      en: 'Ancient riverfront temple rebuilt during Maratha rule in Gangapur (~7 km from Nashik city center). Named after King Someshwar who offered prayers here.',
+      hi: 'गंगापुर (नाशिक शहर से 7 किमी) में गोदावरी नदी के तट पर मराठा काल का ऐतिहासिक शिव मंदिर, जिसका नाम राजा सोमेश्वर के नाम पर पड़ा।',
+      mr: 'नाशिक शहरापासून ७ किमी अंतरावर गंगापूर येथे गोदावरी नदीकाठी वसलेले प्राचीन शिव मंदिर, ज्याचे नाव राजा सोमेश्वरवरून ठेवले गेले.',
+    },
+    importance: {
+      en: 'Situated at the peaceful confluence of Godavari and Someshwari rivers; revered as a nature-blessed spiritual sanctuary for meditation.',
+      hi: 'गोदावरी और सोमेश्वरी नदियों के संगम पर स्थित; प्राकृतिक वातावरण में ध्यान और शांति का प्रमुख स्थान।',
+      mr: 'गोदावरी नदीच्या निसर्गरम्य घाटावर वसलेले; शांतता आणि ध्यानासाठी प्रसिद्ध.',
+    },
+    highlights: {
+      en: 'Lush green trees along river ghats; Dudhsagar waterfalls nearby; river boating for pilgrims.',
+      hi: 'नदी घाट के आसपास प्राकृतिक सौंदर्य; पास ही दूधसागर झरना; बोटिंग की सुविधा।',
+      mr: 'नदीकाठावरील हिरवळ; जवळच दूधसागर धबधबा; नौकाविहाराची सुविधा.',
+    },
   },
   {
     id: 'temple-navshya-ganpati',
@@ -267,6 +357,21 @@ export const TEMPLES: Temple[] = [
     imageUrl: '/images/temples/navshya_ganpati.jpg',
     verified: true,
     tags: ['ganesha', 'historic-peshwa'],
+    history: {
+      en: 'Established in 1774 AD by Raghunathrao Peshwa and his wife Anandibai in the village of Anandvalli on the Godavari banks.',
+      hi: '1774 ईस्वी में रघुनाथराव पेशवा और उनकी पत्नी आनंदीबाई द्वारा गोदावरी तट पर आनंदवल्ली में स्थापित किया गया था।',
+      mr: '१७७४ मध्ये रघुनाथराव पेशवे व त्यांच्या पत्नी आनंदीबाई यांनी आनंदवल्ली येथे गोदावरी नदीकाठी स्थापन केले.',
+    },
+    importance: {
+      en: '"Navshya" derives from "Navas" (sacred vow). Devotees believe that Ganesha here fulfills all earnest prayers and vows.',
+      hi: '"नवश्या" का अर्थ है "मन्नत पूरी करने वाले"। मान्यता है कि यहाँ श्रद्धापूर्वक मांगी गई हर मन्नत गणेश जी पूरी करते हैं।',
+      mr: '"नवश्या" म्हणजे "नवसाला पावणारा". येथील गणपती भाविकांच्या सर्व मनोकामना व नवस पूर्ण करतो अशी असीम श्रद्धा आहे.',
+    },
+    highlights: {
+      en: 'Historic Peshwa Maratha archways; 10-day Ganesh Chaturthi grand festival; serene Godavari riverfront steps.',
+      hi: 'पेशवाकालीन मराठा वास्तुकला; 10 दिवसीय गणेशोत्सव का भव्य आयोजन; गोदावरी घाट।',
+      mr: 'पेशवेकालीन वास्तुशैली; १० दिवसांचा मोठा गणेशोत्सव; गोदावरी नदीचा सुंदर परिसर.',
+    },
   },
   {
     id: 'temple-sita-gufa',
@@ -289,6 +394,21 @@ export const TEMPLES: Temple[] = [
     imageUrl: '/images/temples/sita_gufa.jpg',
     verified: true,
     tags: ['ramayana', 'panchvati'],
+    history: {
+      en: 'Sacred Ramayana site located in Panchavati near Kalaram Temple. Preserves the natural underground cave where Lord Rama, Goddess Sita, and Lakshmana lived in exile in the Dandakaranya forest.',
+      hi: 'पंचवटी में काळाराम मंदिर के पास रामायण कालीन पवित्र स्थल। दण्डकारण्य वनवास के दौरान भगवान राम, माता सीता और लक्ष्मण द्वारा प्रयुक्त प्राकृतिक भूमिगत गुफा।',
+      mr: 'पंचवटीतील काळाराम मंदिराजवळील रामायणकालीन स्थान. वनवासात श्रीराम, सीता व लक्ष्मण राहत असलेली भूगर्भीय गुंफा.',
+    },
+    importance: {
+      en: 'Famous epicenter of the Ramayana epic—the exact spot from where Demon King Ravana deceived Sita and abducted her. Surrounded by five massive ancient Banyan trees (Panchavati).',
+      hi: 'रामायण महाकाव्य का प्रमुख केंद्र—वही स्थान जहाँ से रावण ने माता सीता का हरण किया था। 5 विशाल बरगद के वृक्षों (पंचवटी) से आच्छादित।',
+      mr: 'रामायणातील महानाट्याचे केंद्र—जिथून रावणाने सीतामातेचे अपहरण केले. ५ प्राचीन वटवृक्षांनी (पंचवटी) वेढलेली पवित्र भूमी.',
+    },
+    highlights: {
+      en: 'Narrow underground stone staircase leading to ancient idols of Lord Rama, Sita, Lakshmana, and a Shiva Linga worshipped by Sita.',
+      hi: 'भूमिगत संकरी सीढ़ियों से नीचे स्थित प्राचीन राम-सीता-लक्ष्मण की मूर्तियां और माता सीता द्वारा पूजित शिवलिंग।',
+      mr: 'गुंफेतील अरुंद पायऱ्यांखालील श्रीराम-सीता-लक्ष्मण मूर्ती आणि सीतामातेने पूजलेले प्राचीन शिवलिंग.',
+    },
   },
 ];
 

@@ -70,6 +70,9 @@ export interface Temple extends Place {
   category: 'temple';
   deity: string; // primary deity, in English
   timingsEn?: string | null; // e.g. "5:30 AM – 9:00 PM" — null if unverified
+  history?: LocalisedDescription;
+  importance?: LocalisedDescription;
+  highlights?: LocalisedDescription;
 }
 
 /**
