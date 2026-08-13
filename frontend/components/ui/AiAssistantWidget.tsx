@@ -244,23 +244,24 @@ export default function AiAssistantWidget() {
 
   return (
     <ErrorBoundary fallbackTitle="AI Assistant Error">
-      {/* ── Floating Action Button ────────────────────────────────────────── */}
+      {/* ── Floating Circular Action Button ───────────────────────────────── */}
       <button
         onClick={() => setIsOpen(true)}
         aria-label={t('title')}
-        className={`fixed bottom-20 right-4 z-40 flex items-center gap-2.5 px-4 py-3 rounded-full text-white font-bold text-xs shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 ${
+        title={t('title')}
+        className={`fixed bottom-20 right-5 z-40 flex items-center justify-center h-14 w-14 rounded-full text-white shadow-2xl transition-all duration-300 transform hover:scale-110 active:scale-95 ${
           isOpen ? 'hidden' : 'flex'
         }`}
         style={{
-          background: '#4338CA',
-          boxShadow: '0 4px 20px rgba(67, 56, 202, 0.4)',
+          background: 'linear-gradient(135deg, #4F46E5 0%, #3730A3 100%)',
+          boxShadow: '0 8px 25px rgba(79, 70, 229, 0.45), 0 2px 8px rgba(0, 0, 0, 0.2)',
         }}
       >
-        <div className="relative">
-          <Sparkles className="h-5 w-5 animate-pulse text-amber-300" />
-          <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+        <div className="relative flex items-center justify-center">
+          <Sparkles className="h-6 w-6 text-amber-300 transition-transform duration-300 group-hover:rotate-12" />
+          <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-emerald-400 border-2 border-indigo-900 animate-ping" />
+          <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-emerald-400 border-2 border-indigo-900" />
         </div>
-        <span className="tracking-wide uppercase font-black">{t('title')}</span>
       </button>
 
       {/* ── Chat Modal Drawer ──────────────────────────────────────────────── */}
