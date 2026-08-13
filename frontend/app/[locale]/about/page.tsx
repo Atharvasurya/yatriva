@@ -10,12 +10,14 @@ export default function AboutPage() {
   const teamMembers = [
     {
       name: 'Atharva Ravindra Suryawanshi',
+      bio: 'Full-stack developer skilled in Next.js, React, Python, and cloud architecture. Focused on building high-performance, offline-first digital experiences.',
       location: 'Nashik, Maharashtra, India',
       email: 'atharvasuryawanshi@gmail.com',
       image: '/images/team/atharva.png',
     },
     {
       name: 'Khushal Hemant Kulkarni',
+      bio: 'Management graduate skilled in UI/UX design, product strategy, and front-end development. Focused on user-centric product architecture and digital solutions.',
       location: 'Nashik, Maharashtra, India',
       email: 'khushalkulkarni@gmail.com',
       image: '/images/team/khushal.png',
@@ -54,6 +56,10 @@ export default function AboutPage() {
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
                   {member.name}
                 </h3>
+
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xs mx-auto">
+                  {member.bio}
+                </p>
 
                 <div className="flex items-center justify-center gap-1.5 text-xs sm:text-sm text-slate-500 font-semibold">
                   <MapPin className="w-4 h-4 text-rose-500" />
