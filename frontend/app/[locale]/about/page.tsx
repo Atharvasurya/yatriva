@@ -24,9 +24,60 @@ export default function AboutPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 space-y-8">
-      {/* Hero Banner */}
+      {/* ── Meet Our Team Section (Positioned First) ───────────────────────── */}
+      <div className="space-y-6 animate-fade-up">
+        <div className="text-center space-y-2">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 text-xs font-bold uppercase tracking-wider">
+            <Users className="w-4 h-4 text-amber-600" />
+            <span>The Minds Behind Yatriva</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Meet Our Team</h2>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2">
+          {teamMembers.map((member) => (
+            <div
+              key={member.name}
+              className="bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-slate-200/80 text-center space-y-4 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            >
+              {/* Bigger Circle Profile Image */}
+              <div className="relative w-36 h-36 sm:w-44 sm:h-44 mx-auto">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full rounded-full object-cover object-top border-4 border-amber-500 shadow-xl"
+                />
+              </div>
+
+              {/* Member Details */}
+              <div className="space-y-2 pt-1">
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                  {member.name}
+                </h3>
+
+                <div className="flex items-center justify-center gap-1.5 text-xs sm:text-sm text-slate-500 font-semibold">
+                  <MapPin className="w-4 h-4 text-rose-500" />
+                  <span>{member.location}</span>
+                </div>
+
+                <div className="pt-2">
+                  <a
+                    href={`mailto:${member.email}`}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-900 hover:text-white text-slate-700 text-xs sm:text-sm font-bold transition-all border border-slate-200 shadow-sm"
+                  >
+                    <Mail className="w-4 h-4 text-amber-600" />
+                    <span>{member.email}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── About Yatriva Hero Banner ───────────────────────────────────────── */}
       <div
-        className="rounded-2xl p-6 sm:p-8 text-white relative overflow-hidden shadow-xl animate-fade-up text-center sm:text-left"
+        className="rounded-2xl p-6 sm:p-8 text-white relative overflow-hidden shadow-xl animate-fade-up delay-100 text-center sm:text-left"
         style={{ background: 'linear-gradient(135deg, #0F1E35 0%, #1B2B4B 50%, #2D5FA8 100%)' }}
       >
         <div className="relative z-10 space-y-3">
@@ -43,7 +94,7 @@ export default function AboutPage() {
 
       {/* Grid of Core Principles */}
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="bg-white rounded-2xl p-6 space-y-3 shadow-md border border-slate-200/80 animate-fade-up delay-100">
+        <div className="bg-white rounded-2xl p-6 space-y-3 shadow-md border border-slate-200/80 animate-fade-up delay-200">
           <div className="p-3 rounded-xl bg-amber-50 text-amber-600 w-fit">
             <ShieldCheck className="h-6 w-6" />
           </div>
@@ -55,7 +106,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 space-y-3 shadow-md border border-slate-200/80 animate-fade-up delay-200">
+        <div className="bg-white rounded-2xl p-6 space-y-3 shadow-md border border-slate-200/80 animate-fade-up delay-300">
           <div className="p-3 rounded-xl bg-indigo-50 text-indigo-700 w-fit">
             <Globe className="h-6 w-6" />
           </div>
@@ -65,57 +116,6 @@ export default function AboutPage() {
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
             {t('offlineText')}
           </p>
-        </div>
-      </div>
-
-      {/* ── Meet Our Team Section ────────────────────────────────────────────── */}
-      <div className="space-y-6 pt-4 animate-fade-up delay-300">
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 text-xs font-bold uppercase tracking-wider">
-            <Users className="w-4 h-4 text-amber-600" />
-            <span>The Minds Behind Yatriva</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Meet Our Team</h2>
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-2">
-          {teamMembers.map((member) => (
-            <div
-              key={member.name}
-              className="bg-white rounded-2xl p-6 sm:p-7 shadow-md border border-slate-200/80 text-center space-y-4 hover:shadow-lg transition-all duration-300"
-            >
-              {/* Circle Profile Image */}
-              <div className="relative w-28 h-28 mx-auto">
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-full rounded-full object-cover object-top border-4 border-amber-500 shadow-md"
-                />
-              </div>
-
-              {/* Member Details */}
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold text-slate-900 tracking-tight">
-                  {member.name}
-                </h3>
-
-                <div className="flex items-center justify-center gap-1.5 text-xs text-slate-500 font-semibold">
-                  <MapPin className="w-3.5 h-3.5 text-rose-500" />
-                  <span>{member.location}</span>
-                </div>
-
-                <div className="pt-2">
-                  <a
-                    href={`mailto:${member.email}`}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold transition-all border border-slate-200"
-                  >
-                    <Mail className="w-3.5 h-3.5 text-amber-600" />
-                    <span>{member.email}</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
 
