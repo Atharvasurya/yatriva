@@ -7,6 +7,7 @@ import { Church, MapPin, ArrowLeft, ShieldCheck, Tag, Clock, AlertTriangle, Book
 import { TEMPLES } from '@/data/seed';
 import AiAudioReader from '@/components/ui/AiAudioReader';
 import TempleVideoPlayer from '@/components/ui/TempleVideoPlayer';
+import ImageGallerySlideshow from '@/components/ui/ImageGallerySlideshow';
 
 export default function TempleDetailPage() {
   const params = useParams();
@@ -59,8 +60,15 @@ export default function TempleDetailPage() {
 
       {/* Main Card */}
       <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 animate-fade-up">
-        {/* Image Header */}
-        {temple.imageUrl && (
+        {/* Image Gallery Slideshow Header */}
+        {temple.galleryImages && temple.galleryImages.length > 0 ? (
+          <ImageGallerySlideshow
+            images={temple.galleryImages}
+            title={name}
+            badgeText={temple.deity}
+            badgeBg="#E87722"
+          />
+        ) : temple.imageUrl ? (
           <div className="relative h-64 sm:h-96 w-full overflow-hidden bg-slate-100">
             <img
               src={temple.imageUrl}
@@ -69,10 +77,7 @@ export default function TempleDetailPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              <span
-                className="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-1.5 rounded-lg uppercase tracking-wider text-white backdrop-blur-md mb-2.5 shadow-md"
-                style={{ background: 'rgba(194, 88, 26, 0.9)' }}
-              >
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-1.5 rounded-lg uppercase tracking-wider text-white bg-amber-600/90 backdrop-blur-md mb-2.5 shadow-md">
                 <Church className="h-4 w-4" />
                 {temple.deity}
               </span>
@@ -81,7 +86,7 @@ export default function TempleDetailPage() {
               </h1>
             </div>
           </div>
-        )}
+        ) : null}
 
         <div className="p-6 sm:p-8 space-y-6">
           {/* Status & Title for non-image banner */}

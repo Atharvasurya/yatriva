@@ -39,7 +39,8 @@ export interface Place {
   lastVerified?: string;    // ISO 8601 date string, e.g. "2027-01-15"
   tags?: string[];          // e.g. ["accessible", "covered", "24h"]
   cultureSlug?: string;     // Link to heritage explainer page e.g. "ramkund"
-  imageUrl?: string;        // Path or URL to temple image
+  imageUrl?: string;        // Path or URL to main image
+  galleryImages?: string[]; // Multiple images for automatic slideshow
 }
 
 export type PlaceCategory =

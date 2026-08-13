@@ -7,6 +7,7 @@ import { Waves, MapPin, ArrowLeft, AlertTriangle, ShieldCheck, Tag, BookOpen, Fl
 import { GHATS } from '@/data/seed';
 import AiAudioReader from '@/components/ui/AiAudioReader';
 import TempleVideoPlayer from '@/components/ui/TempleVideoPlayer';
+import ImageGallerySlideshow from '@/components/ui/ImageGallerySlideshow';
 
 export default function GhatDetailPage() {
   const params = useParams();
@@ -60,7 +61,14 @@ export default function GhatDetailPage() {
       {/* Main Card */}
       <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 animate-fade-up">
         {/* Photography Banner Header */}
-        {ghat.imageUrl && (
+        {ghat.galleryImages && ghat.galleryImages.length > 0 ? (
+          <ImageGallerySlideshow
+            images={ghat.galleryImages}
+            title={name}
+            badgeText={ghat.snanPriority === 1 ? 'Amrit Snan (Priority 1)' : `Priority ${ghat.snanPriority}`}
+            badgeBg={ghat.snanPriority === 1 ? '#E87722' : '#2D5FA8'}
+          />
+        ) : ghat.imageUrl ? (
           <div className="relative h-64 sm:h-96 w-full overflow-hidden bg-slate-100">
             <img
               src={ghat.imageUrl}
@@ -83,7 +91,7 @@ export default function GhatDetailPage() {
               </h1>
             </div>
           </div>
-        )}
+        ) : null}
 
         <div className="p-6 sm:p-8 space-y-6">
           {/* Status & Title for non-image layout */}
