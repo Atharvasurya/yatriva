@@ -63,7 +63,7 @@ export default function SnanDateCard({
 
   return (
     <div
-      className={`card animate-fade-up delay-${(index + 1) * 100}`}
+      className={`card animate-fade-up hover-lift cursor-pointer transition-all duration-300 transform hover:scale-[1.02] delay-${(index + 1) * 100}`}
       style={{ background: GRADIENT_STYLES[index % 3], overflow: 'visible' }}
       role="article"
       aria-label={label}

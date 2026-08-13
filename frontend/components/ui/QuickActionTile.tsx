@@ -45,13 +45,13 @@ export default function QuickActionTile({
       <div
         className={`
           flex items-center justify-center rounded-full
-          h-12 w-12 transition-transform duration-200
-          ${!disabled ? 'group-hover:scale-110' : ''}
+          h-12 w-12 transition-all duration-300 transform
+          ${!disabled ? 'group-hover:scale-110 group-hover:rotate-6 shadow-sm' : ''}
         `}
         style={{ background: color }}
         aria-hidden="true"
       >
-        <Icon className="h-6 w-6" style={{ color: textColor }} strokeWidth={2} />
+        <Icon className="h-6 w-6 transition-colors duration-200" style={{ color: textColor }} strokeWidth={2} />
       </div>
 
       {/* Label */}

@@ -36,7 +36,7 @@ export default function TemplesPage() {
 
       {/* Temple Cards Grid */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {TEMPLES.map((temple) => {
+        {TEMPLES.map((temple, idx) => {
           const name = temple.name[locale] || temple.name.en;
           const desc = temple.description?.[locale] || temple.description?.en || '';
 
@@ -44,7 +44,7 @@ export default function TemplesPage() {
             <Link
               key={temple.id}
               href={`/${locale}/temples/${temple.slug}`}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+              className={`group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl border border-slate-200/80 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1.5 cursor-pointer animate-fade-up delay-${((idx % 6) + 1) * 100}`}
             >
               <div>
                 {/* Temple Image Banner */}
@@ -53,7 +53,7 @@ export default function TemplesPage() {
                     <img
                       src={temple.imageUrl}
                       alt={name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1)"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
                     

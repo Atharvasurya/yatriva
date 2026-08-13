@@ -54,37 +54,34 @@ export default function HomePageContent() {
         aria-labelledby="hero-heading"
         style={{
           background: 'linear-gradient(180deg, var(--color-primary-deep) 0%, var(--color-primary) 35%, var(--color-primary-mid) 65%, #4A2E10 100%)',
-          minHeight: '260px',
+          minHeight: '280px',
         }}
       >
         <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse 60% 50% at 50% 80%, rgba(232,119,34,0.22) 0%, transparent 70%)',
-          }}
+          className="absolute inset-0 pointer-events-none opacity-40 shimmer-effect"
           aria-hidden="true"
         />
 
         <div className="relative z-10 px-5 pt-8 pb-12 max-w-2xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] mb-2" style={{ color: '#E87722' }}>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] mb-2 animate-fade-down text-saffron-400" style={{ color: '#E87722' }}>
             {t('heroTagline')}
           </p>
 
           <h1
             id="hero-heading"
-            className="text-white font-black text-3xl sm:text-4xl leading-tight mb-2"
+            className="text-white font-black text-3xl sm:text-4xl leading-tight mb-2 animate-fade-up delay-100"
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)' }}
           >
             {t('heroSubtitle')}
           </h1>
 
-          <p className="text-white/80 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto mb-4">
+          <p className="text-white/80 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto mb-5 animate-fade-up delay-200">
             {t('heroDescription')}
           </p>
 
           {/* Location Bar Pill */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/20 text-white text-xs font-semibold min-h-[44px]">
-            <Compass className="h-4 w-4 text-amber-400 shrink-0" />
+          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/25 text-white text-xs font-semibold min-h-[44px] shadow-lg animate-fade-up delay-300 hover:bg-white/20 transition-all">
+            <Compass className="h-4 w-4 text-amber-400 shrink-0 animate-spin-slow" />
             <span className="flex items-center gap-1">
               <MapPin className="h-3.5 w-3.5 text-amber-400 shrink-0" />
               {locationSource === 'gps'
@@ -93,7 +90,7 @@ export default function HomePageContent() {
             </span>
             <button
               onClick={() => setIsPickerOpen(true)}
-              className="ml-2 text-amber-300 font-bold underline hover:text-white transition-colors py-1 px-1 rounded focus-visible:outline-none"
+              className="ml-2 text-amber-300 font-bold underline hover:text-white transition-colors py-1 px-1.5 rounded focus-visible:outline-none cursor-pointer"
               aria-label="Change current landmark location"
             >
               Change

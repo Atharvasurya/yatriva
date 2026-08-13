@@ -197,24 +197,117 @@ body {
   border: 1px solid var(--color-border);
 }
 
-/* Animate in on mount */
+/* Animate in keyframes */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-6px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(232, 119, 34, 0.3); }
+  50%      { box-shadow: 0 0 30px rgba(232, 119, 34, 0.6); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Animation Utility Classes */
 .animate-fade-up {
-  animation: fadeUp 400ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: fadeUp 450ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-down {
+  animation: fadeDown 450ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 350ms ease-out both;
+}
+
+.animate-scale-up {
+  animation: scaleUp 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spinSlow 25s linear infinite;
+}
+
+.shimmer-effect {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
 }
 
 /* Stagger delay utilities */
+.delay-75  { animation-delay: 75ms; }
 .delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
 .delay-200 { animation-delay: 200ms; }
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
 
-/* ─── Temple Silhouette SVG Background ──────────────────────────────────────── */
+/* Interactive Hover & Elevation Polish */
+.hover-lift {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-lg);
+}
+
+/* Card base */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
 /* Used in the hero section */
 .hero-silhouette {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='xMidYMax meet'%3E%3Cpath fill='rgba(255,255,255,0.04)' d='M0,200 L0,140 L30,140 L30,100 L45,100 L45,60 L52,60 L52,40 L58,40 L58,30 L64,30 L64,40 L70,40 L70,60 L77,60 L77,100 L92,100 L92,140 L120,140 L120,120 L140,120 L140,80 L150,80 L150,50 L158,50 L158,30 L165,30 L165,20 L172,20 L172,30 L179,30 L179,50 L187,50 L187,80 L197,80 L197,120 L220,120 L220,140 L260,140 L260,110 L275,110 L275,70 L285,70 L285,45 L293,45 L293,25 L300,25 L300,15 L307,15 L307,25 L314,25 L314,45 L322,45 L322,70 L332,70 L332,110 L360,110 L360,140 L400,140 L400,120 L420,120 L420,75 L432,75 L432,45 L440,45 L440,25 L448,25 L448,45 L456,45 L456,75 L468,75 L468,120 L490,120 L490,140 L540,140 L540,120 L560,120 L560,80 L572,80 L572,50 L580,50 L580,30 L587,30 L587,20 L594,20 L594,30 L601,30 L601,50 L609,50 L609,80 L621,80 L621,120 L640,120 L640,140 L700,140 L700,110 L718,110 L718,65 L728,65 L728,38 L737,38 L737,18 L744,18 L744,8 L751,8 L751,18 L758,18 L758,38 L767,38 L767,65 L777,65 L777,110 L800,110 L800,140 L840,140 L840,125 L858,125 L858,88 L868,88 L868,60 L876,60 L876,38 L883,38 L883,25 L890,25 L890,38 L897,38 L897,60 L905,60 L905,88 L915,88 L915,125 L940,125 L940,140 L980,140 L980,115 L998,115 L998,70 L1008,70 L1008,45 L1016,45 L1016,25 L1023,25 L1023,15 L1030,15 L1030,25 L1037,25 L1037,45 L1045,45 L1045,70 L1055,70 L1055,115 L1080,115 L1080,140 L1120,140 L1120,125 L1138,125 L1138,88 L1148,88 L1148,58 L1156,58 L1156,35 L1163,35 L1163,22 L1170,22 L1170,35 L1177,35 L1177,58 L1185,58 L1185,88 L1195,88 L1195,125 L1220,125 L1220,140 L1270,140 L1270,118 L1288,118 L1288,78 L1298,78 L1298,50 L1306,50 L1306,28 L1313,28 L1313,15 L1320,15 L1320,28 L1327,28 L1327,50 L1335,50 L1335,78 L1345,78 L1345,118 L1370,118 L1370,140 L1440,140 L1440,200 Z'/%3E%3C/svg%3E");
