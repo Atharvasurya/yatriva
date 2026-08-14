@@ -385,6 +385,36 @@ export default function HomePageContent() {
         </Link>
       </section>
 
+      {/* ── Quick Guide Grid ──────────────────────────────────────────────── */}
+      <section
+        id="quick-guide"
+        className="px-4 sm:px-6 py-6 max-w-5xl mx-auto w-full space-y-4"
+        aria-labelledby="quick-guide-heading"
+      >
+        <h2
+          id="quick-guide-heading"
+          className="text-sm sm:text-base font-black uppercase tracking-widest"
+          style={{ color: 'var(--color-primary)' }}
+        >
+          {t('quickGuideTitle')}
+        </h2>
+
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3">
+          {QUICK_ACTIONS.map(({ key, href, Icon, color, textColor }, i) => (
+            <QuickActionTile
+              key={key}
+              href={href}
+              label={t(`tiles.${key}`)}
+              description={t(`tilesDescription.${key}`)}
+              Icon={Icon}
+              color={color}
+              textColor={textColor}
+              index={i}
+            />
+          ))}
+        </div>
+      </section>
+
       {/* ── Ground Assistance & Real-World Safety Suite ─────────────────────── */}
       <section className="px-4 sm:px-6 py-5 max-w-5xl mx-auto w-full space-y-3.5">
         <h2
@@ -532,36 +562,6 @@ export default function HomePageContent() {
               250+ free RO drinking water kiosks, heatstroke guide & packing checklist.
             </p>
           </Link>
-        </div>
-      </section>
-
-      {/* ── Quick Guide Grid ──────────────────────────────────────────────── */}
-      <section
-        id="quick-guide"
-        className="px-4 sm:px-6 py-6 max-w-5xl mx-auto w-full space-y-4"
-        aria-labelledby="quick-guide-heading"
-      >
-        <h2
-          id="quick-guide-heading"
-          className="text-sm sm:text-base font-black uppercase tracking-widest"
-          style={{ color: 'var(--color-primary)' }}
-        >
-          {t('quickGuideTitle')}
-        </h2>
-
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3">
-          {QUICK_ACTIONS.map(({ key, href, Icon, color, textColor }, i) => (
-            <QuickActionTile
-              key={key}
-              href={href}
-              label={t(`tiles.${key}`)}
-              description={t(`tilesDescription.${key}`)}
-              Icon={Icon}
-              color={color}
-              textColor={textColor}
-              index={i}
-            />
-          ))}
         </div>
       </section>
 
