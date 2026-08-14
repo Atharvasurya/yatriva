@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import {
-  Sparkles, X, Send, Bot, User, AlertTriangle, ShieldCheck, RefreshCw, PhoneCall, ChevronRight, HelpCircle, WifiOff
+  Sparkles, X, Send, Bot, User, AlertTriangle, ShieldCheck, RefreshCw, PhoneCall, ChevronRight, HelpCircle, WifiOff, MessageSquareText
 } from 'lucide-react';
 import { useNetworkStatus } from '@/hooks/useNetworkStatus';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
@@ -249,18 +249,21 @@ export default function AiAssistantWidget() {
         onClick={() => setIsOpen(true)}
         aria-label={t('title')}
         title={t('title')}
-        className={`fixed bottom-20 right-4 lg:bottom-6 lg:right-6 z-40 items-center justify-center h-14 w-14 rounded-full text-white shadow-2xl transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer ${
+        className={`fixed bottom-20 right-4 lg:bottom-6 lg:right-6 z-40 items-center justify-center h-13 w-13 rounded-full text-white shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95 cursor-pointer ${
           isOpen ? 'hidden' : 'flex'
         }`}
         style={{
-          background: 'linear-gradient(135deg, #4F46E5 0%, #3730A3 100%)',
-          boxShadow: '0 8px 25px rgba(79, 70, 229, 0.45), 0 2px 8px rgba(0, 0, 0, 0.2)',
+          background: '#0F1E35',
+          border: '1.5px solid rgba(232, 119, 34, 0.4)',
+          boxShadow: '0 8px 24px rgba(15, 30, 53, 0.35)',
         }}
       >
         <div className="relative flex items-center justify-center">
-          <Sparkles className="h-6 w-6 text-amber-300 transition-transform duration-300 group-hover:rotate-12" />
-          <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-emerald-400 border-2 border-indigo-900 animate-ping" />
-          <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-emerald-400 border-2 border-indigo-900" />
+          <MessageSquareText className="h-6 w-6 text-white" />
+          <span
+            className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full"
+            style={{ background: '#E87722', border: '1.5px solid #0F1E35' }}
+          />
         </div>
       </button>
 
@@ -274,7 +277,7 @@ export default function AiAssistantWidget() {
             {/* ── Header Bar ──────────────────────────────────────────────── */}
             <div
               className="p-4 text-white flex items-center justify-between shrink-0"
-              style={{ background: '#4338CA' }}
+              style={{ background: '#0F1E35' }}
             >
               <div className="flex items-center gap-3">
                 <div
