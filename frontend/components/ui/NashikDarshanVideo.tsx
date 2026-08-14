@@ -15,7 +15,7 @@ interface VideoTour {
 const DARSHAN_TOURS: VideoTour[] = [
   {
     id: 'nashik-tour',
-    videoId: 'wh8JyS_ibb0',
+    videoId: '9cUFKT1FDbE',
     titleKey: 'nashikTourTitle',
     locationKey: 'nashikTourLoc',
     duration: 'Full Tour',
