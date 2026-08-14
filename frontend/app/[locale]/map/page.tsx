@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { Map, MapPin, Compass, Navigation } from 'lucide-react';
+import Link from 'next/link';
+import { Map, Compass, ShieldAlert, ChevronRight } from 'lucide-react';
 import LeafletMapWrapper from '@/components/map/LeafletMapWrapper';
 import LocationPickerModal from '@/components/map/LocationPickerModal';
 import { useUserLocation } from '@/hooks/useUserLocation';
@@ -10,6 +11,7 @@ import { ALL_MAP_PLACES } from '@/data/seed';
 
 export default function MapPage() {
   const t = useTranslations('map');
+  const tCrowd = useTranslations('crowdSafety');
   const locale = useLocale() as 'en' | 'hi' | 'mr';
   const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -24,7 +26,7 @@ export default function MapPage() {
   } = useUserLocation();
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6 space-y-5">
+    <div className="max-w-5xl mx-auto px-4 py-6 space-y-4 sm:space-y-5">
       {/* Header Banner */}
       <div
         className="rounded-2xl p-6 text-white relative overflow-hidden shadow-lg animate-fade-up"
@@ -43,13 +45,31 @@ export default function MapPage() {
 
           <button
             onClick={() => setIsPickerOpen(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-saffron-500 hover:bg-saffron-600 text-white text-xs font-bold shadow-md transition-all active:scale-95"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-saffron-500 hover:bg-saffron-600 text-white text-xs font-bold shadow-md transition-all active:scale-95 cursor-pointer"
             style={{ background: '#E87722', minHeight: '44px' }}
           >
             <Compass className="h-4 w-4" />
             <span>{locationSource === 'gps' ? 'Live GPS Active' : 'Set Landmark'}</span>
           </button>
         </div>
+      </div>
+
+      {/* Amrit Snan High-Density Crowd Advisory Reminder Banner */}
+      <div className="p-3.5 px-4 rounded-2xl bg-gradient-to-r from-red-950 via-slate-900 to-rose-950 text-white flex items-center justify-between gap-3 text-xs shadow-md border border-red-800/60 animate-fade-up">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <ShieldAlert className="h-4.5 w-4.5 text-red-400 shrink-0" />
+          <span className="font-semibold text-white/90 truncate sm:text-clip">
+            {tCrowd('mapBanner.alert')}
+          </span>
+        </div>
+        <Link
+          href={`/${locale}/crowd-safety`}
+          prefetch={true}
+          className="inline-flex items-center gap-1 font-bold text-amber-300 hover:text-white underline underline-offset-2 shrink-0 transition-colors"
+        >
+          <span>{tCrowd('mapBanner.link')}</span>
+          <ChevronRight className="h-3.5 w-3.5" />
+        </Link>
       </div>
 
       {/* Main Full-Height Leaflet Map Container */}
@@ -59,7 +79,7 @@ export default function MapPage() {
           userLocation={userLocation}
           locationSource={locationSource}
           onOpenLocationPicker={() => setIsPickerOpen(true)}
-          height="620px"
+          height="600px"
           initialZoom={13}
         />
       </div>

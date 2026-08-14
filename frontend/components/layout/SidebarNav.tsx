@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import {
-  Home, Map, Bus, AlertTriangle, Waves, ParkingCircle, Info, BookOpen, Sparkles
+  Home, Map, Bus, AlertTriangle, Waves, ParkingCircle, Info, BookOpen, Sparkles, ShieldAlert
 } from 'lucide-react';
 import TempleIcon from '@/components/ui/TempleIcon';
 
@@ -17,11 +17,12 @@ const PRIMARY_NAV = [
 ];
 
 const SECTION_NAV = [
-  { key: 'ghats',    href: '/ghats',    Icon: Waves },
-  { key: 'temples',  href: '/temples',  Icon: TempleIcon },
-  { key: 'culture',  href: '/culture',  Icon: BookOpen },
-  { key: 'parking',  href: '/parking',  Icon: ParkingCircle },
-  { key: 'about',    href: '/about',    Icon: Info },
+  { key: 'ghats',       href: '/ghats',        Icon: Waves },
+  { key: 'temples',     href: '/temples',      Icon: TempleIcon },
+  { key: 'culture',     href: '/culture',      Icon: BookOpen },
+  { key: 'parking',     href: '/parking',      Icon: ParkingCircle },
+  { key: 'crowdSafety', href: '/crowd-safety', Icon: ShieldAlert },
+  { key: 'about',       href: '/about',        Icon: Info },
 ];
 
 export default function SidebarNav() {

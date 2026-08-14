@@ -1,7 +1,8 @@
 'use client';
 
 import { useTranslations, useLocale } from 'next-intl';
-import { AlertTriangle, Shield, HeartPulse, PhoneCall, Info } from 'lucide-react';
+import Link from 'next/link';
+import { AlertTriangle, Shield, HeartPulse, PhoneCall, Info, ShieldAlert, ChevronRight } from 'lucide-react';
 import { EMERGENCY_CONTACTS } from '@/data/seed';
 
 export default function EmergencyPage() {
@@ -47,6 +48,40 @@ export default function EmergencyPage() {
           {t('bannerText')}
         </p>
       </div>
+
+      {/* ── Crowd-Crush & Surge Safety Card ── */}
+      <Link
+        href={`/${locale}/crowd-safety`}
+        prefetch={true}
+        className="block p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-red-950 via-slate-900 to-rose-950 text-white shadow-lg border border-red-800/40 hover:border-red-500/70 transition-all transform hover:-translate-y-0.5 group"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start gap-4">
+            <div className="p-3 rounded-2xl bg-red-600/30 border border-red-500/40 text-red-300 shrink-0">
+              <ShieldAlert className="h-7 w-7 text-red-400 group-hover:scale-110 transition-transform" />
+            </div>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-red-600 text-white">
+                  Life-Saving Guide
+                </span>
+                <span className="text-xs text-slate-400 font-medium">30-sec read</span>
+              </div>
+              <h2 className="text-lg font-black text-white group-hover:text-amber-300 transition-colors">
+                Crowd-Crush & Surge Safety Rules
+              </h2>
+              <p className="text-xs text-slate-300 leading-relaxed max-w-xl">
+                5 evergreen rules on how to move during sudden ghat surges, protect children, and avoid dangerous water-edge trampling.
+              </p>
+            </div>
+          </div>
+
+          <div className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shrink-0 shadow-sm self-start sm:self-center">
+            <span>Read Safety Rules</span>
+            <ChevronRight className="h-4 w-4" />
+          </div>
+        </div>
+      </Link>
 
       {/* Emergency Contact List */}
       <div className="space-y-3">

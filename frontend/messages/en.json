@@ -18,6 +18,7 @@
     "temples": "Temples",
     "culture": "Culture & Heritage",
     "parking": "Parking",
+    "crowdSafety": "Crowd Safety",
     "assistant": "AI Assistant",
     "about": "About"
   },
@@ -313,6 +314,53 @@
       "about": "About",
       "privacy": "Privacy",
       "contact": "Contact"
+    }
+  },
+  "crowdSafety": {
+    "title": "Crowd-Crush & Surge Safety",
+    "subtitle": "Essential life-saving rules for high-density Kumbh Mela gatherings",
+    "readTime": "30-second quick guide",
+    "badge": "Life-Saving Guidelines",
+    "historicalContext": "Evergreen safety protocols developed from historical Kumbh crowd dynamics to keep every pilgrim and family safe.",
+    "disclaimerTitle": "General Public Safety Guidance",
+    "disclaimer": "This is general educational public-safety advice. In all situations on ground, immediately follow the direct commands of Police, NDRF, SDRF, and designated Kumbh Mela security personnel.",
+    "emergencyCta": "Need immediate assistance?",
+    "emergencyLink": "View Emergency Contacts & Helplines →",
+    "rules": {
+      "waterEdge": {
+        "title": "Never Sit or Sleep at the Water's Edge",
+        "tag": "Surge Danger Zone",
+        "rule": "Avoid resting or sleeping along the immediate riverbank steps during peak Amrit Snan days.",
+        "reason": "Sudden dawn or night crowds rushing toward holy waters can cause fatal trampling before people on the ground can stand up."
+      },
+      "diagonal": {
+        "title": "Move Diagonally with the Crowd Surge",
+        "tag": "Flow Dynamics",
+        "rule": "If caught in a sudden crowd wave, keep your feet moving and drift diagonally toward the sides.",
+        "reason": "Never push straight against the crowd surge. Keep your arms bent across your chest like a boxer to preserve breathing space."
+      },
+      "handsFree": {
+        "title": "Keep Hands Free & Protect Children",
+        "tag": "Family Safety",
+        "rule": "Do not carry bags across your chest or hold young children by the hand alone in thick crowds.",
+        "reason": "Carry children securely high on shoulders or keep them positioned between two adults to shield them from lateral compression."
+      },
+      "fallAction": {
+        "title": "If You Fall, Rise or Move to Fixed Structures",
+        "tag": "Immediate Action",
+        "rule": "Get back on your feet immediately. If unable to stand, curl into a ball protecting your head and crawl toward a solid pillar or railing.",
+        "reason": "Staying flat on open ground makes you invisible to moving crowds. Fixed structures provide structural protection against surges."
+      },
+      "exitRoutes": {
+        "title": "Spot Your Nearest Exits Before Entering Ghats",
+        "tag": "Spatial Awareness",
+        "rule": "Identify alternate side evacuation paths and emergency exits before entering dense ghat areas.",
+        "reason": "Entry gates frequently become congested bottlenecks. Knowing two exit routes allows rapid departure if density spikes."
+      }
+    },
+    "mapBanner": {
+      "alert": "High-Density Amrit Snan Advisory: Review crowd safety guidelines before visiting Ramkund or Kushavarta.",
+      "link": "Read Crowd Safety Guide"
     }
   }
 }

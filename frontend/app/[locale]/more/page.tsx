@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import {
-  Waves, Bus, ParkingCircle, AlertTriangle, Info, Map, Globe, Check, BookOpen, ChevronRight, Sparkles
+  Waves, Bus, ParkingCircle, AlertTriangle, Info, Map, Globe, Check, BookOpen, ChevronRight, Sparkles, ShieldAlert
 } from 'lucide-react';
 import TempleIcon from '@/components/ui/TempleIcon';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
@@ -20,6 +20,7 @@ export default function MorePage() {
     { key: 'culture', href: '/culture', Icon: BookOpen, color: 'bg-amber-50 text-amber-700' },
     { key: 'transport', href: '/transport', Icon: Bus, color: 'bg-navy-50 text-navy-700' },
     { key: 'parking', href: '/parking', Icon: ParkingCircle, color: 'bg-amber-50 text-amber-600' },
+    { key: 'crowdSafety', href: '/crowd-safety', Icon: ShieldAlert, color: 'bg-red-50 text-red-700' },
     { key: 'emergency', href: '/emergency', Icon: AlertTriangle, color: 'bg-red-50 text-red-600' },
     { key: 'map', href: '/map', Icon: Map, color: 'bg-emerald-50 text-emerald-600' },
     { key: 'about', href: '/about', Icon: Info, color: 'bg-indigo-50 text-indigo-600' },

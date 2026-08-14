@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
+import Link from 'next/link';
 import {
-  Waves, Bus, ParkingCircle, AlertTriangle, Info, MapPin, Compass, Navigation, HeartPulse, Utensils, Bath, UserPlus, ShieldCheck, X, ExternalLink
+  Waves, Bus, ParkingCircle, AlertTriangle, Info, MapPin, Compass, Navigation, HeartPulse, Utensils, Bath, UserPlus, ShieldCheck, X, ExternalLink, ShieldAlert
 } from 'lucide-react';
 import SnanDateCard from '@/components/ui/SnanDateCard';
 import QuickActionTile from '@/components/ui/QuickActionTile';
@@ -349,6 +350,38 @@ export default function HomePageContent() {
             <span>Register Group for Safety →</span>
           </a>
         </div>
+      </section>
+
+      {/* ── Crowd-Crush & Surge Safety Advisory Card ───────────────────────── */}
+      <section className="px-4 sm:px-6 py-2 max-w-5xl mx-auto w-full">
+        <Link
+          href={`/${locale}/crowd-safety`}
+          prefetch={true}
+          className="block p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-red-50 to-orange-50 border border-red-200/90 hover:border-red-400/90 shadow-2xs hover:shadow-md transition-all group"
+        >
+          <div className="flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-red-600 text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                <ShieldAlert className="h-5 w-5" />
+              </div>
+              <div className="space-y-0.5">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-red-700 bg-red-100/80 px-2 py-0.5 rounded-md">
+                    Pilgrim Advisory
+                  </span>
+                  <span className="text-[11px] font-semibold text-slate-500">30-sec safety rules</span>
+                </div>
+                <h3 className="font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-red-700 transition-colors">
+                  Crowd-Crush & Surge Safety: 5 Life-Saving Rules
+                </h3>
+              </div>
+            </div>
+            <span className="inline-flex items-center gap-1 text-xs font-bold text-red-700 group-hover:translate-x-0.5 transition-transform shrink-0">
+              <span>Read Guide</span>
+              <ExternalLink className="h-3.5 w-3.5" />
+            </span>
+          </div>
+        </Link>
       </section>
 
       {/* ── Quick Guide Grid ──────────────────────────────────────────────── */}
