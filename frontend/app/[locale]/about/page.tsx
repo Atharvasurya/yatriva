@@ -72,9 +72,9 @@ export default function AboutPage() {
                 <div className="pt-2">
                   <a
                     href={`mailto:${member.email}`}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-amber-600 hover:text-white text-white text-xs font-bold transition-all shadow-sm active:scale-95"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-amber-50 text-slate-700 hover:text-amber-800 text-xs font-bold transition-all border border-slate-200"
                   >
-                    <Mail className="w-3.5 h-3.5 text-amber-300" />
+                    <Mail className="w-3.5 h-3.5 text-amber-600" />
                     <span>{member.email}</span>
                   </a>
                 </div>
