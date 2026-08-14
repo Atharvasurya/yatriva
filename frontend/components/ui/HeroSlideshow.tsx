@@ -80,12 +80,6 @@ export default function HeroSlideshow({ children }: HeroSlideshowProps) {
           className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-900/35 to-slate-950/75 pointer-events-none"
           aria-hidden="true"
         />
-
-        {/* Subtle Shimmer Texture */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-20 shimmer-effect"
-          aria-hidden="true"
-        />
       </div>
 
       {/* ── Foreground Content ─────────────────────────────────────────────── */}
