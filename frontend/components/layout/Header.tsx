@@ -40,7 +40,7 @@ export default function Header() {
               YATRIVA
             </span>
             <span className="block text-xs font-bold leading-tight mt-1" style={{ color: '#F59E0B' }}>
-              Kumbh Mela 2027
+              {t('headerSubtitle') || 'Nashik Kumbh Mela 2027'}
             </span>
           </div>
         </Link>
