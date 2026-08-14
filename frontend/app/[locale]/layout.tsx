@@ -128,7 +128,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
           {/* Global Background Image Layer with Light Opacity */}
           <div
-            className="fixed inset-0 pointer-events-none z-0 bg-cover bg-center bg-no-repeat opacity-[0.08]"
+            className="fixed inset-0 pointer-events-none z-0 bg-cover bg-center bg-no-repeat opacity-[0.045]"
             style={{
               backgroundImage: `url('/images/bgmain.png')`,
               backgroundAttachment: 'fixed',
