@@ -98,11 +98,11 @@ export default function HomePageContent() {
 
       {/* ── Central Feature: Interactive Pilgrim Map ────────────────────────── */}
       <section className="px-4 sm:px-6 -mt-8 max-w-5xl mx-auto relative z-20" aria-label="Interactive Map">
-        <div className="p-6 sm:p-8 bg-white shadow-2xl rounded-3xl border border-slate-200/80 space-y-6">
-          <div className="flex items-center justify-between px-1 flex-wrap gap-3">
-            <div className="flex items-center gap-2.5">
-              <MapPin className="h-6 w-6 text-saffron-500" style={{ color: '#AD4E11' }} aria-hidden="true" />
-              <h2 className="text-base sm:text-lg font-black uppercase tracking-wider" style={{ color: 'var(--color-primary)' }}>
+        <div className="p-5 sm:p-6 bg-white shadow-xl rounded-2xl border border-slate-200/80 space-y-5">
+          <div className="flex items-center justify-between px-1 flex-wrap gap-2.5">
+            <div className="flex items-center gap-2">
+              <MapPin className="h-5 w-5 text-saffron-500" style={{ color: '#AD4E11' }} aria-hidden="true" />
+              <h2 className="text-sm sm:text-base font-black uppercase tracking-wider" style={{ color: 'var(--color-primary)' }}>
                 Kumbh Wayfinding Map
               </h2>
             </div>
@@ -111,9 +111,9 @@ export default function HomePageContent() {
               variant="ghost"
               size="sm"
               onClick={() => setIsPickerOpen(true)}
-              className="border border-slate-200 text-xs sm:text-sm font-bold text-slate-700 min-h-[44px] px-4 rounded-xl shadow-xs"
+              className="border border-slate-200 text-xs font-bold text-slate-700 min-h-[40px] px-3.5 rounded-xl shadow-xs"
             >
-              <Navigation className="h-4 w-4" aria-hidden="true" />
+              <Navigation className="h-3.5 w-3.5" aria-hidden="true" />
               <span>Location Picker</span>
             </Button>
           </div>
@@ -124,23 +124,23 @@ export default function HomePageContent() {
             userLocation={userLocation}
             locationSource={locationSource}
             onOpenLocationPicker={() => setIsPickerOpen(true)}
-            height="440px"
+            height="420px"
           />
 
           {/* "Find Nearest X from Here" Quick Shortcut Buttons */}
-          <div className="pt-2 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block px-1">
+          <div className="pt-1 space-y-2.5">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block px-1">
               Find Nearest From Your Location:
             </span>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
               <button
                 type="button"
                 onClick={() => setActiveNearestCategory(activeNearestCategory === 'toilet' ? null : 'toilet')}
                 aria-pressed={activeNearestCategory === 'toilet'}
-                className={`p-3.5 rounded-2xl border text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 min-h-[48px] cursor-pointer ${
+                className={`p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${
                   activeNearestCategory === 'toilet'
-                    ? 'bg-teal-700 text-white border-teal-800 shadow-md'
-                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100 hover:border-slate-300'
+                    ? 'bg-teal-700 text-white border-teal-800 shadow-sm'
+                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100'
                 }`}
               >
                 <Bath className="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -151,10 +151,10 @@ export default function HomePageContent() {
                 type="button"
                 onClick={() => setActiveNearestCategory(activeNearestCategory === 'medical' ? null : 'medical')}
                 aria-pressed={activeNearestCategory === 'medical'}
-                className={`p-3.5 rounded-2xl border text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 min-h-[48px] cursor-pointer ${
+                className={`p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${
                   activeNearestCategory === 'medical'
-                    ? 'bg-red-700 text-white border-red-800 shadow-md'
-                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100 hover:border-slate-300'
+                    ? 'bg-red-700 text-white border-red-800 shadow-sm'
+                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100'
                 }`}
               >
                 <HeartPulse className="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -165,10 +165,10 @@ export default function HomePageContent() {
                 type="button"
                 onClick={() => setActiveNearestCategory(activeNearestCategory === 'ghat' ? null : 'ghat')}
                 aria-pressed={activeNearestCategory === 'ghat'}
-                className={`p-3.5 rounded-2xl border text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 min-h-[48px] cursor-pointer ${
+                className={`p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${
                   activeNearestCategory === 'ghat'
-                    ? 'bg-blue-700 text-white border-blue-800 shadow-md'
-                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100 hover:border-slate-300'
+                    ? 'bg-blue-700 text-white border-blue-800 shadow-sm'
+                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100'
                 }`}
               >
                 <Waves className="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -179,10 +179,10 @@ export default function HomePageContent() {
                 type="button"
                 onClick={() => setActiveNearestCategory(activeNearestCategory === 'parking' ? null : 'parking')}
                 aria-pressed={activeNearestCategory === 'parking'}
-                className={`p-3.5 rounded-2xl border text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 min-h-[48px] cursor-pointer ${
+                className={`p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${
                   activeNearestCategory === 'parking'
-                    ? 'bg-amber-800 text-white border-amber-900 shadow-md'
-                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100 hover:border-slate-300'
+                    ? 'bg-amber-800 text-white border-amber-900 shadow-sm'
+                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100'
                 }`}
               >
                 <ParkingCircle className="h-4 w-4 shrink-0 text-amber-600" aria-hidden="true" />
@@ -193,14 +193,14 @@ export default function HomePageContent() {
 
           {/* Nearest Results Drawer / Direct Empty State */}
           {activeNearestCategory && (
-            <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-4 animate-fade-up">
+            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 animate-fade-up">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">
                   Nearest {activeNearestCategory.toUpperCase()} Locations
                 </h3>
                 <button
                   onClick={() => setActiveNearestCategory(null)}
-                  className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-colors focus-visible:outline-none min-h-[36px] min-w-[36px] flex items-center justify-center cursor-pointer"
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-colors focus-visible:outline-none min-h-[32px] min-w-[32px] flex items-center justify-center cursor-pointer"
                   aria-label="Close nearest list"
                 >
                   <X className="h-4 w-4" />
@@ -208,17 +208,17 @@ export default function HomePageContent() {
               </div>
 
               {nearestItems.length > 0 ? (
-                <div className="space-y-2.5">
+                <div className="space-y-2">
                   {nearestItems.map((item) => (
                     <div
                       key={item.id}
-                      className="p-4 bg-white rounded-xl border border-slate-200 shadow-xs flex items-center justify-between gap-4"
+                      className="p-3 bg-white rounded-lg border border-slate-200 shadow-xs flex items-center justify-between gap-3"
                     >
                       <div>
-                        <p className="font-extrabold text-sm text-slate-900">
+                        <p className="font-extrabold text-xs text-slate-900">
                           {item.name[locale] || item.name.en}
                         </p>
-                        <p className="text-xs font-bold mt-0.5" style={{ color: '#AD4E11' }}>
+                        <p className="text-[11px] font-bold" style={{ color: '#AD4E11' }}>
                           {formatDistance(item.distanceKm)} away
                         </p>
                       </div>
@@ -226,28 +226,28 @@ export default function HomePageContent() {
                         href={`https://maps.google.com/?q=${item.coordinates.lat},${item.coordinates.lng}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2.5 rounded-xl text-white text-xs font-bold min-h-[44px] inline-flex items-center gap-1.5 hover:brightness-90 transition-all shadow-xs"
+                        className="px-3 py-1.5 rounded-lg text-white text-xs font-bold min-h-[38px] inline-flex items-center gap-1 hover:brightness-90 transition-all shadow-xs"
                         style={{ background: 'var(--color-primary)' }}
                       >
                         <span>Maps</span>
-                        <ExternalLink className="h-3.5 w-3.5" />
+                        <ExternalLink className="h-3 w-3" />
                       </a>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="p-6 text-center bg-white rounded-xl border border-slate-200 space-y-3">
-                  <p className="text-sm font-bold text-slate-900">
+                <div className="p-5 text-center bg-white rounded-lg border border-slate-200 space-y-2">
+                  <p className="text-xs font-bold text-slate-900">
                     No nearby {activeNearestCategory} locations found from current landmark
                   </p>
-                  <p className="text-xs text-slate-600 leading-relaxed max-w-sm mx-auto">
+                  <p className="text-[11px] text-slate-600 leading-relaxed max-w-sm mx-auto">
                     No verified {activeNearestCategory} points are registered within 10 km of your selected landmark. Select a different landmark or view all points on the wayfinding map.
                   </p>
                   <button
                     onClick={() => setIsPickerOpen(true)}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--color-primary)] text-white text-xs font-bold min-h-[44px] hover:brightness-110 active:scale-95 transition-all shadow-xs cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[var(--color-primary)] text-white text-xs font-bold min-h-[38px] hover:brightness-110 active:scale-95 transition-all shadow-xs cursor-pointer"
                   >
-                    <Compass className="h-4 w-4" />
+                    <Compass className="h-3.5 w-3.5" />
                     <span>Change Landmark</span>
                   </button>
                 </div>
@@ -260,21 +260,21 @@ export default function HomePageContent() {
       {/* ── Snan Dates Section ────────────────────────────────────────────── */}
       <section
         id="snan-dates"
-        className="px-4 sm:px-6 py-8 max-w-5xl mx-auto w-full space-y-5"
+        className="px-4 sm:px-6 py-6 max-w-5xl mx-auto w-full space-y-4"
         aria-labelledby="snan-heading"
       >
-        <div className="flex items-center gap-2.5">
-          <Waves className="h-5 w-5 text-amber-600" aria-hidden="true" />
+        <div className="flex items-center gap-2">
+          <Waves className="h-4.5 w-4.5 text-amber-600" aria-hidden="true" />
           <h2
             id="snan-heading"
-            className="text-base sm:text-lg font-black uppercase tracking-widest"
+            className="text-sm sm:text-base font-black uppercase tracking-widest"
             style={{ color: 'var(--color-primary)' }}
           >
             {t('snanSectionTitle')}
           </h2>
         </div>
 
-        <div className="grid gap-4 sm:gap-6 sm:grid-cols-3">
+        <div className="grid gap-3.5 sm:grid-cols-3">
           {SNAN_DATES.map((snan, i) => (
             <SnanDateCard
               key={snan.id}
@@ -289,21 +289,21 @@ export default function HomePageContent() {
       </section>
 
       {/* ── Family & Group Safety Registration Banner ─────────────────────── */}
-      <section className="px-4 sm:px-6 py-4 max-w-5xl mx-auto w-full">
+      <section className="px-4 sm:px-6 py-3 max-w-5xl mx-auto w-full">
         <div
-          className="p-7 sm:p-9 rounded-3xl text-white shadow-xl flex items-center justify-between flex-wrap gap-6"
+          className="p-5 sm:p-7 rounded-2xl text-white shadow-lg flex items-center justify-between flex-wrap gap-4"
           style={{ background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-mid) 100%)' }}
         >
-          <div className="flex items-start gap-4 max-w-xl">
-            <div className="p-3.5 rounded-2xl bg-white/10 shrink-0 mt-0.5 shadow-inner">
-              <UserPlus className="h-7 w-7 text-amber-300" aria-hidden="true" />
+          <div className="flex items-start gap-3.5 max-w-xl">
+            <div className="p-3 rounded-xl bg-white/10 shrink-0 mt-0.5 shadow-inner">
+              <UserPlus className="h-6 w-6 text-amber-300" aria-hidden="true" />
             </div>
-            <div className="space-y-1">
-              <div className="flex items-center gap-2.5 flex-wrap">
-                <h3 className="font-black text-lg sm:text-xl text-white">Family & Group Safety Registration</h3>
+            <div className="space-y-0.5">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="font-black text-base sm:text-lg text-white">Family & Group Safety Registration</h3>
                 <Badge variant="warning">Optional</Badge>
               </div>
-              <p className="text-white/85 text-xs sm:text-sm leading-relaxed">
+              <p className="text-white/85 text-xs leading-relaxed">
                 Create free printable ID cards with QR codes for children and elderly family members to prevent separation during crowd surges.
               </p>
             </div>
@@ -311,10 +311,10 @@ export default function HomePageContent() {
 
           <a
             href={`/${locale}/register`}
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl text-white font-extrabold text-xs sm:text-sm shadow-lg transition-all active:scale-95 min-h-[48px] hover:brightness-110 focus-visible:outline-none"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-bold text-xs shadow-md transition-all active:scale-95 min-h-[42px] hover:brightness-110 focus-visible:outline-none"
             style={{ background: '#AD4E11' }}
           >
-            <ShieldCheck className="h-4 w-4" />
+            <ShieldCheck className="h-3.5 w-3.5" />
             <span>Register Group for Safety →</span>
           </a>
         </div>
@@ -323,18 +323,18 @@ export default function HomePageContent() {
       {/* ── Quick Guide Grid ──────────────────────────────────────────────── */}
       <section
         id="quick-guide"
-        className="px-4 sm:px-6 py-8 max-w-5xl mx-auto w-full space-y-5"
+        className="px-4 sm:px-6 py-6 max-w-5xl mx-auto w-full space-y-4"
         aria-labelledby="quick-guide-heading"
       >
         <h2
           id="quick-guide-heading"
-          className="text-base sm:text-lg font-black uppercase tracking-widest"
+          className="text-sm sm:text-base font-black uppercase tracking-widest"
           style={{ color: 'var(--color-primary)' }}
         >
           {t('quickGuideTitle')}
         </h2>
 
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3">
           {QUICK_ACTIONS.map(({ key, href, Icon, color, textColor }, i) => (
             <QuickActionTile
               key={key}

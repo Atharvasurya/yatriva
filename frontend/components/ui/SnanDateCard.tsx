@@ -56,27 +56,27 @@ export default function SnanDateCard({
 
   return (
     <div
-      className={`rounded-3xl shadow-lg hover:shadow-2xl cursor-pointer transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between overflow-hidden animate-fade-up delay-${(index + 1) * 100}`}
+      className={`rounded-2xl shadow-md hover:shadow-xl cursor-pointer transition-all duration-300 transform hover:-translate-y-0.5 flex flex-col justify-between overflow-hidden animate-fade-up delay-${(index + 1) * 100}`}
       style={{ background: GRADIENT_STYLES[index % 3] }}
       role="article"
       aria-label={label}
     >
       {/* Top decorative accent strip */}
       <div
-        className="h-1.5 w-full"
+        className="h-1 w-full"
         style={{ background: 'linear-gradient(90deg, #E87722 0%, #FBBF24 100%)' }}
         aria-hidden="true"
       />
 
-      <div className="p-6 sm:p-7 space-y-5">
-        <div className="flex items-center justify-between gap-4">
+      <div className="p-5 sm:p-5.5 space-y-4">
+        <div className="flex items-center justify-between gap-3">
           {/* Icon */}
           <div
-            className="shrink-0 flex items-center justify-center rounded-2xl h-13 w-13 shadow-inner"
+            className="shrink-0 flex items-center justify-center rounded-xl h-11 w-11 shadow-inner"
             style={{ background: 'rgba(232,119,34,0.22)', border: '1.5px solid rgba(232,119,34,0.4)' }}
             aria-hidden="true"
           >
-            <Waves className="h-6 w-6 text-amber-400" />
+            <Waves className="h-5 w-5 text-amber-400" />
           </div>
 
           {/* Countdown */}
@@ -84,10 +84,10 @@ export default function SnanDateCard({
             <p
               className={`font-black tabular-nums tracking-tight leading-none ${
                 countdown.state === 'today'
-                  ? 'text-3xl text-amber-300'
+                  ? 'text-2xl text-amber-300'
                   : countdown.state === 'passed'
-                  ? 'text-base text-white/50'
-                  : 'text-3xl text-white'
+                  ? 'text-sm text-white/50'
+                  : 'text-2xl text-white'
               }`}
             >
               {countdown.state === 'today'
@@ -97,7 +97,7 @@ export default function SnanDateCard({
                 : countdown.value.toLocaleString(locale)}
             </p>
             {countdown.state === 'future' && (
-              <p className="text-[11px] text-white/70 font-semibold mt-1">
+              <p className="text-[10px] text-white/70 font-semibold mt-0.5">
                 {t(`countdown.${countdown.unit}`)}
               </p>
             )}
@@ -106,19 +106,19 @@ export default function SnanDateCard({
 
         {/* Title & Date Details */}
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-1">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-0.5">
             {label}
           </p>
-          <p className="text-white font-extrabold text-lg sm:text-xl leading-snug">
+          <p className="text-white font-extrabold text-base sm:text-lg leading-snug">
             {date}
           </p>
         </div>
 
         {/* Verification Status Badge */}
         {!verified && (
-          <div className="pt-1">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-amber-300/40 bg-amber-400/15 text-amber-200 font-bold text-[11px] leading-tight">
-              <AlertTriangle className="h-3.5 w-3.5 text-amber-400 shrink-0" />
+          <div className="pt-0.5">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-amber-300/40 bg-amber-400/15 text-amber-200 font-semibold text-[10px] leading-tight">
+              <AlertTriangle className="h-3 w-3 text-amber-400 shrink-0" />
               <span>{t('snanPlaceholderNote')}</span>
             </span>
           </div>

@@ -11,32 +11,32 @@ export default function TemplesPage() {
   const locale = useLocale() as 'en' | 'hi' | 'mr';
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10 sm:space-y-12">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
       {/* Header Banner */}
       <div
-        className="rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl animate-fade-up"
+        className="rounded-2xl p-6 sm:p-8 text-white relative overflow-hidden shadow-xl animate-fade-up"
         style={{ background: 'linear-gradient(135deg, #2D1B0E 0%, #C2581A 50%, #E87722 100%)' }}
       >
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
-          <TempleIcon className="w-72 h-72 text-white" />
+          <TempleIcon className="w-56 h-56 text-white" />
         </div>
-        <div className="relative z-10 flex items-start gap-5">
-          <div className="p-4 rounded-2xl bg-white/15 backdrop-blur-md shrink-0 shadow-inner">
-            <TempleIcon className="h-10 w-10 text-amber-200" />
+        <div className="relative z-10 flex items-start gap-4">
+          <div className="p-3.5 rounded-2xl bg-white/15 backdrop-blur-md shrink-0 shadow-inner">
+            <TempleIcon className="h-8 w-8 sm:h-9 sm:w-9 text-amber-200" />
           </div>
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/20 text-amber-200 text-xs font-bold uppercase tracking-wider backdrop-blur-sm border border-amber-400/30">
+          <div className="space-y-1.5">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-200 text-xs font-bold uppercase tracking-wider backdrop-blur-sm border border-amber-400/30">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Nashik Sacred Heritage</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight">{t('title')}</h1>
-            <p className="text-white/90 text-sm sm:text-base max-w-2xl leading-relaxed">{t('description')}</p>
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight">{t('title')}</h1>
+            <p className="text-white/90 text-xs sm:text-sm max-w-2xl leading-relaxed">{t('description')}</p>
           </div>
         </div>
       </div>
 
       {/* Temple Cards Grid */}
-      <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {TEMPLES.map((temple, idx) => {
           const name = temple.name[locale] || temple.name.en;
           const desc = temple.description?.[locale] || temple.description?.en || '';
