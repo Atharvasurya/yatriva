@@ -357,28 +357,28 @@ export default function HomePageContent() {
         <Link
           href={`/${locale}/crowd-safety`}
           prefetch={true}
-          className="block p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-red-50 to-orange-50 border border-red-200/90 hover:border-red-400/90 shadow-2xs hover:shadow-md transition-all group"
+          className="block p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-300 shadow-2xs hover:shadow-md transition-all group"
         >
           <div className="flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-xl bg-red-600 text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                <ShieldAlert className="h-5 w-5" />
+            <div className="flex items-center gap-3.5">
+              <div className="p-2.5 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 shrink-0">
+                <ShieldAlert className="h-5 w-5 text-amber-600" />
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-red-700 bg-red-100/80 px-2 py-0.5 rounded-md">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md">
                     Pilgrim Advisory
                   </span>
-                  <span className="text-[11px] font-semibold text-slate-500">30-sec safety rules</span>
+                  <span className="text-[11px] font-medium text-slate-400">30-sec safety rules</span>
                 </div>
-                <h3 className="font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-red-700 transition-colors">
+                <h3 className="font-bold text-sm sm:text-base text-slate-900 group-hover:text-amber-700 transition-colors">
                   Crowd-Crush & Surge Safety: 5 Life-Saving Rules
                 </h3>
               </div>
             </div>
-            <span className="inline-flex items-center gap-1 text-xs font-bold text-red-700 group-hover:translate-x-0.5 transition-transform shrink-0">
+            <span className="inline-flex items-center gap-1 text-xs font-semibold text-slate-700 group-hover:text-amber-700 transition-colors shrink-0">
               <span>Read Guide</span>
-              <ExternalLink className="h-3.5 w-3.5" />
+              <ExternalLink className="h-3.5 w-3.5 text-slate-400" />
             </span>
           </div>
         </Link>

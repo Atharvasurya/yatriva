@@ -55,17 +55,17 @@ export default function MapPage() {
       </div>
 
       {/* Amrit Snan High-Density Crowd Advisory Reminder Banner */}
-      <div className="p-3.5 px-4 rounded-2xl bg-gradient-to-r from-red-950 via-slate-900 to-rose-950 text-white flex items-center justify-between gap-3 text-xs shadow-md border border-red-800/60 animate-fade-up">
+      <div className="p-3 px-4 rounded-xl bg-slate-900 text-white flex items-center justify-between gap-3 text-xs shadow-sm border border-slate-800 animate-fade-up">
         <div className="flex items-center gap-2.5 min-w-0">
-          <ShieldAlert className="h-4.5 w-4.5 text-red-400 shrink-0" />
-          <span className="font-semibold text-white/90 truncate sm:text-clip">
+          <ShieldAlert className="h-4 w-4 text-amber-400 shrink-0" />
+          <span className="font-medium text-slate-200 truncate sm:text-clip">
             {tCrowd('mapBanner.alert')}
           </span>
         </div>
         <Link
           href={`/${locale}/crowd-safety`}
           prefetch={true}
-          className="inline-flex items-center gap-1 font-bold text-amber-300 hover:text-white underline underline-offset-2 shrink-0 transition-colors"
+          className="inline-flex items-center gap-1 font-bold text-amber-300 hover:text-white shrink-0 transition-colors"
         >
           <span>{tCrowd('mapBanner.link')}</span>
           <ChevronRight className="h-3.5 w-3.5" />

@@ -53,32 +53,32 @@ export default function EmergencyPage() {
       <Link
         href={`/${locale}/crowd-safety`}
         prefetch={true}
-        className="block p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-red-950 via-slate-900 to-rose-950 text-white shadow-lg border border-red-800/40 hover:border-red-500/70 transition-all transform hover:-translate-y-0.5 group"
+        className="block p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-300 shadow-2xs hover:shadow-md transition-all group"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-start gap-4">
-            <div className="p-3 rounded-2xl bg-red-600/30 border border-red-500/40 text-red-300 shrink-0">
-              <ShieldAlert className="h-7 w-7 text-red-400 group-hover:scale-110 transition-transform" />
+          <div className="flex items-start gap-3.5">
+            <div className="p-2.5 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 shrink-0">
+              <ShieldAlert className="h-6 w-6 text-amber-600" />
             </div>
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-red-600 text-white">
-                  Life-Saving Guide
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700">
+                  Pilgrim Safety Guide
                 </span>
-                <span className="text-xs text-slate-400 font-medium">30-sec read</span>
+                <span className="text-xs text-slate-400">30-sec read</span>
               </div>
-              <h2 className="text-lg font-black text-white group-hover:text-amber-300 transition-colors">
+              <h2 className="text-base font-bold text-slate-900 group-hover:text-amber-700 transition-colors">
                 Crowd-Crush & Surge Safety Rules
               </h2>
-              <p className="text-xs text-slate-300 leading-relaxed max-w-xl">
+              <p className="text-xs text-slate-500 leading-relaxed max-w-xl">
                 5 evergreen rules on how to move during sudden ghat surges, protect children, and avoid dangerous water-edge trampling.
               </p>
             </div>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shrink-0 shadow-sm self-start sm:self-center">
-            <span>Read Safety Rules</span>
-            <ChevronRight className="h-4 w-4" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shrink-0 shadow-2xs self-start sm:self-center">
+            <span>Read Rules</span>
+            <ChevronRight className="h-3.5 w-3.5" />
           </div>
         </div>
       </Link>
