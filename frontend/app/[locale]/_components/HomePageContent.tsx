@@ -98,109 +98,135 @@ export default function HomePageContent() {
 
       {/* ── Central Feature: Interactive Pilgrim Map ────────────────────────── */}
       <section className="px-4 sm:px-6 -mt-8 max-w-5xl mx-auto relative z-20" aria-label="Interactive Map">
-        <div className="p-5 sm:p-6 bg-white shadow-xl rounded-2xl border border-slate-200/80 space-y-5">
-          <div className="flex items-center justify-between px-1 flex-wrap gap-2.5">
-            <div className="flex items-center gap-2">
-              <MapPin className="h-5 w-5 text-saffron-500" style={{ color: '#AD4E11' }} aria-hidden="true" />
-              <h2 className="text-sm sm:text-base font-black uppercase tracking-wider" style={{ color: 'var(--color-primary)' }}>
-                Kumbh Wayfinding Map
-              </h2>
+        <div className="p-5 sm:p-6 bg-white shadow-xl rounded-2xl border border-slate-200/90 space-y-4">
+          {/* Professional Card Header */}
+          <div className="flex items-center justify-between px-0.5 flex-wrap gap-2.5 pb-1 border-b border-slate-100">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 rounded-xl bg-amber-500/10 text-amber-700 border border-amber-500/20 shadow-2xs">
+                <MapPin className="h-4.5 w-4.5 text-amber-600" aria-hidden="true" />
+              </div>
+              <div>
+                <h2 className="text-sm sm:text-base font-black uppercase tracking-wider text-slate-900 leading-tight">
+                  Kumbh Wayfinding Map
+                </h2>
+                <p className="text-[11px] text-slate-500 font-medium">
+                  Verified sacred landmarks, bathing ghats & pilgrim amenities
+                </p>
+              </div>
             </div>
 
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsPickerOpen(true)}
-              className="border border-slate-200 text-xs font-bold text-slate-700 min-h-[40px] px-3.5 rounded-xl shadow-xs"
+              className="border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-bold text-slate-700 min-h-[38px] px-3.5 rounded-xl shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer"
             >
-              <Navigation className="h-3.5 w-3.5" aria-hidden="true" />
-              <span>Location Picker</span>
+              <Navigation className="h-3.5 w-3.5 text-amber-600" aria-hidden="true" />
+              <span>Change Landmark</span>
             </Button>
           </div>
 
           {/* Map Component Wrapper */}
-          <LeafletMapWrapper
-            places={ALL_MAP_PLACES}
-            userLocation={userLocation}
-            locationSource={locationSource}
-            onOpenLocationPicker={() => setIsPickerOpen(true)}
-            height="420px"
-          />
+          <div className="rounded-xl overflow-hidden border border-slate-200 shadow-inner">
+            <LeafletMapWrapper
+              places={ALL_MAP_PLACES}
+              userLocation={userLocation}
+              locationSource={locationSource}
+              onOpenLocationPicker={() => setIsPickerOpen(true)}
+              height="420px"
+            />
+          </div>
 
-          {/* "Find Nearest X from Here" Quick Shortcut Buttons */}
-          <div className="pt-1 space-y-2.5">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block px-1">
-              Find Nearest From Your Location:
-            </span>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+          {/* "Find Nearest From Your Location" Shortcut Buttons */}
+          <div className="pt-1 space-y-2">
+            <div className="flex items-center justify-between px-0.5">
+              <span className="text-[11px] font-black uppercase tracking-wider text-slate-500">
+                Find Nearest From Your Location:
+              </span>
+              <span className="text-[10px] text-slate-400 font-medium hidden sm:inline">
+                Instant 1-tap distance calculation
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5">
+              {/* Nearest Toilet */}
               <button
                 type="button"
                 onClick={() => setActiveNearestCategory(activeNearestCategory === 'toilet' ? null : 'toilet')}
                 aria-pressed={activeNearestCategory === 'toilet'}
-                className={`p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${
+                className={`p-2.5 sm:p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[42px] cursor-pointer ${
                   activeNearestCategory === 'toilet'
-                    ? 'bg-teal-700 text-white border-teal-800 shadow-sm'
-                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100'
+                    ? 'bg-teal-700 text-white border-teal-800 shadow-md ring-2 ring-teal-500/25'
+                    : 'bg-slate-50 border-slate-200/90 text-slate-700 hover:bg-teal-50/60 hover:border-teal-300 hover:text-teal-900'
                 }`}
               >
-                <Bath className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <Bath className={`h-4 w-4 shrink-0 ${activeNearestCategory === 'toilet' ? 'text-white' : 'text-teal-600'}`} aria-hidden="true" />
                 <span>Nearest Toilet</span>
               </button>
 
+              {/* Medical Post */}
               <button
                 type="button"
                 onClick={() => setActiveNearestCategory(activeNearestCategory === 'medical' ? null : 'medical')}
                 aria-pressed={activeNearestCategory === 'medical'}
-                className={`p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${
+                className={`p-2.5 sm:p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[42px] cursor-pointer ${
                   activeNearestCategory === 'medical'
-                    ? 'bg-red-700 text-white border-red-800 shadow-sm'
-                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100'
+                    ? 'bg-rose-700 text-white border-rose-800 shadow-md ring-2 ring-rose-500/25'
+                    : 'bg-slate-50 border-slate-200/90 text-slate-700 hover:bg-rose-50/60 hover:border-rose-300 hover:text-rose-900'
                 }`}
               >
-                <HeartPulse className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <HeartPulse className={`h-4 w-4 shrink-0 ${activeNearestCategory === 'medical' ? 'text-white' : 'text-rose-600'}`} aria-hidden="true" />
                 <span>Medical Post</span>
               </button>
 
+              {/* Nearest Ghat */}
               <button
                 type="button"
                 onClick={() => setActiveNearestCategory(activeNearestCategory === 'ghat' ? null : 'ghat')}
                 aria-pressed={activeNearestCategory === 'ghat'}
-                className={`p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${
+                className={`p-2.5 sm:p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[42px] cursor-pointer ${
                   activeNearestCategory === 'ghat'
-                    ? 'bg-blue-700 text-white border-blue-800 shadow-sm'
-                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100'
+                    ? 'bg-blue-700 text-white border-blue-800 shadow-md ring-2 ring-blue-500/25'
+                    : 'bg-slate-50 border-slate-200/90 text-slate-700 hover:bg-blue-50/60 hover:border-blue-300 hover:text-blue-900'
                 }`}
               >
-                <Waves className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <Waves className={`h-4 w-4 shrink-0 ${activeNearestCategory === 'ghat' ? 'text-white' : 'text-blue-600'}`} aria-hidden="true" />
                 <span>Nearest Ghat</span>
               </button>
 
+              {/* Nearest Parking */}
               <button
                 type="button"
                 onClick={() => setActiveNearestCategory(activeNearestCategory === 'parking' ? null : 'parking')}
                 aria-pressed={activeNearestCategory === 'parking'}
-                className={`p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${
+                className={`p-2.5 sm:p-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 min-h-[42px] cursor-pointer ${
                   activeNearestCategory === 'parking'
-                    ? 'bg-amber-800 text-white border-amber-900 shadow-sm'
-                    : 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100'
+                    ? 'bg-amber-700 text-white border-amber-800 shadow-md ring-2 ring-amber-500/25'
+                    : 'bg-slate-50 border-slate-200/90 text-slate-700 hover:bg-amber-50/60 hover:border-amber-300 hover:text-amber-900'
                 }`}
               >
-                <ParkingCircle className="h-4 w-4 shrink-0 text-amber-600" aria-hidden="true" />
+                <ParkingCircle className={`h-4 w-4 shrink-0 ${activeNearestCategory === 'parking' ? 'text-white' : 'text-amber-600'}`} aria-hidden="true" />
                 <span>Nearest Parking</span>
               </button>
             </div>
           </div>
 
-          {/* Nearest Results Drawer / Direct Empty State */}
+          {/* Nearest Results Drawer */}
           {activeNearestCategory && (
-            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 animate-fade-up">
+            <div className="p-4 sm:p-5 bg-slate-50/90 rounded-2xl border border-slate-200 space-y-3 animate-fade-up">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">
-                  Nearest {activeNearestCategory.toUpperCase()} Locations
-                </h3>
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
+                  <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">
+                    Nearest {activeNearestCategory === 'toilet' ? 'Sanitation Facilities' : activeNearestCategory === 'medical' ? 'Medical Posts' : activeNearestCategory === 'ghat' ? 'Sacred Bathing Ghats' : 'Parking Zones'}
+                  </h3>
+                  <span className="text-[11px] font-bold text-slate-500 bg-slate-200/80 px-2 py-0.5 rounded-full">
+                    {nearestItems.length} Found
+                  </span>
+                </div>
                 <button
                   onClick={() => setActiveNearestCategory(null)}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-colors focus-visible:outline-none min-h-[32px] min-w-[32px] flex items-center justify-center cursor-pointer"
+                  className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-colors focus-visible:outline-none min-h-[30px] min-w-[30px] flex items-center justify-center cursor-pointer"
                   aria-label="Close nearest list"
                 >
                   <X className="h-4 w-4" />
@@ -212,31 +238,36 @@ export default function HomePageContent() {
                   {nearestItems.map((item) => (
                     <div
                       key={item.id}
-                      className="p-3 bg-white rounded-lg border border-slate-200 shadow-xs flex items-center justify-between gap-3"
+                      className="p-3.5 sm:p-4 bg-white rounded-xl border border-slate-200/80 shadow-2xs flex items-center justify-between gap-4 hover:border-slate-300 transition-all"
                     >
-                      <div>
-                        <p className="font-extrabold text-xs text-slate-900">
+                      <div className="space-y-1">
+                        <p className="font-extrabold text-xs sm:text-sm text-slate-900 leading-tight">
                           {item.name[locale] || item.name.en}
                         </p>
-                        <p className="text-[11px] font-bold" style={{ color: '#AD4E11' }}>
-                          {formatDistance(item.distanceKm)} away
-                        </p>
+                        <div className="flex items-center gap-2">
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md">
+                            <Navigation className="h-2.5 w-2.5 text-amber-600" />
+                            <span>{formatDistance(item.distanceKm)} away</span>
+                          </span>
+                          <span className="text-[11px] text-slate-400 font-medium hidden sm:inline">
+                            • ~{Math.max(1, Math.ceil(item.distanceKm * 12))} min walk
+                          </span>
+                        </div>
                       </div>
                       <a
                         href={`https://maps.google.com/?q=${item.coordinates.lat},${item.coordinates.lng}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1.5 rounded-lg text-white text-xs font-bold min-h-[38px] inline-flex items-center gap-1 hover:brightness-90 transition-all shadow-xs"
-                        style={{ background: 'var(--color-primary)' }}
+                        className="px-3.5 py-2 rounded-xl text-white text-xs font-bold min-h-[38px] inline-flex items-center gap-1.5 bg-slate-900 hover:bg-amber-600 active:scale-95 transition-all shadow-xs shrink-0"
                       >
-                        <span>Maps</span>
-                        <ExternalLink className="h-3 w-3" />
+                        <span>Directions</span>
+                        <ExternalLink className="h-3 w-3 opacity-80" />
                       </a>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="p-5 text-center bg-white rounded-lg border border-slate-200 space-y-2">
+                <div className="p-5 text-center bg-white rounded-xl border border-slate-200 space-y-2.5">
                   <p className="text-xs font-bold text-slate-900">
                     No nearby {activeNearestCategory} locations found from current landmark
                   </p>

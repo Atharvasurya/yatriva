@@ -8,6 +8,7 @@ import { renderToString } from 'react-dom/server';
 import {
   Waves, Landmark, ParkingCircle, Bus, HeartPulse, Shield, Bath, Utensils, Info, MapPin, Navigation, ExternalLink, X, Compass, BookOpen, AlertTriangle
 } from 'lucide-react';
+import TempleIcon from '@/components/ui/TempleIcon';
 import type { Place, PlaceCategory, Coordinates } from '@/types/place';
 import { calculateDistanceKm, formatDistance } from '@/hooks/useUserLocation';
 
@@ -25,7 +26,7 @@ const CATEGORY_CONFIG: Record<
   { labelEn: string; labelHi: string; labelMr: string; color: string; bgClass: string; Icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }> }
 > = {
   ghat: { labelEn: 'Ghats', labelHi: 'घाट', labelMr: 'घाट', color: '#2D5FA8', bgClass: 'bg-blue-600', Icon: Waves },
-  temple: { labelEn: 'Temples', labelHi: 'मंदिर', labelMr: 'मंदिरे', color: '#E87722', bgClass: 'bg-orange-600', Icon: Landmark },
+  temple: { labelEn: 'Temples', labelHi: 'मंदिर', labelMr: 'मंदिरे', color: '#E87722', bgClass: 'bg-orange-600', Icon: TempleIcon },
   parking: { labelEn: 'Parking', labelHi: 'पार्किंग', labelMr: 'पार्किंग', color: '#C9A227', bgClass: 'bg-amber-600', Icon: ParkingCircle },
   medical: { labelEn: 'Medical', labelHi: 'चिकित्सा', labelMr: 'वैद्यकीय', color: '#DC2626', bgClass: 'bg-red-600', Icon: HeartPulse },
   police: { labelEn: 'Police', labelHi: 'पुलिस', labelMr: 'पोलीस', color: '#1B2B4B', bgClass: 'bg-slate-900', Icon: Shield },
