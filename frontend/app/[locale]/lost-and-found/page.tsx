@@ -21,60 +21,7 @@ interface MissingPersonRecord {
   reportedBy: string;
 }
 
-const INITIAL_RECORDS: MissingPersonRecord[] = [
-  {
-    id: 'mp-1',
-    name: 'Kanta Devi Agarwal',
-    age: 68,
-    gender: 'female',
-    status: 'missing',
-    lastSeenLocation: 'Ramkund Ghat (Near Laxman Kund Steps)',
-    lastSeenTime: 'Today, 08:30 AM',
-    clothingDescription: 'Yellow Saree with Red Border, blue steel bottle, reading glasses.',
-    primaryLanguage: 'Hindi / Marwari',
-    contactNumber: '+91 98234 56781',
-    reportedBy: 'Rajesh Agarwal (Son)',
-  },
-  {
-    id: 'mp-2',
-    name: 'Aarav Patil',
-    age: 7,
-    gender: 'child',
-    status: 'found',
-    lastSeenLocation: 'CBS Central Bus Stand (Booth #3)',
-    lastSeenTime: 'Today, 09:15 AM',
-    clothingDescription: 'Red T-shirt, blue denim shorts, white sports shoes.',
-    primaryLanguage: 'Marathi',
-    contactNumber: '+91 94222 11099',
-    reportedBy: 'Police Assistance Booth #3 (Constable More)',
-  },
-  {
-    id: 'mp-3',
-    name: 'Vitthalrao Joshi',
-    age: 74,
-    gender: 'male',
-    status: 'missing',
-    lastSeenLocation: 'Trimbakeshwar Kushavarta Kund Entrance',
-    lastSeenTime: 'Yesterday, 05:45 PM',
-    clothingDescription: 'White Kurta Dhoti, maroon shawl, wooden walking stick.',
-    primaryLanguage: 'Marathi',
-    contactNumber: '+91 98900 44321',
-    reportedBy: 'Sunita Joshi (Daughter)',
-  },
-  {
-    id: 'mp-4',
-    name: 'Shanti Devi Sharma',
-    age: 65,
-    gender: 'female',
-    status: 'reunited',
-    lastSeenLocation: 'Tapovan Sadhugram Sector 4',
-    lastSeenTime: 'Yesterday, 02:00 PM',
-    clothingDescription: 'Green floral Salwar Suit, brown handbag.',
-    primaryLanguage: 'Hindi',
-    contactNumber: '+91 91580 99887',
-    reportedBy: 'Tapovan Police Assistance Booth',
-  },
-];
+const INITIAL_RECORDS: MissingPersonRecord[] = [];
 
 const POLICE_KHOYA_PAYA_BOOTHS = [
   {
@@ -394,6 +341,20 @@ export default function LostAndFoundPage() {
                 </div>
               </div>
             ))
+          ) : records.length === 0 ? (
+            <div className="col-span-full py-16 px-6 text-center bg-white rounded-3xl border border-slate-200 shadow-2xs space-y-4">
+              <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-center mx-auto text-slate-400">
+                <UserCheck className="h-7 w-7 text-slate-400" />
+              </div>
+              <div className="space-y-1 max-w-md mx-auto">
+                <h4 className="font-black text-base text-slate-900">
+                  No Active Reports on the Board
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  This bulletin board is updated in real-time. Use the <strong className="text-slate-800">Report Missing Person</strong> or <strong className="text-slate-800">Report Found Individual</strong> buttons above to register an entry.
+                </p>
+              </div>
+            </div>
           ) : (
             <div className="col-span-full py-12 text-center bg-white rounded-2xl border border-slate-200">
               <UserCheck className="h-10 w-10 text-slate-300 mx-auto mb-2" />
