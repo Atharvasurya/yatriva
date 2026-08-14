@@ -328,9 +328,12 @@ export default function AssistantPage() {
           ))}
 
           {loading && (
-            <div className="flex items-center gap-2.5 text-slate-700 text-xs py-3 px-4 bg-white border border-slate-200 rounded-2xl w-fit shadow-xs animate-pulse">
-              <Bot className="h-4 w-4 text-amber-600 animate-spin" />
-              <span>Fetching grounded answer from Yatriva vector dataset...</span>
+            <div className="flex items-center gap-3 text-slate-800 text-xs py-3 px-4.5 bg-gradient-to-r from-amber-50/90 to-orange-50/70 border border-amber-200/80 rounded-2xl w-fit shadow-xs animate-pulse">
+              <div className="relative flex items-center justify-center">
+                <span className="absolute h-4 w-4 rounded-full bg-amber-400 opacity-75 animate-ping" />
+                <span className="relative h-2.5 w-2.5 rounded-full bg-amber-600" />
+              </div>
+              <span className="font-semibold text-amber-900">Seeking divine guide & local pilgrim records...</span>
             </div>
           )}
         </div>

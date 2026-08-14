@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import {
-  Waves, Bus, ParkingCircle, AlertTriangle, Info, Map, Globe, Check, BookOpen, ChevronRight
+  Waves, Bus, ParkingCircle, AlertTriangle, Info, Map, Globe, Check, BookOpen, ChevronRight, Sparkles
 } from 'lucide-react';
 import TempleIcon from '@/components/ui/TempleIcon';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
@@ -14,6 +14,7 @@ export default function MorePage() {
   const locale = useLocale();
 
   const LINKS = [
+    { key: 'assistant', href: '/assistant', Icon: Sparkles, color: 'bg-purple-50 text-indigo-600' },
     { key: 'ghats', href: '/ghats', Icon: Waves, color: 'bg-blue-50 text-blue-600' },
     { key: 'temples', href: '/temples', Icon: TempleIcon, color: 'bg-orange-50 text-saffron-600' },
     { key: 'culture', href: '/culture', Icon: BookOpen, color: 'bg-amber-50 text-amber-700' },

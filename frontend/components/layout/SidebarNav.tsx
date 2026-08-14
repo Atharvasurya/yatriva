@@ -48,6 +48,7 @@ export default function SidebarNav() {
     return (
       <Link
         href={`/${locale}${href === '/' ? '' : href}`}
+        prefetch={true}
         aria-current={active ? 'page' : undefined}
         className={[
           'flex items-center gap-3 rounded-xl px-3 py-2.5',

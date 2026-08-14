@@ -34,7 +34,7 @@ export default function ScrollToTopButton() {
       onClick={scrollToTop}
       aria-label="Scroll to top"
       title="Scroll to top"
-      className={`fixed bottom-20 right-5 lg:bottom-[148px] lg:right-[24px] z-35 h-12 w-12 rounded-full flex items-center justify-center text-amber-300 border border-amber-500/30 shadow-2xl transition-all duration-300 transform hover:scale-110 active:scale-95 hover:border-amber-400 group cursor-pointer ${
+      className={`fixed bottom-[148px] right-[22px] lg:bottom-[92px] lg:right-[28px] z-35 h-11 w-11 lg:h-12 lg:w-12 rounded-full flex items-center justify-center text-amber-300 border border-amber-500/30 shadow-2xl transition-all duration-300 transform hover:scale-110 active:scale-95 hover:border-amber-400 group cursor-pointer ${
         isVisible
           ? 'opacity-100 translate-y-0 pointer-events-auto'
           : 'opacity-0 translate-y-4 pointer-events-none'
@@ -44,7 +44,7 @@ export default function ScrollToTopButton() {
         boxShadow: '0 8px 25px rgba(15, 23, 42, 0.4), 0 2px 8px rgba(0, 0, 0, 0.25)',
       }}
     >
-      <ArrowUp className="h-5 w-5 text-amber-400 transition-transform duration-200 group-hover:-translate-y-1 group-hover:text-amber-300" />
+      <ArrowUp className="h-5 w-5 text-amber-400 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:text-amber-300" />
     </button>
   );
 }

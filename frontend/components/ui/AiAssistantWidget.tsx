@@ -249,8 +249,8 @@ export default function AiAssistantWidget() {
         onClick={() => setIsOpen(true)}
         aria-label={t('title')}
         title={t('title')}
-        className={`fixed bottom-20 right-5 z-40 items-center justify-center h-14 w-14 rounded-full text-white shadow-2xl transition-all duration-300 transform hover:scale-110 active:scale-95 ${
-          isOpen ? 'hidden' : 'hidden lg:flex'
+        className={`fixed bottom-20 right-4 lg:bottom-6 lg:right-6 z-40 items-center justify-center h-14 w-14 rounded-full text-white shadow-2xl transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer ${
+          isOpen ? 'hidden' : 'flex'
         }`}
         style={{
           background: 'linear-gradient(135deg, #4F46E5 0%, #3730A3 100%)',

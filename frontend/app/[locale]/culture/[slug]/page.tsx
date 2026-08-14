@@ -62,27 +62,60 @@ export default function CultureDetailPage() {
       </Link>
 
       {/* Main Article Container */}
-      <article className="card overflow-hidden p-6 sm:p-8 space-y-6 animate-fade-up">
-        {/* Header */}
-        <div className="space-y-3 pb-5 border-b border-slate-100">
-          <div className="flex items-center justify-between gap-2">
-            <div className="p-2.5 rounded-xl bg-saffron-50 text-saffron-600" style={{ color: '#E87722', background: 'rgba(232,119,34,0.1)' }}>
-              <IconComp className="h-8 w-8" />
-            </div>
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
-              <Clock className="h-3.5 w-3.5" />
-              <span>{topic.readTimeMinutes} min read</span>
+      <article className="card overflow-hidden p-0 space-y-0 animate-fade-up border border-slate-200/90 rounded-3xl shadow-sm bg-white">
+        {/* Hero Image Banner */}
+        {topic.imageUrl && (
+          <div className="relative h-60 sm:h-72 w-full overflow-hidden bg-slate-900">
+            <img
+              src={topic.imageUrl}
+              alt={title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent" />
+            
+            <div className="absolute bottom-4 left-5 right-5 z-10 space-y-1">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500 text-white shadow-sm">
+                  <IconComp className="h-3.5 w-3.5" />
+                  <span className="capitalize">{topic.category}</span>
+                </span>
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-black/60 text-white backdrop-blur-md border border-white/20">
+                  <Clock className="h-3 w-3" />
+                  <span>{topic.readTimeMinutes} min read</span>
+                </span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight drop-shadow-md">
+                {title}
+              </h1>
             </div>
           </div>
+        )}
 
-          <h1 className="text-3xl sm:text-4xl font-black text-navy-800 leading-tight" style={{ color: '#1B2B4B' }}>
-            {title}
-          </h1>
+        <div className="p-6 sm:p-8 space-y-6">
+          {/* Header (when no image or for subtitle) */}
+          <div className="space-y-2 pb-4 border-b border-slate-100">
+            {!topic.imageUrl && (
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <div className="p-2.5 rounded-xl bg-amber-50 text-amber-700">
+                  <IconComp className="h-7 w-7" />
+                </div>
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                  <Clock className="h-3.5 w-3.5" />
+                  <span>{topic.readTimeMinutes} min read</span>
+                </div>
+              </div>
+            )}
 
-          <p className="text-sm font-bold text-saffron-600 leading-relaxed" style={{ color: '#E87722' }}>
-            {subtitle}
-          </p>
-        </div>
+            {!topic.imageUrl && (
+              <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-tight">
+                {title}
+              </h1>
+            )}
+
+            <p className="text-sm sm:text-base font-bold text-amber-700 leading-relaxed">
+              {subtitle}
+            </p>
+          </div>
 
         {/* Article Body */}
         <div className="prose text-slate-800 text-sm sm:text-base leading-relaxed space-y-4 whitespace-pre-line">
@@ -124,10 +157,11 @@ export default function CultureDetailPage() {
           </div>
         )}
 
-        {/* Authority Footer */}
-        <div className="p-4 rounded-xl bg-orange-50/70 border border-orange-200 flex items-center gap-3 text-xs text-orange-900 font-semibold">
-          <ShieldCheck className="h-5 w-5 text-saffron-600 shrink-0" style={{ color: '#E87722' }} />
-          <span>Curated from scriptural & Puranic research for the Nashik Simhastha Kumbh Mela 2027.</span>
+          {/* Authority Footer */}
+          <div className="p-4 rounded-xl bg-orange-50/70 border border-orange-200 flex items-center gap-3 text-xs text-orange-900 font-semibold">
+            <ShieldCheck className="h-5 w-5 text-amber-600 shrink-0" />
+            <span>Curated from scriptural & Puranic research for the Nashik Simhastha Kumbh Mela 2027.</span>
+          </div>
         </div>
       </article>
     </div>

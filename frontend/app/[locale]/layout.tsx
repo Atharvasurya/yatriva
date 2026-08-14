@@ -13,6 +13,7 @@ import AiAssistantWidget from '@/components/ui/AiAssistantWidget';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 import OfflineBanner from '@/components/ui/OfflineBanner';
 import Analytics from '@/components/analytics/Analytics';
+import InitialPageLoader from '@/components/ui/InitialPageLoader';
 
 // Static message imports — Turbopack-safe; avoids the next-intl plugin requirement
 // (next-intl's createNextIntlPlugin is webpack-only and incompatible with Turbopack in Next.js 16)
@@ -66,6 +67,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       statusBarStyle: 'black-translucent',
       title: 'Yatriva',
     },
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: 'any' },
+        { url: '/newlogo.png', type: 'image/png' },
+      ],
+      apple: [{ url: '/icons/icon-192.png', sizes: '192x192' }],
+    },
     openGraph: {
       type: 'website',
       siteName: 'Yatriva',
@@ -101,14 +109,18 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       className={`${inter.variable} ${notoDevanagari.variable}`}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/newlogo.png" type="image/png" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
       <body
         className="antialiased"
+        suppressHydrationWarning
         style={{
           fontFamily:
             locale === 'en'
@@ -128,9 +140,9 @@ export default async function LocaleLayout({ children, params }: Props) {
 
           {/* Global Background Image Layer */}
           <div
-            className="fixed inset-0 pointer-events-none z-0 bg-cover bg-center bg-no-repeat opacity-[0.06]"
+            className="fixed inset-0 pointer-events-none z-0 bg-cover bg-center bg-no-repeat opacity-[0.05]"
             style={{
-              backgroundImage: `url('/images/bgmain.png')`,
+              backgroundImage: `url('/images/bgmain.webp')`,
               backgroundAttachment: 'fixed',
             }}
             aria-hidden="true"
@@ -154,6 +166,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <ScrollToTopButton />
           <BottomNav />
           <Analytics />
+          <InitialPageLoader />
         </NextIntlClientProvider>
       </body>
     </html>

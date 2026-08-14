@@ -47,7 +47,7 @@ export default function CulturePage() {
       </div>
 
       {/* Topics Grid */}
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         {CULTURE_TOPICS.map((topic, index) => {
           const title = topic.title[locale] || topic.title.en;
           const subtitle = topic.subtitle[locale] || topic.subtitle.en;
@@ -57,39 +57,77 @@ export default function CulturePage() {
           return (
             <div
               key={topic.slug}
-              className={`card p-5 flex flex-col justify-between animate-fade-up delay-${(index + 1) * 100} hover:shadow-md transition-shadow`}
+              className={`group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/90 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1 animate-fade-up delay-${((index % 4) + 1) * 100}`}
             >
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <div className="p-2 rounded-xl bg-saffron-50 text-saffron-600" style={{ color: '#E87722', background: 'rgba(232,119,34,0.1)' }}>
-                    <IconComp className="h-6 w-6" />
+              <Link
+                href={`/${locale}/culture/${topic.slug}`}
+                prefetch={true}
+                className="block flex-1 cursor-pointer"
+              >
+                {/* Topic Image Banner */}
+                {topic.imageUrl ? (
+                  <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-900">
+                    <img
+                      src={topic.imageUrl}
+                      alt={title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                    
+                    {/* Read Time & Category Icon Floating Badges */}
+                    <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-900/80 text-white backdrop-blur-md border border-white/20 shadow-md">
+                        {topic.readTimeMinutes} min read
+                      </span>
+                    </div>
+
+                    <div className="absolute bottom-3 left-4 right-4 z-10 flex items-center gap-2.5">
+                      <div className="p-2 rounded-xl bg-amber-500/90 text-white backdrop-blur-md shadow-md shrink-0">
+                        <IconComp className="h-4 w-4" />
+                      </div>
+                      <h2 className="text-lg font-black text-white drop-shadow-md leading-snug">
+                        {title}
+                      </h2>
+                    </div>
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
-                    {topic.readTimeMinutes} min read
-                  </span>
+                ) : (
+                  <div className="p-5 pb-0 flex items-center justify-between gap-2">
+                    <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
+                      <IconComp className="h-5 w-5" />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
+                      {topic.readTimeMinutes} min read
+                    </span>
+                  </div>
+                )}
+
+                {/* Card Content Body */}
+                <div className="p-5 space-y-2">
+                  {!topic.imageUrl && (
+                    <h2 className="text-xl font-black text-slate-900 leading-snug group-hover:text-amber-700 transition-colors">
+                      {title}
+                    </h2>
+                  )}
+
+                  <p className="text-xs font-bold text-amber-700 leading-normal">
+                    {subtitle}
+                  </p>
+
+                  <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed pt-1">
+                    {snippet}
+                  </p>
                 </div>
+              </Link>
 
-                <h2 className="text-xl font-black text-navy-800 mb-1" style={{ color: '#1B2B4B' }}>
-                  {title}
-                </h2>
-
-                <p className="text-xs font-bold text-saffron-600 mb-3" style={{ color: '#E87722' }}>
-                  {subtitle}
-                </p>
-
-                <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed mb-4">
-                  {snippet}
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+              {/* Card Footer */}
+              <div className="p-4 px-5 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
                 <Link
                   href={`/${locale}/culture/${topic.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-navy-800 hover:text-saffron-600 transition-colors"
-                  style={{ color: '#1B2B4B' }}
+                  prefetch={true}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 hover:text-amber-700 transition-colors"
                 >
                   <span>{t('readGuide')}</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  <ArrowRight className="h-3.5 w-3.5 text-amber-600" />
                 </Link>
               </div>
             </div>

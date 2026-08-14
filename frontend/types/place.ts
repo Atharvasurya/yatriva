@@ -82,30 +82,15 @@ export interface Temple extends Place {
   youtubeVideoId?: string;
 }
 
-export interface ParkingPricing {
-  twoWheelerDaily?: number;
-  carDaily?: number;
-  busDaily?: number;
-  hourlyRate?: number;
-  currency?: string;
-  isFree?: boolean;
-}
-
 /**
  * ParkingZone — designated vehicle parking area
  */
 export interface ParkingZone extends Place {
   category: 'parking';
-  parkingType?: 'official' | 'private' | 'commercial';
   capacityVehicles: number | null; // null = PLACEHOLDER
   vehicleTypes: Array<'car' | 'bus' | 'two_wheeler' | 'heavy_vehicle'>;
   distanceToMainGhatKm: number | null; // null = PLACEHOLDER
   shuttleAvailable: boolean | null;    // null = unknown
-  imageUrl?: string;
-  pricing?: ParkingPricing;
-  amenities?: string[];
-  contactPhone?: string;
-  address?: string;
 }
 
 /**

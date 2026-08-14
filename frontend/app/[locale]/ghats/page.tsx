@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
-import { Waves, MapPin, ExternalLink, AlertTriangle, ShieldCheck, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Waves, MapPin, ExternalLink, AlertTriangle, ShieldCheck, Sparkles, CheckCircle2, Video } from 'lucide-react';
 import { GHATS } from '@/data/seed';
 
 export default function GhatsPage() {
@@ -71,12 +71,15 @@ export default function GhatsPage() {
           const desc = ghat.description?.[locale] || ghat.description?.en || '';
 
           return (
-            <Link
+            <div
               key={ghat.id}
-              href={`/${locale}/ghats/${ghat.slug}`}
-              className={`group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl border border-slate-200/80 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1.5 cursor-pointer animate-fade-up delay-${((index % 6) + 1) * 100}`}
+              className={`group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl border border-slate-200/80 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1.5 animate-fade-up delay-${((index % 6) + 1) * 100}`}
             >
-              <div>
+              <Link
+                href={`/${locale}/ghats/${ghat.slug}`}
+                prefetch={true}
+                className="block flex-1 cursor-pointer"
+              >
                 {/* Ghat Photography Banner */}
                 {ghat.imageUrl ? (
                   <div className="relative h-48 w-full overflow-hidden bg-slate-100">
@@ -140,27 +143,30 @@ export default function GhatsPage() {
                     </p>
                   )}
                 </div>
-              </div>
+              </Link>
 
               {/* Card Footer */}
               <div className="p-4 px-5 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 group-hover:text-amber-600 transition-colors">
+                <Link
+                  href={`/${locale}/ghats/${ghat.slug}`}
+                  prefetch={true}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 group-hover:text-amber-600 transition-colors"
+                >
                   <span>{t('viewDetails')}</span>
                   <ExternalLink className="h-3.5 w-3.5" />
-                </span>
+                </Link>
 
                 <a
                   href={`https://maps.google.com/?q=${ghat.coordinates.lat},${ghat.coordinates.lng}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
                   className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors"
                 >
                   <MapPin className="h-3.5 w-3.5 text-rose-500" />
                   <span>Map</span>
                 </a>
               </div>
-            </Link>
+            </div>
           );
         })}
       </div>

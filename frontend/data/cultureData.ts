@@ -11,6 +11,7 @@ export interface CultureTopic {
   subtitle: { en: string; hi: string; mr: string };
   category: 'river' | 'ramayana' | 'snan' | 'jyotirlinga' | 'monastic';
   icon: string;
+  imageUrl?: string;
   readTimeMinutes: number;
   content: { en: string; hi: string; mr: string };
   relatedPlaceSlugs?: string[];
@@ -31,6 +32,7 @@ export const CULTURE_TOPICS: CultureTopic[] = [
     },
     category: 'river',
     icon: 'Waves',
+    imageUrl: '/images/culture/godavari.jpg',
     readTimeMinutes: 4,
     relatedPlaceSlugs: ['ramkund', 'kushavarta'],
     content: {
@@ -59,6 +61,7 @@ During Jupiter's entry into the astrological sign of Leo (Simha Rashi), which oc
     },
     category: 'ramayana',
     icon: 'Landmark',
+    imageUrl: '/images/culture/panchavati.jpg',
     readTimeMinutes: 5,
     relatedPlaceSlugs: ['kalaram', 'ramkund'],
     content: {
@@ -96,6 +99,7 @@ Significant episodes of the Aranya Kanda unfolded at Panchavati, including Laksh
     },
     category: 'snan',
     icon: 'Waves',
+    imageUrl: '/images/culture/ramkund.jpg',
     readTimeMinutes: 4,
     relatedPlaceSlugs: ['ramkund', 'gorakhkund'],
     content: {
@@ -124,6 +128,7 @@ Uniquely, bone ashes (Asthi) immersed in Ramkund's waters dissolve rapidly due t
     },
     category: 'jyotirlinga',
     icon: 'Landmark',
+    imageUrl: '/images/culture/trimbakeshwar.jpg',
     readTimeMinutes: 5,
     relatedPlaceSlugs: ['trimbakeshwar', 'kushavarta'],
     content: {
@@ -152,6 +157,7 @@ The temple complex is constructed from solid black basalt stone by Peshwa Balaji
     },
     category: 'monastic',
     icon: 'Flag',
+    imageUrl: '/images/culture/akharas.jpg',
     readTimeMinutes: 6,
     relatedPlaceSlugs: ['ramkund', 'kushavarta'],
     content: {

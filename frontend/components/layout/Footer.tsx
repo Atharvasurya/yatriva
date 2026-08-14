@@ -73,34 +73,12 @@ export default function Footer() {
       sendPing(isNewSession);
     }
 
-    // 3. Connect to Real-time Server-Sent Events (SSE) stream for instant updates
-    let eventSource: EventSource | null = null;
-    try {
-      eventSource = new EventSource('/api/visitors/events');
-      eventSource.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-          handleDataUpdate(data);
-        } catch {
-          // parse error ignored
-        }
-      };
-      eventSource.onerror = () => {
-        // Fallback handled by interval
-      };
-    } catch (e) {
-      console.warn('SSE not supported, using live polling fallback', e);
-    }
-
-    // 4. Periodic heartbeat & live polling fallback
+    // 3. Periodic lightweight heartbeat (every 30 seconds)
     const interval = setInterval(() => {
       sendPing(false);
-    }, 8000);
+    }, 30000);
 
     return () => {
-      if (eventSource) {
-        eventSource.close();
-      }
       clearInterval(interval);
     };
   }, []);

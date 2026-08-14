@@ -22,6 +22,7 @@ export default function Header() {
         {/* Logo + brand name */}
         <Link
           href={`/${locale}`}
+          prefetch={true}
           className="flex items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 rounded-lg"
           aria-label="Yatriva — Home"
         >

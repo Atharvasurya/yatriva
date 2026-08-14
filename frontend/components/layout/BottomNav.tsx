@@ -41,6 +41,7 @@ export default function BottomNav() {
             <Link
               key={key}
               href={`/${locale}${href === '/' ? '' : href}`}
+              prefetch={true}
               aria-label={t(key as keyof ReturnType<typeof t>)}
               aria-current={active ? 'page' : undefined}
               className={[

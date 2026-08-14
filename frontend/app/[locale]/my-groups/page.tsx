@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { Users, UserPlus, Trash2, ArrowLeft, LogOut, UserX, ShieldAlert } from 'lucide-react';
 import IdCard, { MemberCardData } from '@/components/registration/IdCard';
+import KumbhLoader from '@/components/ui/KumbhLoader';
 
 interface GroupData {
   groupId: string;
@@ -142,9 +143,12 @@ export default function MyGroupsPage() {
 
   if (loading) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-4">
-        <div className="h-10 w-10 border-4 border-navy-700 border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-xs font-bold text-slate-500">Loading Leader Account Dashboard...</p>
+      <div className="max-w-4xl mx-auto px-4 py-16">
+        <KumbhLoader
+          size="md"
+          text="Loading Leader Account Dashboard..."
+          subtext="Syncing pilgrim safety and family network records"
+        />
       </div>
     );
   }

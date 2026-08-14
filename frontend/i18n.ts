@@ -1,8 +1,8 @@
 import { getRequestConfig } from 'next-intl/server';
-import { routing } from './routing';
-import enMessages from '../messages/en.json';
-import hiMessages from '../messages/hi.json';
-import mrMessages from '../messages/mr.json';
+import { routing } from './i18n/routing';
+import enMessages from './messages/en.json';
+import hiMessages from './messages/hi.json';
+import mrMessages from './messages/mr.json';
 
 const MESSAGES = {
   en: enMessages,

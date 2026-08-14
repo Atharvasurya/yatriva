@@ -1,4 +1,4 @@
-import { getVisitorSnapshot, subscribeToVisitorUpdates } from '@/lib/visitorTracker';
+import { getVisitorSnapshot } from '@/lib/visitorTracker';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,30 +11,19 @@ export async function GET() {
       const initial = getVisitorSnapshot();
       controller.enqueue(encoder.encode(`data: ${JSON.stringify(initial)}\n\n`));
 
-      // Listen for real-time broadcasts
-      const unsubscribe = subscribeToVisitorUpdates((data) => {
-        try {
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
-        } catch {
-          unsubscribe();
-        }
-      });
-
-      // Keep connection alive with periodic heartbeat
-      const heartbeat = setInterval(() => {
+      // Keep connection alive with periodic snapshot updates
+      const interval = setInterval(() => {
         try {
           const snapshot = getVisitorSnapshot();
           controller.enqueue(encoder.encode(`data: ${JSON.stringify(snapshot)}\n\n`));
         } catch {
-          clearInterval(heartbeat);
-          unsubscribe();
+          clearInterval(interval);
         }
       }, 15000);
 
       // Clean up when connection closes
       return () => {
-        clearInterval(heartbeat);
-        unsubscribe();
+        clearInterval(interval);
       };
     },
   });

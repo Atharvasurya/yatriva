@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import { PhoneCall, ShieldAlert, AlertTriangle, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import KumbhLoader from '@/components/ui/KumbhLoader';
 
 interface VerifyData {
   token: string;
@@ -60,9 +61,12 @@ export default function VerifyPage() {
 
   if (loading) {
     return (
-      <div className="max-w-md mx-auto px-4 py-16 text-center space-y-4">
-        <div className="h-10 w-10 border-4 border-navy-700 border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-xs font-bold text-slate-500">Verifying Pilgrim Safety Bearer Token...</p>
+      <div className="max-w-md mx-auto px-4 py-16">
+        <KumbhLoader
+          size="md"
+          text="Verifying Pilgrim QR Token..."
+          subtext="Authenticating digital pilgrim safety credential"
+        />
       </div>
     );
   }
