@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import SnanDateCard from '@/components/ui/SnanDateCard';
 import QuickActionTile from '@/components/ui/QuickActionTile';
+import NashikDarshanVideo from '@/components/ui/NashikDarshanVideo';
 import LeafletMapWrapper from '@/components/map/LeafletMapWrapper';
 import LocationPickerModal from '@/components/map/LocationPickerModal';
 import { Button } from '@/components/ds/Button';
@@ -296,6 +297,9 @@ export default function HomePageContent() {
           ))}
         </div>
       </section>
+
+      {/* ── Nashik Darshan Video Virtual Tour ──────────────────────────────── */}
+      <NashikDarshanVideo />
 
       {/* ── Family & Group Safety Registration Banner ─────────────────────── */}
       <section className="px-4 py-2 max-w-4xl mx-auto w-full">

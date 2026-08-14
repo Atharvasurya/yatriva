@@ -229,6 +229,20 @@
     "deleteConfirm": "Are you sure you want to delete your account and permanently purge all saved group registrations?",
     "logout": "Log Out"
   },
+  "darshan": {
+    "badge": "Virtual Pilgrimage & City Tour",
+    "heading": "Nashik Darshan — Virtual Pilgrimage Tour",
+    "description": "Experience holy shrines, ancient ghats, and spiritual ambiance of Nashik & Trimbakeshwar in HD video.",
+    "watchOnYouTube": "Watch on YouTube",
+    "nashikTourTitle": "Nashik & Trimbakeshwar Tour",
+    "nashikTourLoc": "Trimbakeshwar Shiva Jyotirlinga, Godavari & Nashik City",
+    "ramkundTitle": "Ramkund & Panchavati",
+    "ramkundLoc": "Sacred Ramkund Ghat, Godavari Aarti & Kalaram Temple",
+    "kushavartaTitle": "Kushavarta Kund",
+    "kushavartaLoc": "Godavari River Holy Origin & Trimbak Heritage",
+    "saptashringiTitle": "Saptashringi Devi",
+    "saptashringiLoc": "Saptashrungi 51 Shakti Peetha Mountain Shrine"
+  },
   "footer": {
     "unofficialNote": "Yatriva is an independent, unofficial visitor guide. It is not affiliated with, endorsed by, or connected to any government authority, the Kumbh Mela administration, or any religious organisation.",
     "copyright": "© 2027 Yatriva. Built for pilgrims, by pilgrims.",
