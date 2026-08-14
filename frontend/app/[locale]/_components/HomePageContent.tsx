@@ -53,7 +53,7 @@ export default function HomePageContent() {
     <>
       {/* ── Hero Slideshow Section ────────────────────────────────────────── */}
       <HeroSlideshow>
-        <div className="px-5 pt-8 pb-4 max-w-2xl mx-auto text-center">
+        <div className="px-5 pt-10 pb-12 max-w-2xl mx-auto text-center">
           <p
             className="text-xs font-black uppercase tracking-[0.2em] mb-2 animate-fade-down text-amber-300 drop-shadow-md"
             style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}
