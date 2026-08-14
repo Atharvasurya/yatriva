@@ -220,52 +220,69 @@ export default function LeafletMap({
         const place = item.place;
         const config = CATEGORY_CONFIG[place.category] || CATEGORY_CONFIG.ghat;
         const IconComponent = config.Icon;
-        const iconSvg = renderToString(<IconComponent className="h-4 w-4 text-white" />);
+        const iconSvg = renderToString(<IconComponent className="h-3 w-3 text-white" />);
         const placeName = place.name[locale] || place.name.en;
 
         const pinIcon = L.divIcon({
           className: 'custom-poi-marker',
           html: `
-            <div class="yatriva-poi-pin-container" title="${placeName}">
+            <div class="yatriva-poi-tag" title="${placeName}">
               <div style="
-                background: ${config.color};
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                border: 2px solid #FFFFFF;
-                box-shadow: 0 3px 8px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.15);
-                display: flex;
+                display: inline-flex;
                 align-items: center;
-                justify-content: center;
-                color: #FFFFFF;
+                gap: 5px;
+                background: #FFFFFF;
+                color: #0F172A;
+                padding: 2.5px 8px 2.5px 3.5px;
+                border-radius: 9999px;
+                border: 1.5px solid ${config.color};
+                box-shadow: 0 2px 6px rgba(0,0,0,0.16);
+                white-space: nowrap;
+                line-height: 1;
               ">
-                ${iconSvg}
+                <div style="
+                  width: 18px;
+                  height: 18px;
+                  border-radius: 50%;
+                  background: ${config.color};
+                  color: #FFFFFF;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-shrink: 0;
+                ">
+                  ${iconSvg}
+                </div>
+                <span style="
+                  font-size: 11px;
+                  font-weight: 750;
+                  letter-spacing: -0.01em;
+                  color: #0F172A;
+                  max-width: 140px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                ">
+                  ${placeName}
+                </span>
               </div>
               <div style="
                 width: 0;
                 height: 0;
-                border-left: 4.5px solid transparent;
-                border-right: 4.5px solid transparent;
-                border-top: 5px solid ${config.color};
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 4.5px solid ${config.color};
                 margin-top: -1px;
-                filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
               "></div>
             </div>
           `,
-          iconSize: [32, 37],
-          iconAnchor: [16, 36],
+          iconSize: [0, 0],
+          iconAnchor: [0, 0],
         });
 
         const marker = L.marker([place.coordinates.lat, place.coordinates.lng], { icon: pinIcon }).addTo(
           layerGroup
         );
-
-        marker.bindTooltip(placeName, {
-          direction: 'top',
-          offset: [0, -36],
-          className: 'yatriva-map-tooltip',
-          opacity: 1,
-        });
 
         marker.on('click', () => {
           setActivePlace(place);

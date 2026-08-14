@@ -316,18 +316,27 @@ body {
   background-repeat: no-repeat;
 }
 
-/* ─── Yatriva Custom Map Markers & Tooltips ───────────────────────────────── */
-.yatriva-poi-pin-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
-  will-change: transform;
+/* ─── Yatriva Custom Map Markers & Tags ───────────────────────────────── */
+.custom-poi-marker {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-end !important;
+  overflow: visible !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  border: none !important;
 }
 
-.custom-poi-marker:hover .yatriva-poi-pin-container {
-  transform: scale(1.18) translateY(-2px);
+.custom-poi-marker .yatriva-poi-tag {
+  transform: translate(-50%, -100%);
+  will-change: transform;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.18s ease;
+}
+
+.custom-poi-marker:hover .yatriva-poi-tag {
+  transform: translate(-50%, -100%) scale(1.08) translateY(-2px);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.28));
   z-index: 1000 !important;
 }
 
