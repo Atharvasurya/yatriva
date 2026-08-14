@@ -49,6 +49,63 @@ export default function EmergencyPage() {
         </p>
       </div>
 
+      {/* ── Ground Safety & Emergency Action Cards ── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Offline Safety Pass */}
+        <Link
+          href={`/${locale}/safety-pass`}
+          prefetch={true}
+          className="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-300 shadow-2xs hover:shadow-md transition-all group flex flex-col justify-between space-y-3"
+        >
+          <div className="flex items-start gap-3.5">
+            <div className="p-2.5 rounded-xl bg-amber-50 text-amber-700 border border-amber-200 shrink-0">
+              <Shield className="h-6 w-6 text-amber-600" />
+            </div>
+            <div className="space-y-0.5">
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800">
+                100% Offline Ready
+              </span>
+              <h2 className="text-base font-bold text-slate-900 group-hover:text-amber-700 transition-colors">
+                Offline Pilgrim Safety Pass
+              </h2>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Generate an emergency contact lockscreen pass to keep your family phone numbers visible even without network signal.
+              </p>
+            </div>
+          </div>
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 group-hover:underline self-end">
+            <span>Generate Pass →</span>
+          </div>
+        </Link>
+
+        {/* Lost & Found Registry */}
+        <Link
+          href={`/${locale}/lost-and-found`}
+          prefetch={true}
+          className="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-300 shadow-2xs hover:shadow-md transition-all group flex flex-col justify-between space-y-3"
+        >
+          <div className="flex items-start gap-3.5">
+            <div className="p-2.5 rounded-xl bg-red-50 text-red-700 border border-red-200 shrink-0">
+              <ShieldAlert className="h-6 w-6 text-red-600" />
+            </div>
+            <div className="space-y-0.5">
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-red-100 text-red-800">
+                Digital Khoya-Paya
+              </span>
+              <h2 className="text-base font-bold text-slate-900 group-hover:text-red-700 transition-colors">
+                Lost & Found Registry
+              </h2>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Search missing family members or register separated individuals with local police assistance booths.
+              </p>
+            </div>
+          </div>
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-red-700 group-hover:underline self-end">
+            <span>Open Registry →</span>
+          </div>
+        </Link>
+      </div>
+
       {/* ── Crowd-Crush & Surge Safety Card ── */}
       <Link
         href={`/${locale}/crowd-safety`}

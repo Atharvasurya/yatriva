@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import {
-  Waves, Bus, ParkingCircle, AlertTriangle, Info, Map, Globe, Check, BookOpen, ChevronRight, Sparkles, ShieldAlert
+  Waves, Bus, ParkingCircle, AlertTriangle, Info, Map, Globe, Check, BookOpen, ChevronRight, Sparkles, ShieldAlert, Accessibility, LifeBuoy, Navigation, Sun, Smartphone, UserX
 } from 'lucide-react';
 import TempleIcon from '@/components/ui/TempleIcon';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
@@ -15,12 +15,18 @@ export default function MorePage() {
 
   const LINKS = [
     { key: 'assistant', href: '/assistant', Icon: Sparkles, color: 'bg-purple-50 text-indigo-600' },
+    { key: 'safetyPass', href: '/safety-pass', Icon: Smartphone, color: 'bg-amber-50 text-amber-700' },
+    { key: 'lostAndFound', href: '/lost-and-found', Icon: UserX, color: 'bg-red-50 text-red-700' },
+    { key: 'accessibility', href: '/accessibility', Icon: Accessibility, color: 'bg-indigo-50 text-indigo-600' },
+    { key: 'waterSafety', href: '/water-safety', Icon: LifeBuoy, color: 'bg-blue-50 text-blue-600' },
+    { key: 'crowdSafety', href: '/crowd-safety', Icon: ShieldAlert, color: 'bg-red-50 text-red-700' },
+    { key: 'trafficAdvisory', href: '/traffic-advisory', Icon: Navigation, color: 'bg-amber-50 text-amber-700' },
+    { key: 'weatherHealth', href: '/weather-health', Icon: Sun, color: 'bg-orange-50 text-orange-600' },
     { key: 'ghats', href: '/ghats', Icon: Waves, color: 'bg-blue-50 text-blue-600' },
     { key: 'temples', href: '/temples', Icon: TempleIcon, color: 'bg-orange-50 text-saffron-600' },
     { key: 'culture', href: '/culture', Icon: BookOpen, color: 'bg-amber-50 text-amber-700' },
     { key: 'transport', href: '/transport', Icon: Bus, color: 'bg-navy-50 text-navy-700' },
     { key: 'parking', href: '/parking', Icon: ParkingCircle, color: 'bg-amber-50 text-amber-600' },
-    { key: 'crowdSafety', href: '/crowd-safety', Icon: ShieldAlert, color: 'bg-red-50 text-red-700' },
     { key: 'emergency', href: '/emergency', Icon: AlertTriangle, color: 'bg-red-50 text-red-600' },
     { key: 'map', href: '/map', Icon: Map, color: 'bg-emerald-50 text-emerald-600' },
     { key: 'about', href: '/about', Icon: Info, color: 'bg-indigo-50 text-indigo-600' },

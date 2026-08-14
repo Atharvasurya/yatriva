@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import {
-  Waves, Bus, ParkingCircle, AlertTriangle, Info, MapPin, Compass, Navigation, HeartPulse, Utensils, Bath, UserPlus, ShieldCheck, X, ExternalLink, ShieldAlert
+  Waves, Bus, ParkingCircle, AlertTriangle, Info, MapPin, Compass, Navigation, HeartPulse, Utensils, Bath, UserPlus, ShieldCheck, X, ExternalLink, ShieldAlert, Smartphone, Accessibility, LifeBuoy, UserX, Sun
 } from 'lucide-react';
 import SnanDateCard from '@/components/ui/SnanDateCard';
 import QuickActionTile from '@/components/ui/QuickActionTile';
@@ -382,6 +382,131 @@ export default function HomePageContent() {
             </span>
           </div>
         </Link>
+      </section>
+
+      {/* ── Ground Assistance & Real-World Safety Suite ─────────────────────── */}
+      <section className="px-4 sm:px-6 py-4 max-w-5xl mx-auto w-full space-y-3">
+        <div className="flex items-center justify-between">
+          <h2
+            className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-900"
+            style={{ color: '#0F1E35' }}
+          >
+            Ground Safety & Pilgrim Care
+          </h2>
+          <span className="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+            Kumbh 2027 Services
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
+          {/* Offline Safety Pass */}
+          <Link
+            href={`/${locale}/safety-pass`}
+            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+          >
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-amber-50 text-amber-700">
+                <Smartphone className="h-4 w-4" />
+              </div>
+              <span className="text-[11px] font-black text-slate-900 group-hover:text-amber-700 transition-colors">
+                Safety Pass
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
+              1-Tap lockscreen emergency ID
+            </p>
+          </Link>
+
+          {/* Lost & Found */}
+          <Link
+            href={`/${locale}/lost-and-found`}
+            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-red-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+          >
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-red-50 text-red-700">
+                <UserX className="h-4 w-4" />
+              </div>
+              <span className="text-[11px] font-black text-slate-900 group-hover:text-red-700 transition-colors">
+                Lost & Found
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
+              Missing persons & police booths
+            </p>
+          </Link>
+
+          {/* Elderly & Accessibility */}
+          <Link
+            href={`/${locale}/accessibility`}
+            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+          >
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-indigo-50 text-indigo-700">
+                <Accessibility className="h-4 w-4" />
+              </div>
+              <span className="text-[11px] font-black text-slate-900 group-hover:text-indigo-700 transition-colors">
+                Senior Care
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
+              Step-free ramps & free e-carts
+            </p>
+          </Link>
+
+          {/* Ghat Water Safety */}
+          <Link
+            href={`/${locale}/water-safety`}
+            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+          >
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-blue-50 text-blue-700">
+                <LifeBuoy className="h-4 w-4" />
+              </div>
+              <span className="text-[11px] font-black text-slate-900 group-hover:text-blue-700 transition-colors">
+                Ghat Depth
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
+              Dam release & safe snan zones
+            </p>
+          </Link>
+
+          {/* Traffic & Shuttle Transit */}
+          <Link
+            href={`/${locale}/traffic-advisory`}
+            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+          >
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-amber-50 text-amber-700">
+                <Navigation className="h-4 w-4" />
+              </div>
+              <span className="text-[11px] font-black text-slate-900 group-hover:text-amber-700 transition-colors">
+                Shuttle Transit
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
+              Satellite parking & bus routes
+            </p>
+          </Link>
+
+          {/* Weather & Health */}
+          <Link
+            href={`/${locale}/weather-health`}
+            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-orange-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+          >
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-orange-50 text-orange-700">
+                <Sun className="h-4 w-4" />
+              </div>
+              <span className="text-[11px] font-black text-slate-900 group-hover:text-orange-700 transition-colors">
+                Weather & Health
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
+              Free water kiosks & heatstroke guide
+            </p>
+          </Link>
+        </div>
       </section>
 
       {/* ── Quick Guide Grid ──────────────────────────────────────────────── */}
