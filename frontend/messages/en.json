@@ -147,6 +147,9 @@
   "about": {
     "title": "About Yatriva",
     "subtitle": "Independent Kumbh Mela Visitor Guide",
+    "teamBadge": "The Minds Behind Yatriva",
+    "teamTitle": "Meet Our Team",
+    "teamSubtitle": "Engineers and designers building multi-lingual, resilient digital tools for Nashik Simhastha Kumbh Mela 2027.",
     "missionTitle": "Our Mission",
     "missionText": "Yatriva is created to provide accessible, multi-lingual, and reliable guidance for millions of pilgrims visiting the Nashik-Trimbakeshwar Simhastha Kumbh Mela 2027.",
     "dataTitle": "Data Integrity & Transparency",

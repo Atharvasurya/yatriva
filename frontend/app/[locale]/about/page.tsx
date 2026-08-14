@@ -31,9 +31,12 @@ export default function AboutPage() {
         <div className="text-center space-y-2">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 text-xs font-bold uppercase tracking-wider">
             <Users className="w-4 h-4 text-amber-600" />
-            <span>The Minds Behind Yatriva</span>
+            <span>{t('teamBadge')}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Meet Our Team</h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">{t('teamTitle')}</h2>
+          <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto leading-relaxed">
+            {t('teamSubtitle')}
+          </p>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
