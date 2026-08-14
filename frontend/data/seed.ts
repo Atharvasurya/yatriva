@@ -62,7 +62,7 @@ export const GHATS: Ghat[] = [
       hi: 'रामकुंड घाट',
       mr: 'रामकुंड घाट',
     },
-    coordinates: { lat: 19.9961, lng: 73.7888 },
+    coordinates: { lat: 20.0063, lng: 73.7915 },
     description: {
       en: 'The most sacred bathing ghat on the Godavari river in Nashik, where Lord Ram is believed to have bathed during his exile. Primary Amrit Snan site.',
       hi: 'नाशिक में गोदावरी नदी पर सबसे पवित्र स्नान घाट, जहाँ भगवान राम ने अपने वनवास के दौरान स्नान किया था। मुख्य अमृत स्नान स्थल।',
@@ -106,7 +106,7 @@ export const GHATS: Ghat[] = [
       hi: 'कुशावर्त घाट',
       mr: 'कुशावर्त घाट',
     },
-    coordinates: { lat: 19.9416, lng: 73.5306 },
+    coordinates: { lat: 19.9325, lng: 73.5306 },
     description: {
       en: 'Sacred bathing kund (tank) at Trimbakeshwar, considered the source of the Godavari river. Key Snan site during Kumbh.',
       hi: 'त्र्यंबकेश्वर में पवित्र स्नान कुंड, जो गोदावरी नदी का उद्गम माना जाता है। कुंभ के दौरान मुख्य स्नान स्थल।',
@@ -318,7 +318,7 @@ export const TEMPLES: Temple[] = [
       hi: 'काळाराम मंदिर',
       mr: 'काळाराम मंदिर',
     },
-    coordinates: { lat: 19.9934, lng: 73.7875 },
+    coordinates: { lat: 20.0076, lng: 73.7942 },
     description: {
       en: 'Historic Rama temple in Panchvati, Nashik, built in black stone. One of the most visited temples during Kumbh.',
       hi: 'नाशिक के पंचवटी में काले पत्थर से बना ऐतिहासिक राम मंदिर। कुंभ के दौरान सबसे अधिक देखे जाने वाले मंदिरों में से एक।',
@@ -392,7 +392,7 @@ export const TEMPLES: Temple[] = [
       hi: 'मुक्तिधाम मंदिर',
       mr: 'मुक्तिधाम मंदिर',
     },
-    coordinates: { lat: 19.9531, lng: 73.8276 },
+    coordinates: { lat: 19.9535, lng: 73.8315 },
     description: {
       en: 'Renowned temple complex built with pure Rajasthan Makrana white marble, featuring replicas of 12 Jyotirlingas and 18 chapters of Bhagavad Gita inscribed on walls.',
       hi: 'शुद्ध राजस्थान मकराना सफेद संगमरमर से निर्मित प्रसिद्ध मंदिर परिसर, जिसमें 12 ज्योतिर्लिंगों की प्रतिकृतियां और दीवारों पर भगवद गीता के 18 अध्याय उकेरे गए हैं।',
@@ -429,7 +429,7 @@ export const TEMPLES: Temple[] = [
       hi: 'कपालेश्वर महादेव मंदिर',
       mr: 'कपालेश्वर महादेव मंदिर',
     },
-    coordinates: { lat: 19.9960, lng: 73.7890 },
+    coordinates: { lat: 20.0068, lng: 73.7918 },
     description: {
       en: 'Ancient Shiva temple near Ramkund in Panchavati. Unique among Shiva shrines as Nandi is absent because Shiva accepted Nandi as his Guru here.',
       hi: 'पंचवटी में रामकुंड के पास प्राचीन शिव मंदिर। शिव मंदिरों में अद्वितीय क्योंकि यहाँ नंदी अनुपस्थित हैं क्योंकि शिवजी ने यहाँ नंदी को अपना गुरु माना था।',
@@ -466,7 +466,7 @@ export const TEMPLES: Temple[] = [
       hi: 'सोमेश्वर शिव मंदिर',
       mr: 'सोमेश्वर शिव मंदिर',
     },
-    coordinates: { lat: 20.0210, lng: 73.7375 },
+    coordinates: { lat: 20.0192, lng: 73.7381 },
     description: {
       en: 'Picturesque temple of Lord Shiva located on the serene banks of Godavari River in Gangapur, surrounded by greenery and a small scenic waterfall.',
       hi: 'गंगापुर में गोदावरी नदी के शांत तट पर स्थित भगवान शिव का सुरम्य मंदिर, जो हरियाली और एक छोटे सुंदर झरने से घिरा हुआ है।',
@@ -503,7 +503,7 @@ export const TEMPLES: Temple[] = [
       hi: 'नवश्या गणपती मंदिर',
       mr: 'नवश्या गणपती मंदिर',
     },
-    coordinates: { lat: 20.0090, lng: 73.7630 },
+    coordinates: { lat: 20.0088, lng: 73.7540 },
     description: {
       en: 'Historic 300+ year old Lord Ganesha temple established during Raghunathrao Peshwa era on the Godavari banks in Anandvalli, Nashik.',
       hi: 'आनंदवल्ली नाशिक में गोदावरी के तट पर रघुनाथराव पेशवा काल के दौरान स्थापित 300 से अधिक वर्ष पुराना ऐतिहासिक भगवान गणेश मंदिर।',
@@ -541,7 +541,7 @@ export const TEMPLES: Temple[] = [
       hi: 'सीता गुफा (पंचवटी)',
       mr: 'सीता गुंफा (पंचवटी)',
     },
-    coordinates: { lat: 19.9940, lng: 73.7880 },
+    coordinates: { lat: 20.0084, lng: 73.7955 },
     description: {
       en: 'Sacred cave complex near Kalaram temple where Goddess Sita stayed during Panchavati exile and from where Ravana abducted her. Surrounded by five ancient banyan trees.',
       hi: 'काळाराम मंदिर के पास पवित्र गुफा परिसर जहाँ पंचवटी वनवास के दौरान देवी सीता ठहरी थीं और जहाँ से रावण ने उनका अपहरण किया था। पांच प्राचीन बरगद के पेड़ों से घिरा हुआ।',
@@ -668,7 +668,7 @@ export const TRANSPORT_HUBS: TransportHub[] = [
       hi: 'नाशिक रोड रेलवे स्टेशन (NK)',
       mr: 'नाशिक रोड रेल्वे स्थानक (NK)',
     },
-    coordinates: { lat: 19.9536, lng: 73.8294 },
+    coordinates: { lat: 19.9576, lng: 73.8344 },
     hubType: 'railway_station',
     verified: true,
   },
@@ -681,7 +681,7 @@ export const TRANSPORT_HUBS: TransportHub[] = [
       hi: 'CBS (केंद्रीय बस स्टैंड) नाशिक',
       mr: 'CBS (मध्यवर्ती बस स्थानक) नाशिक',
     },
-    coordinates: { lat: 19.9975, lng: 73.7840 },
+    coordinates: { lat: 19.9972, lng: 73.7845 },
     hubType: 'bus_stand',
     verified: true,
   },
@@ -694,7 +694,7 @@ export const TRANSPORT_HUBS: TransportHub[] = [
       hi: 'महामार्ग बस स्टैंड (मुंबई नाका)',
       mr: 'महामार्ग बस स्थानक (मुंबई नाका)',
     },
-    coordinates: { lat: 19.9862, lng: 73.7848 },
+    coordinates: { lat: 19.9868, lng: 73.7788 },
     hubType: 'bus_stand',
     verified: true,
   },
@@ -707,7 +707,7 @@ export const TRANSPORT_HUBS: TransportHub[] = [
       hi: 'निमानी बस स्टैंड (पंचवटी)',
       mr: 'निमाणी बस स्थानक (पंचवटी)',
     },
-    coordinates: { lat: 20.0035, lng: 73.7938 },
+    coordinates: { lat: 20.0075, lng: 73.7910 },
     hubType: 'bus_stand',
     verified: true,
   },
@@ -738,7 +738,7 @@ export const MEDICAL_POSTS: Place[] = [
       hi: 'रामकुंड 24x7 आपातकालीन चिकित्सा सहायता केंद्र',
       mr: 'रामकुंड २४x७ आपत्कालीन वैद्यकीय मदत केंद्र',
     },
-    coordinates: { lat: 19.9965, lng: 73.7884 },
+    coordinates: { lat: 20.0065, lng: 73.7912 },
     description: {
       en: '24x7 Emergency medical aid center near Ramkund Ghat with ICU ambulances and doctor teams on standby.',
       hi: 'रामकुंड घाट के पास आईसीयू एम्बुलेंस और डॉक्टरों के साथ 24x7 आपातकालीन चिकित्सा केंद्र।',
@@ -756,7 +756,7 @@ export const MEDICAL_POSTS: Place[] = [
       hi: 'नाशिक जिला नागरिक अस्पताल',
       mr: 'नाशिक जिल्हा सामान्य रुग्णालय',
     },
-    coordinates: { lat: 19.9950, lng: 73.7830 },
+    coordinates: { lat: 19.9950, lng: 73.7865 },
     description: {
       en: 'Apex tertiary district government hospital with trauma care, blood bank, and 500+ emergency beds.',
       hi: 'ट्रॉमा केयर, ब्लड बैंक और 500+ आपातकालीन बिस्तरों से युक्त प्रमुख सरकारी जिला अस्पताल।',
@@ -797,7 +797,7 @@ export const POLICE_BOOTHS: Place[] = [
       hi: 'रामकुंड पुलिस सहायता और खोया-पाया कक्ष',
       mr: 'रामकुंड पोलीस मदत व हरवले-सापडले कक्ष',
     },
-    coordinates: { lat: 19.9958, lng: 73.7892 },
+    coordinates: { lat: 20.0060, lng: 73.7918 },
     description: {
       en: '24x7 Crowd control, missing person registry, and tourist safety booth managed by Nashik City Police.',
       hi: 'नाशिक पुलिस द्वारा 24x7 संचालित भीड़ नियंत्रण, गुमशुदा व्यक्ति सहायता और तीर्थयात्री सुरक्षा कक्ष।',
@@ -815,7 +815,7 @@ export const POLICE_BOOTHS: Place[] = [
       hi: 'पंचवटी पुलिस स्टेशन',
       mr: 'पंचवटी पोलीस ठाणे',
     },
-    coordinates: { lat: 19.9995, lng: 73.7930 },
+    coordinates: { lat: 20.0082, lng: 73.7925 },
     description: {
       en: 'Main sectoral police headquarters for Panchavati, Godaghat, and Kalaram temple zones.',
       hi: 'पंचवटी, गोदाघाट और काळाराम मंदिर क्षेत्र का मुख्य पुलिस थाना।',
@@ -856,7 +856,7 @@ export const PUBLIC_TOILETS: Place[] = [
       hi: 'पंचवटी महा स्वच्छता परिसर',
       mr: 'पंचवटी महा स्वच्छता गृह',
     },
-    coordinates: { lat: 19.9948, lng: 73.7881 },
+    coordinates: { lat: 20.0055, lng: 73.7920 },
     description: {
       en: 'High-capacity public toilets, changing cubicles, and clean drinking water points near Panchvati ghats.',
       hi: 'पंचवटी घाटों के पास उच्च क्षमता वाले सार्वजनिक शौचालय, चेंजिंग रूम और पेयजल पॉइंट।',
@@ -897,7 +897,7 @@ export const FOOD_ZONES: Place[] = [
       hi: 'रामकुंड नि:शुल्क अन्नक्षेत्र (महाप्रसाद)',
       mr: 'रामकुंड मोफत अन्नछत्र (महाप्रसाद)',
     },
-    coordinates: { lat: 19.9968, lng: 73.7898 },
+    coordinates: { lat: 20.0069, lng: 73.7930 },
     description: {
       en: 'Continuous free hot vegetarian meals (Mahaprasad) and pure RO drinking water distributed daily to all pilgrims.',
       hi: 'सभी तीर्थयात्रियों के लिए प्रतिदिन निरंतर नि:शुल्क शुद्ध शाकाहारी महाप्रसाद और स्वच्छ पेयजल।',
@@ -915,7 +915,7 @@ export const FOOD_ZONES: Place[] = [
       hi: 'तपोवन साधुग्राम अन्नक्षेत्र केंद्र',
       mr: 'तपोवन साधुग्राम अन्नछत्र केंद्र',
     },
-    coordinates: { lat: 19.9970, lng: 73.8160 },
+    coordinates: { lat: 19.9942, lng: 73.8185 },
     description: {
       en: 'Mass community kitchen and prasad distribution center operated by Akhadas and social trusts at Sadhugram.',
       hi: 'साधुग्राम में अखाड़ों और सामाजिक संस्थाओं द्वारा संचालित विशाल सामुदायिक भोजन और प्रसाद वितरण केंद्र।',
@@ -938,7 +938,7 @@ export const INFO_CENTRES: Place[] = [
       hi: 'CBS तीर्थयात्री सुविधा एवं सूचना केंद्र',
       mr: 'CBS यात्रेकरू सुविधा व माहिती केंद्र',
     },
-    coordinates: { lat: 20.0008, lng: 73.7868 },
+    coordinates: { lat: 19.9975, lng: 73.7842 },
     description: {
       en: 'Official pilgrim facilitation counter providing physical route maps, shuttle schedules, and multilingual guides.',
       hi: 'भौतिक मार्ग मानचित्र, शटल समय सारणी और बहुभाषी मार्गदर्शन प्रदान करने वाला आधिकारिक केंद्र।',
@@ -956,7 +956,7 @@ export const INFO_CENTRES: Place[] = [
       hi: 'रामकुंड तीर्थयात्री सहायता केंद्र',
       mr: 'रामकुंड यात्रेकरू मदत केंद्र',
     },
-    coordinates: { lat: 19.9960, lng: 73.7885 },
+    coordinates: { lat: 20.0062, lng: 73.7911 },
     description: {
       en: '24x7 On-ground pilgrim guidance center at Ramkund offering emergency directions, announcements, and lost person queries.',
       hi: 'रामकुंड पर 24x7 जमीनी मार्गदर्शन केंद्र, आपातकालीन घोषणाएं और दिशा-निर्देश।',

@@ -152,6 +152,16 @@ export default function LeafletMap({
     };
   }, [initialZoom, userLocation]);
 
+  // Pan / FlyTo whenever userLocation changes
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map || !userLocation) return;
+    map.flyTo([userLocation.lat, userLocation.lng], Math.max(map.getZoom(), 15), {
+      duration: 1.0,
+      easeLinearity: 0.25,
+    });
+  }, [userLocation]);
+
   // Sync markers when items or user location changes
   useEffect(() => {
     const map = mapInstanceRef.current;
@@ -160,32 +170,45 @@ export default function LeafletMap({
 
     layerGroup.clearLayers();
 
-    // Render User Location Pin (Distinct pulses)
+    // Render User Location Pin (Distinct precision radar beacon)
     if (userLocation) {
+      const isLive = locationSource === 'gps';
       const userIcon = L.divIcon({
         className: 'user-location-marker',
         html: `
-          <div style="
-            background: #E87722;
-            width: 18px; height: 18px;
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 12px rgba(232,119,34,0.6);
-            display: flex; align-items: center; justify-content: center;
-          ">
-            <div style="background: white; width: 6px; height: 6px; border-radius: 50%;"></div>
+          <div style="position: relative; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+            <div style="
+              position: absolute;
+              width: 32px; height: 32px;
+              border-radius: 50%;
+              background: ${isLive ? 'rgba(37, 99, 235, 0.25)' : 'rgba(232, 119, 34, 0.25)'};
+              border: 1.5px solid ${isLive ? '#2563EB' : '#E87722'};
+              animation: yatriva-pulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            "></div>
+            <div style="
+              position: relative;
+              background: ${isLive ? '#2563EB' : '#E87722'};
+              width: 14px; height: 14px;
+              border-radius: 50%;
+              border: 2.5px solid #FFFFFF;
+              box-shadow: 0 0 10px ${isLive ? 'rgba(37,99,235,0.7)' : 'rgba(232,119,34,0.7)'}, 0 2px 6px rgba(0,0,0,0.3);
+            "></div>
           </div>
         `,
-        iconSize: [24, 24],
-        iconAnchor: [12, 12],
+        iconSize: [32, 32],
+        iconAnchor: [16, 16],
       });
 
-      L.marker([userLocation.lat, userLocation.lng], { icon: userIcon })
+      L.marker([userLocation.lat, userLocation.lng], { icon: userIcon, zIndexOffset: 2000 })
         .addTo(layerGroup)
-        .bindTooltip(locationSource === 'gps' ? 'Live Location' : 'Selected Landmark', {
-          permanent: false,
-          direction: 'top',
-        });
+        .bindTooltip(
+          isLive ? '📍 Live GPS Location' : '📍 Current Landmark',
+          {
+            permanent: false,
+            direction: 'top',
+            offset: [0, -10],
+          }
+        );
     }
 
     // Render Clustered or Individual Pins

@@ -357,6 +357,21 @@ body {
   border-top-color: rgba(15, 23, 42, 0.92) !important;
 }
 
+@keyframes yatriva-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.95;
+  }
+  70% {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+}
+
 /* ─── Motion — prefers-reduced-motion ────────────────────────────────────── */
 /* Must be the last rule so it overrides everything above */
 @media (prefers-reduced-motion: reduce) {
