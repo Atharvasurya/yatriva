@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import {
-  Sparkles, Waves, Compass, Landmark, Flag, BookOpen, ChevronRight, Check, Droplets, Sun, Star, ShieldCheck
+  Sparkles, Waves, Compass, Landmark, Flag, BookOpen, ChevronRight, Check, Droplets, Sun, Star, ShieldCheck, ExternalLink
 } from 'lucide-react';
 
 interface StoryChapter {
@@ -22,6 +22,7 @@ interface StoryChapter {
   highlightFact: { en: string; hi: string; mr: string };
   imageSrc?: string;
   imageAlt?: string;
+  imageSource?: string;
   icon: typeof Waves;
   accentColor: string;
   bgLight: string;
@@ -48,6 +49,7 @@ const CHAPTERS: StoryChapter[] = [
     },
     imageSrc: '/images/samudra-manthan.jpg',
     imageAlt: 'Samudra Manthan - Cosmic Ocean Churning and Golden Amrit Pot',
+    imageSource: 'National Museum Heritage Collection & Vedic Digital Archives',
     narrative: {
       en: 'According to Hindu Puranas, the Devas (gods) and Asuras (demons) churned the cosmic ocean of milk (Kshira Sagara) using Mount Mandara as the rod and serpent Vasuki as the rope to obtain the nectar of immortality (Amrita). When Lord Dhanvantari emerged holding the golden pot (Kumbha) of Amrita, a celestial pursuit ensued across the cosmos.',
       hi: 'हिंदू पुराणों के अनुसार, देवताओं और दानवों ने अमरता का अमृत पाने के लिए मंदराचल पर्वत और वासुकी नाग की सहायता से क्षीरसागर का मंथन किया। जब भगवान धन्वंतरि अमृत का स्वर्ण कुंभ (कलश) लेकर प्रकट हुए, तो अमृत पाने के लिए देवताओं और असुरों के बीच संघर्ष हुआ।',
@@ -251,34 +253,15 @@ export default function KumbhStoryInteractive() {
   return (
     <section
       id="kumbh-story"
-      className="px-4 sm:px-6 py-6 max-w-5xl mx-auto w-full"
+      className="w-full bg-[#FAF5EC] border-y border-amber-200/90 py-8 sm:py-12 my-4 shadow-inner"
       aria-labelledby="kumbh-story-heading"
     >
-      {/* ── Distinctive Royal Exhibit Container ─────────────────────────── */}
-      <div
-        className="rounded-3xl p-5 sm:p-8 text-white space-y-6 shadow-2xl border relative overflow-hidden"
-        style={{
-          background: 'linear-gradient(145deg, #0F1E35 0%, #152B4D 55%, #0B1728 100%)',
-          borderColor: 'rgba(232, 119, 34, 0.45)',
-        }}
-      >
-        {/* Subtle Ambient Decorative Glows */}
-        <div
-          className="absolute -top-24 -right-24 w-72 h-72 rounded-full pointer-events-none opacity-20 blur-3xl"
-          style={{ background: '#E87722' }}
-          aria-hidden="true"
-        />
-        <div
-          className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full pointer-events-none opacity-15 blur-3xl"
-          style={{ background: '#3B82F6' }}
-          aria-hidden="true"
-        />
-
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 space-y-6">
         {/* ── Section Header ───────────────────────────────────────────── */}
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-3 pb-4 border-b border-white/15">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-400/40 shadow-inner">
-              <Sparkles className="h-3.5 w-3.5 text-amber-300" />
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pb-3 border-b border-amber-200/70">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 shadow-2xs">
+              <Sparkles className="h-3.5 w-3.5 text-amber-700" />
               <span>
                 {locale === 'hi'
                   ? 'सिंहस्थ कुंभ महात्म्य एवं पौराणिक गाथा'
@@ -289,7 +272,8 @@ export default function KumbhStoryInteractive() {
             </div>
             <h2
               id="kumbh-story-heading"
-              className="text-xl sm:text-3xl font-black text-white tracking-tight leading-tight"
+              className="text-xl sm:text-3xl font-black tracking-tight"
+              style={{ color: '#0F1E35' }}
             >
               {locale === 'hi'
                 ? 'कुंभ मेले का रहस्य और आध्यात्मिक महत्व'
@@ -297,7 +281,7 @@ export default function KumbhStoryInteractive() {
                 ? 'कुंभमेळ्याचे रहस्य आणि आध्यात्मिक महत्त्व'
                 : 'The Story & Spiritual Significance of Kumbh Mela'}
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 font-medium">
+            <p className="text-xs sm:text-sm text-slate-600 font-medium">
               {locale === 'hi'
                 ? 'जानिए हर 12 वर्ष में नाशिक-त्र्यंबकेश्वर में करोड़ों श्रद्धालु क्यों एकत्रित होते हैं।'
                 : locale === 'mr'
@@ -308,17 +292,17 @@ export default function KumbhStoryInteractive() {
 
           <Link
             href={`/${locale}/culture`}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-300 hover:text-amber-200 transition-colors shrink-0 group self-start sm:self-auto bg-white/10 hover:bg-white/15 px-3.5 py-1.5 rounded-xl border border-white/15"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 hover:text-amber-900 transition-colors shrink-0 group self-start sm:self-auto bg-white hover:bg-amber-50 px-3.5 py-1.5 rounded-xl border border-amber-300/80 shadow-2xs"
           >
             <span>
-              {locale === 'hi' ? 'सभी सांस्कृतिक लेख' : locale === 'mr' ? 'सर्व सांस्कृतिक माहिती' : 'Explore All Heritage'}
+              {locale === 'hi' ? 'सभी सांस्कृतिक लेख देखें' : locale === 'mr' ? 'सर्व सांस्कृतिक माहिती' : 'Explore All Heritage'}
             </span>
             <ChevronRight className="h-4 w-4 transform group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
 
         {/* ── Interactive Chapter Switcher Tabs ────────────────────────── */}
-        <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 bg-black/25 p-1.5 rounded-2xl border border-white/10 backdrop-blur-md">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 bg-amber-100/60 p-1.5 rounded-2xl border border-amber-200/80">
           {CHAPTERS.map((chapter, idx) => {
             const isActive = idx === activeChapterIndex;
             const TabIcon = chapter.icon;
@@ -329,13 +313,13 @@ export default function KumbhStoryInteractive() {
                 onClick={() => setActiveChapterIndex(idx)}
                 className={`p-2.5 sm:p-3 rounded-xl text-left transition-all flex items-center gap-2.5 min-h-[52px] cursor-pointer ${
                   isActive
-                    ? 'bg-amber-500 text-slate-950 font-black shadow-lg ring-2 ring-amber-300/80'
-                    : 'text-slate-200 hover:text-white hover:bg-white/10'
+                    ? 'bg-white shadow-md text-slate-950 font-black border border-amber-400 ring-2 ring-amber-500/20'
+                    : 'text-slate-700 hover:text-slate-900 hover:bg-white/60'
                 }`}
               >
                 <div
                   className={`p-2 rounded-lg shrink-0 transition-colors ${
-                    isActive ? 'bg-slate-950 text-amber-400' : 'bg-white/10 text-slate-300'
+                    isActive ? 'bg-amber-500 text-white' : 'bg-amber-200/60 text-slate-700'
                   }`}
                 >
                   <TabIcon className="h-4 w-4" />
@@ -343,7 +327,7 @@ export default function KumbhStoryInteractive() {
                 <div className="overflow-hidden">
                   <span
                     className={`text-[10px] font-bold uppercase tracking-wider block ${
-                      isActive ? 'text-slate-900/80 font-black' : 'text-slate-400'
+                      isActive ? 'text-amber-800' : 'text-slate-500'
                     }`}
                   >
                     Chapter {idx + 1}
@@ -359,7 +343,7 @@ export default function KumbhStoryInteractive() {
 
         {/* ── Active Chapter Presentation Box with Animated Clipart ───── */}
         <div
-          className="relative z-10 p-5 sm:p-8 rounded-3xl bg-white text-slate-900 shadow-2xl transition-all space-y-6 animate-in fade-in duration-200"
+          className="p-5 sm:p-8 rounded-3xl bg-white text-slate-900 shadow-md border border-amber-200/90 transition-all space-y-6 animate-in fade-in duration-200"
         >
           {/* Animated Clipart Feature Banner (if chapter has image) */}
           {activeChapter.imageSrc && (
@@ -373,24 +357,33 @@ export default function KumbhStoryInteractive() {
                   className="object-cover object-center transform transition-transform duration-700 group-hover:scale-[1.02]"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
 
-                {/* Floating Golden Amrit Droplet Glow Effects */}
-                <div className="absolute top-4 right-4 sm:top-6 sm:right-6 pointer-events-none">
-                  <div className="flex items-center gap-1.5 bg-amber-500/90 backdrop-blur-md text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-lg border border-amber-300/40 animate-pulse">
-                    <Sparkles className="h-3.5 w-3.5 text-amber-200" />
+                {/* Floating Golden Amrit Droplet Glow Badge */}
+                <div className="absolute top-4 right-4 sm:top-5 sm:right-5 pointer-events-none">
+                  <div className="flex items-center gap-1.5 bg-amber-500/95 backdrop-blur-md text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-lg border border-amber-300 animate-pulse">
+                    <Sparkles className="h-3.5 w-3.5 text-amber-100" />
                     <span>Amrita Kumbha</span>
                   </div>
                 </div>
 
-                {/* Bottom Image Caption Overlay */}
-                <div className="absolute bottom-3 left-4 right-4 text-white">
-                  <span className="text-[10px] uppercase tracking-widest text-amber-300 font-extrabold block drop-shadow-md">
-                    Vedic Sacred Legend
-                  </span>
-                  <p className="text-xs sm:text-sm font-bold text-white/95 leading-tight drop-shadow-md">
-                    Samudra Manthan: Mount Mandara & Vasuki Serpent Churning the Cosmic Ocean of Milk
-                  </p>
+                {/* Bottom Image Caption & Mentioned Internet Source */}
+                <div className="absolute bottom-3 left-4 right-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2 text-white">
+                  <div>
+                    <span className="text-[10px] uppercase tracking-widest text-amber-300 font-extrabold block drop-shadow-md">
+                      Vedic Sacred Legend
+                    </span>
+                    <p className="text-xs sm:text-sm font-bold text-white/95 leading-tight drop-shadow-md">
+                      Samudra Manthan: Mount Mandara & Vasuki Serpent Churning the Cosmic Ocean of Milk
+                    </p>
+                  </div>
+
+                  {activeChapter.imageSource && (
+                    <div className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-200/90 bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/20 self-start sm:self-auto shrink-0">
+                      <ShieldCheck className="h-3 w-3 text-amber-400 shrink-0" />
+                      <span>Source: {activeChapter.imageSource}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -429,7 +422,7 @@ export default function KumbhStoryInteractive() {
             {(activeChapter.bulletPoints[locale] || activeChapter.bulletPoints.en).map((point, i) => (
               <div
                 key={i}
-                className="p-4 rounded-2xl bg-slate-50/90 border border-slate-200/80 flex items-start gap-3 text-xs sm:text-xs text-slate-700 leading-relaxed hover:border-slate-300 transition-colors"
+                className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3 text-xs sm:text-xs text-slate-700 leading-relaxed hover:border-amber-300 transition-colors"
               >
                 <div className="p-1 rounded-full bg-amber-100 text-amber-800 shrink-0 mt-0.5">
                   <Check className="h-3 w-3 stroke-[3]" />
@@ -462,27 +455,29 @@ export default function KumbhStoryInteractive() {
         </div>
 
         {/* ── 4 Quick Milestone Stat Badges ───────────────────────────── */}
-        <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center space-y-1 shadow-inner">
-            <span className="text-xl sm:text-2xl font-black text-amber-300 block">12 Years</span>
-            <span className="text-xs font-bold text-slate-300">1 Divine Day = 1 Year</span>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="p-4 rounded-2xl bg-white border border-amber-200/80 text-center space-y-1 shadow-2xs">
+            <span className="text-xl sm:text-2xl font-black text-amber-700 block">12 Years</span>
+            <span className="text-xs font-bold text-slate-500">1 Divine Day = 1 Year</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center space-y-1 shadow-inner">
-            <span className="text-xl sm:text-2xl font-black text-sky-300 block">4 Sacred Sites</span>
-            <span className="text-xs font-bold text-slate-300">Nashik, Ujjain, Haridwar, Prayag</span>
+          <div className="p-4 rounded-2xl bg-white border border-amber-200/80 text-center space-y-1 shadow-2xs">
+            <span className="text-xl sm:text-2xl font-black text-navy-800 block" style={{ color: '#0F1E35' }}>
+              4 Sacred Sites
+            </span>
+            <span className="text-xs font-bold text-slate-500">Nashik, Ujjain, Haridwar, Prayag</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center space-y-1 shadow-inner">
-            <span className="text-xl sm:text-2xl font-black text-emerald-300 block">30M+ Pilgrims</span>
-            <span className="text-xs font-bold text-slate-300">Largest Gathering</span>
+          <div className="p-4 rounded-2xl bg-white border border-amber-200/80 text-center space-y-1 shadow-2xs">
+            <span className="text-xl sm:text-2xl font-black text-emerald-800 block">30M+ Pilgrims</span>
+            <span className="text-xs font-bold text-slate-500">Largest Gathering</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center space-y-1 shadow-inner">
-            <span className="text-xl sm:text-2xl font-black text-orange-300 block">
+          <div className="p-4 rounded-2xl bg-white border border-amber-200/80 text-center space-y-1 shadow-2xs">
+            <span className="text-xl sm:text-2xl font-black text-saffron-600 block" style={{ color: '#E87722' }}>
               13 Holy Akhadas
             </span>
-            <span className="text-xs font-bold text-slate-300">Ancient Ascetic Orders</span>
+            <span className="text-xs font-bold text-slate-500">Ancient Ascetic Orders</span>
           </div>
         </div>
       </div>
