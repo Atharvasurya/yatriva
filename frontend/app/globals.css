@@ -372,6 +372,62 @@ body {
   }
 }
 
+/* ─── Snan Water Box Fluid Animations ─────────────────────────────────── */
+.snan-water-box {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: rgba(15, 30, 53, 0.45);
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(232, 119, 34, 0.15);
+}
+
+.snan-water-wave-1 {
+  position: absolute;
+  bottom: -45%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  border-radius: 38%;
+  background: linear-gradient(180deg, rgba(232, 119, 34, 0.28) 0%, rgba(217, 119, 6, 0.45) 100%);
+  animation: rotateLiquid 6s linear infinite;
+  pointer-events: none;
+}
+
+.snan-water-wave-2 {
+  position: absolute;
+  bottom: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  border-radius: 42%;
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.2) 0%, rgba(37, 99, 235, 0.3) 100%);
+  animation: rotateLiquid 9s linear infinite reverse;
+  pointer-events: none;
+}
+
+@keyframes rotateLiquid {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes waterFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.06);
+  }
+}
+
+.animate-water-float {
+  animation: waterFloat 3s ease-in-out infinite;
+}
+
 /* ─── Motion — prefers-reduced-motion ────────────────────────────────────── */
 /* Must be the last rule so it overrides everything above */
 @media (prefers-reduced-motion: reduce) {

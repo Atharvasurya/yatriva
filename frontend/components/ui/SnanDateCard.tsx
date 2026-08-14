@@ -70,13 +70,19 @@ export default function SnanDateCard({
 
       <div className="p-5 sm:p-5.5 space-y-4">
         <div className="flex items-center justify-between gap-3">
-          {/* Icon */}
+          {/* Animated Liquid Water Wave Box */}
           <div
-            className="shrink-0 flex items-center justify-center rounded-xl h-11 w-11 shadow-inner"
-            style={{ background: 'rgba(232,119,34,0.22)', border: '1.5px solid rgba(232,119,34,0.4)' }}
+            className="snan-water-box shrink-0 flex items-center justify-center rounded-xl h-11 w-11 relative shadow-md overflow-hidden"
             aria-hidden="true"
           >
-            <Waves className="h-5 w-5 text-amber-400" />
+            {/* Undulating liquid wave layers */}
+            <div className="snan-water-wave-1" />
+            <div className="snan-water-wave-2" />
+
+            {/* Pulsating Water Waves SVG */}
+            <div className="relative z-10 animate-water-float flex items-center justify-center">
+              <Waves className="h-5 w-5 text-amber-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]" />
+            </div>
           </div>
 
           {/* Countdown */}
