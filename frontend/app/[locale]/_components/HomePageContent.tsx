@@ -8,6 +8,7 @@ import {
 import SnanDateCard from '@/components/ui/SnanDateCard';
 import QuickActionTile from '@/components/ui/QuickActionTile';
 import TempleIcon from '@/components/ui/TempleIcon';
+import HeroSlideshow from '@/components/ui/HeroSlideshow';
 import NashikDarshanVideo from '@/components/ui/NashikDarshanVideo';
 import LeafletMapWrapper from '@/components/map/LeafletMapWrapper';
 import LocationPickerModal from '@/components/map/LocationPickerModal';
@@ -50,23 +51,9 @@ export default function HomePageContent() {
 
   return (
     <>
-      {/* ── Hero Section ──────────────────────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden bg-cover bg-center bg-no-repeat shadow-inner"
-        aria-labelledby="hero-heading"
-        style={{
-          backgroundImage: `linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.25) 50%, rgba(15, 23, 42, 0.65) 100%), url('/images/godaghat_hero.jpg')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center 45%',
-          minHeight: '340px',
-        }}
-      >
-        <div
-          className="absolute inset-0 pointer-events-none opacity-20 shimmer-effect"
-          aria-hidden="true"
-        />
-
-        <div className="relative z-10 px-5 pt-10 pb-16 max-w-2xl mx-auto text-center">
+      {/* ── Hero Slideshow Section ────────────────────────────────────────── */}
+      <HeroSlideshow>
+        <div className="px-5 pt-8 pb-4 max-w-2xl mx-auto text-center">
           <p
             className="text-xs font-black uppercase tracking-[0.2em] mb-2 animate-fade-down text-amber-300 drop-shadow-md"
             style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}
@@ -107,7 +94,7 @@ export default function HomePageContent() {
             </button>
           </div>
         </div>
-      </section>
+      </HeroSlideshow>
 
       {/* ── Central Feature: Interactive Pilgrim Map ────────────────────────── */}
       <section className="px-4 -mt-6 max-w-4xl mx-auto relative z-20" aria-label="Interactive Map">
