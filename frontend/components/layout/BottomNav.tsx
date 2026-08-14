@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { Home, Map, Bus, Sparkles, MoreHorizontal } from 'lucide-react';
+import { Home, Map, Bus, Waves, MoreHorizontal } from 'lucide-react';
 
 const NAV_ITEMS = [
   { key: 'home', href: '/', Icon: Home },
-  { key: 'assistant', href: '/assistant', Icon: Sparkles },
+  { key: 'ghats', href: '/ghats', Icon: Waves },
   { key: 'map', href: '/map', Icon: Map },
   { key: 'transport', href: '/transport', Icon: Bus },
   { key: 'more', href: '/more', Icon: MoreHorizontal },
