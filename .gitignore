@@ -29,5 +29,6 @@ frontend/node_modules/
 frontend/.next/
 frontend/.env.local
 
-# Images that are build artifacts
-images/
+# Root raw images directory only (do not ignore frontend/public/images)
+/images/
+!frontend/public/images/
