@@ -47,9 +47,9 @@ const CHAPTERS: StoryChapter[] = [
       hi: 'विश्व के सबसे बड़े धार्मिक समागम की पौराणिक उत्पत्ति',
       mr: 'जगातील सर्वात मोठ्या आध्यात्मिक मेळाव्याची पौराणिक उत्पत्ती',
     },
-    imageSrc: '/images/samudra-manthan.jpg',
-    imageAlt: 'Samudra Manthan - Cosmic Ocean Churning and Golden Amrit Pot',
-    imageSource: 'National Museum Heritage Collection & Vedic Digital Archives',
+    imageSrc: '/images/samudra-manthan-historic.webp',
+    imageAlt: 'Historic Sagar Manthan (Churning of the Cosmic Ocean) Painting, circa 1820',
+    imageSource: 'Wikimedia Commons / South Indian Painting (circa 1820, Public Domain)',
     narrative: {
       en: 'According to Hindu Puranas, the Devas (gods) and Asuras (demons) churned the cosmic ocean of milk (Kshira Sagara) using Mount Mandara as the rod and serpent Vasuki as the rope to obtain the nectar of immortality (Amrita). When Lord Dhanvantari emerged holding the golden pot (Kumbha) of Amrita, a celestial pursuit ensued across the cosmos.',
       hi: 'हिंदू पुराणों के अनुसार, देवताओं और दानवों ने अमरता का अमृत पाने के लिए मंदराचल पर्वत और वासुकी नाग की सहायता से क्षीरसागर का मंथन किया। जब भगवान धन्वंतरि अमृत का स्वर्ण कुंभ (कलश) लेकर प्रकट हुए, तो अमृत पाने के लिए देवताओं और असुरों के बीच संघर्ष हुआ।',
