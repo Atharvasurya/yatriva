@@ -10,6 +10,7 @@ import SnanDateCard from '@/components/ui/SnanDateCard';
 import QuickActionTile from '@/components/ui/QuickActionTile';
 import TempleIcon from '@/components/ui/TempleIcon';
 import HeroSlideshow from '@/components/ui/HeroSlideshow';
+import KumbhStoryInteractive from '@/components/ui/KumbhStoryInteractive';
 import NashikDarshanVideo from '@/components/ui/NashikDarshanVideo';
 import LeafletMapWrapper from '@/components/map/LeafletMapWrapper';
 import LocationPickerModal from '@/components/map/LocationPickerModal';
@@ -563,6 +564,9 @@ export default function HomePageContent() {
           ))}
         </div>
       </section>
+
+      {/* ── Sacred Origin & Story of Kumbh Mela (Interactive) ────────────── */}
+      <KumbhStoryInteractive />
 
       {/* ── Nashik Darshan Video Virtual Tour ──────────────────────────────── */}
       <NashikDarshanVideo />
