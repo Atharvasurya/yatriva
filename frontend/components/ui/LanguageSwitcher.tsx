@@ -20,8 +20,12 @@ export default function LanguageSwitcher() {
   const t = useTranslations('nav');
 
   const switchLocale = (newLocale: string) => {
+    if (newLocale === locale) return;
     try {
-      sessionStorage.setItem('yatriva_initial_loader_shown', 'true');
+      sessionStorage.setItem('yatriva_suppress_loader_until', String(Date.now() + 5000));
+      if (typeof window !== 'undefined') {
+        (window as any).__yatriva_suppress_loader = true;
+      }
     } catch {
       // ignore
     }
