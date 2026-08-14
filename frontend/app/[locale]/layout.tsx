@@ -10,6 +10,7 @@ import SidebarNav from '@/components/layout/SidebarNav';
 import Footer from '@/components/layout/Footer';
 import DisclaimerBanner from '@/components/ui/DisclaimerBanner';
 import AiAssistantWidget from '@/components/ui/AiAssistantWidget';
+import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 import OfflineBanner from '@/components/ui/OfflineBanner';
 import Analytics from '@/components/analytics/Analytics';
 
@@ -140,6 +141,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           </div>
 
           <AiAssistantWidget />
+          <ScrollToTopButton />
           <BottomNav />
           <Analytics />
         </NextIntlClientProvider>
