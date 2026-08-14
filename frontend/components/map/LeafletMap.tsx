@@ -6,7 +6,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { renderToString } from 'react-dom/server';
 import {
-  Waves, Landmark, ParkingCircle, Bus, HeartPulse, Shield, Bath, Utensils, Info, MapPin, Navigation, ExternalLink, X, Compass, BookOpen, AlertTriangle
+  Waves, Landmark, ParkingCircle, Bus, HeartPulse, Shield, Bath, Utensils, Info, MapPin, Navigation, ExternalLink, X, Compass, BookOpen, AlertTriangle, LocateFixed, Maximize2
 } from 'lucide-react';
 import TempleIcon from '@/components/ui/TempleIcon';
 import type { Place, PlaceCategory, Coordinates } from '@/types/place';
@@ -42,15 +42,15 @@ export default function LeafletMap({
   locationSource,
   onOpenLocationPicker,
   height = '500px',
-  initialZoom = 13,
+  initialZoom = 14,
 }: LeafletMapProps) {
   const locale = useLocale() as 'en' | 'hi' | 'mr';
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const layerGroupRef = useRef<L.LayerGroup | null>(null);
 
-  const [selectedCategory, setSelectedCategory] = useState<PlaceCategory | 'all'>('all');
   const [activePlace, setActivePlace] = useState<Place | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<PlaceCategory | 'all'>('all');
   const [currentZoom, setCurrentZoom] = useState<number>(initialZoom);
 
   // Filter places based on selected category chip
@@ -59,9 +59,10 @@ export default function LeafletMap({
     return places.filter((p) => p.category === selectedCategory);
   }, [places, selectedCategory]);
 
-  // Compute zoom-dependent clustering grid
+  // Compute zoom-dependent clustering grid to prevent label collisions
   const clusteredItems = useMemo(() => {
-    if (currentZoom >= 15) {
+    // When filtered to a single category or zoomed in close, don't cluster
+    if (selectedCategory !== 'all' || currentZoom >= 16) {
       return filteredPlaces.map((place) => ({
         isCluster: false as const,
         place,
@@ -70,7 +71,7 @@ export default function LeafletMap({
       }));
     }
 
-    const gridSize = currentZoom <= 12 ? 0.02 : 0.008;
+    const gridSize = currentZoom <= 12 ? 0.03 : currentZoom <= 14 ? 0.012 : 0.005;
     const clusters: Record<
       string,
       { count: number; latSum: number; lngSum: number; places: Place[] }
@@ -115,7 +116,24 @@ export default function LeafletMap({
     });
 
     return results;
-  }, [filteredPlaces, currentZoom]);
+  }, [filteredPlaces, currentZoom, selectedCategory]);
+
+  // Recenter map smoothly on current selected landmark or GPS location
+  const handleRecenter = () => {
+    if (!mapInstanceRef.current || !userLocation) return;
+    mapInstanceRef.current.flyTo([userLocation.lat, userLocation.lng], 15, {
+      duration: 1.0,
+      easeLinearity: 0.25,
+    });
+  };
+
+  // Fit all landmarks into view
+  const handleFitBounds = () => {
+    if (!mapInstanceRef.current || filteredPlaces.length === 0) return;
+    const bounds = L.latLngBounds(filteredPlaces.map((p) => [p.coordinates.lat, p.coordinates.lng]));
+    if (userLocation) bounds.extend([userLocation.lat, userLocation.lng]);
+    mapInstanceRef.current.fitBounds(bounds, { padding: [40, 40], maxZoom: 16 });
+  };
 
   // Initialize map instance once
   useEffect(() => {
@@ -123,7 +141,7 @@ export default function LeafletMap({
 
     const initialCenter: [number, number] = userLocation
       ? [userLocation.lat, userLocation.lng]
-      : [20.0063, 73.7915]; // Ramkund fallback center
+      : [20.0063, 73.7915]; // Ramkund verified center
 
     const map = L.map(mapContainerRef.current, {
       center: initialCenter,
@@ -218,26 +236,30 @@ export default function LeafletMap({
           className: 'custom-cluster-marker',
           html: `
             <div style="
-              background: #1B2B4B;
-              color: white;
-              width: 36px; height: 36px;
+              background: #0F1E35;
+              color: #FFFFFF;
+              width: 34px; height: 34px;
               border-radius: 50%;
-              border: 3px solid #E87722;
-              box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+              border: 2.5px solid #E87722;
+              box-shadow: 0 4px 12px rgba(15,30,53,0.4);
               display: flex; align-items: center; justify-content: center;
-              font-weight: 900; font-size: 13px;
+              font-weight: 850; font-size: 13px;
+              cursor: pointer;
+              transition: transform 0.15s ease;
             ">
               ${item.count}
             </div>
           `,
-          iconSize: [36, 36],
-          iconAnchor: [18, 18],
+          iconSize: [34, 34],
+          iconAnchor: [17, 17],
         });
 
         const clusterMarker = L.marker([item.lat, item.lng], { icon: clusterIcon }).addTo(layerGroup);
 
         clusterMarker.on('click', () => {
-          mapInstanceRef.current?.setView([item.lat, item.lng], Math.min(currentZoom + 2, 16));
+          mapInstanceRef.current?.flyTo([item.lat, item.lng], Math.min(currentZoom + 2, 17), {
+            duration: 0.8,
+          });
         });
       } else {
         const place = item.place;
@@ -245,10 +267,10 @@ export default function LeafletMap({
         const IconComponent = config.Icon;
         const iconSvg = renderToString(<IconComponent className="h-3 w-3 text-white" />);
         const placeName = place.name[locale] || place.name.en;
+        const showFullName = selectedCategory !== 'all' || currentZoom >= 15;
 
-        const pinIcon = L.divIcon({
-          className: 'custom-poi-marker',
-          html: `
+        const pinHtml = showFullName
+          ? `
             <div class="yatriva-poi-tag" title="${placeName}">
               <div style="
                 display: inline-flex;
@@ -298,7 +320,37 @@ export default function LeafletMap({
                 margin-top: -1px;
               "></div>
             </div>
-          `,
+          `
+          : `
+            <div class="yatriva-poi-tag" title="${placeName}">
+              <div style="
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                background: ${config.color};
+                border: 2px solid #FFFFFF;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+              ">
+                ${iconSvg}
+              </div>
+              <div style="
+                width: 0;
+                height: 0;
+                border-left: 3.5px solid transparent;
+                border-right: 3.5px solid transparent;
+                border-top: 4px solid ${config.color};
+                margin-top: -1px;
+              "></div>
+            </div>
+          `;
+
+        const pinIcon = L.divIcon({
+          className: 'custom-poi-marker',
+          html: pinHtml,
           iconSize: [0, 0],
           iconAnchor: [0, 0],
         });
@@ -307,13 +359,22 @@ export default function LeafletMap({
           layerGroup
         );
 
+        if (!showFullName) {
+          marker.bindTooltip(placeName, {
+            permanent: false,
+            direction: 'top',
+            className: 'yatriva-map-tooltip',
+            offset: [0, -14],
+          });
+        }
+
         marker.on('click', () => {
           setActivePlace(place);
           mapInstanceRef.current?.panTo([place.coordinates.lat, place.coordinates.lng]);
         });
       }
     });
-  }, [clusteredItems, userLocation, locationSource, locale]);
+  }, [clusteredItems, userLocation, locationSource, locale, selectedCategory, currentZoom]);
 
   return (
     <div className="relative w-full overflow-hidden rounded-2xl border border-slate-200 shadow-md">
@@ -326,7 +387,7 @@ export default function LeafletMap({
               ? 'bg-navy-800 text-white border-2 border-saffron-500'
               : 'bg-white/95 text-slate-800 hover:bg-white border border-slate-200'
           }`}
-          style={selectedCategory === 'all' ? { background: '#1B2B4B' } : {}}
+          style={selectedCategory === 'all' ? { background: '#0F1E35' } : {}}
         >
           <MapPin className="h-3.5 w-3.5" />
           <span>All Pins ({places.length})</span>
@@ -354,6 +415,24 @@ export default function LeafletMap({
             </button>
           );
         })}
+      </div>
+
+      {/* Floating Map Action Controls (Recenter & Fit Bounds) */}
+      <div className="absolute top-16 right-3 z-[400] flex flex-col gap-2 pointer-events-auto">
+        <button
+          onClick={handleRecenter}
+          title="Center on Selected Location"
+          className="w-9 h-9 rounded-xl bg-white/95 hover:bg-white text-slate-800 shadow-md border border-slate-200 flex items-center justify-center transition-transform active:scale-90"
+        >
+          <LocateFixed className="h-4 w-4 text-saffron-600" style={{ color: '#E87722' }} />
+        </button>
+        <button
+          onClick={handleFitBounds}
+          title="Fit All Places"
+          className="w-9 h-9 rounded-xl bg-white/95 hover:bg-white text-slate-800 shadow-md border border-slate-200 flex items-center justify-center transition-transform active:scale-90"
+        >
+          <Maximize2 className="h-4 w-4 text-slate-700" />
+        </button>
       </div>
 
       {/* Leaflet Map DOM Element */}
