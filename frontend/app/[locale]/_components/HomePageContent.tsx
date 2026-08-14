@@ -394,17 +394,12 @@ export default function HomePageContent() {
 
       {/* ── Ground Assistance & Real-World Safety Suite ─────────────────────── */}
       <section className="px-4 sm:px-6 py-5 max-w-5xl mx-auto w-full space-y-3.5">
-        <div className="flex items-center justify-between flex-wrap gap-2">
-          <h2
-            className="text-sm sm:text-base font-black uppercase tracking-wider text-slate-900"
-            style={{ color: '#0F1E35' }}
-          >
-            Ground Safety & Pilgrim Care
-          </h2>
-          <span className="text-xs font-extrabold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full shadow-2xs">
-            Kumbh 2027 Services
-          </span>
-        </div>
+        <h2
+          className="text-sm sm:text-base font-black uppercase tracking-wider text-slate-900"
+          style={{ color: '#0F1E35' }}
+        >
+          Ground Safety & Pilgrim Care
+        </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {/* Offline Safety Pass */}
