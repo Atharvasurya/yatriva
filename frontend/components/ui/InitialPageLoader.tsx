@@ -4,28 +4,20 @@ import { useState, useEffect } from 'react';
 import KumbhLoader from '@/components/ui/KumbhLoader';
 
 export default function InitialPageLoader() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [fadingOut, setFadingOut] = useState(false);
 
   useEffect(() => {
     try {
-      // Check if language switch is in progress
+      // Only suppress if user just clicked language switch
       const suppressUntil = Number(sessionStorage.getItem('yatriva_suppress_loader_until') || 0);
       if (Date.now() < suppressUntil || (typeof window !== 'undefined' && (window as any).__yatriva_suppress_loader)) {
+        setLoading(false);
         return;
       }
-
-      // Check if already shown in this session
-      const alreadyShown = sessionStorage.getItem('yatriva_initial_loader_shown');
-      if (alreadyShown === 'true') {
-        return;
-      }
-      sessionStorage.setItem('yatriva_initial_loader_shown', 'true');
     } catch {
-      // ignore storage errors
+      // ignore
     }
-
-    setLoading(true);
 
     const fadeTimer = setTimeout(() => {
       setFadingOut(true);
@@ -50,7 +42,7 @@ export default function InitialPageLoader() {
       }`}
       aria-label="Loading Yatriva"
     >
-      <div className="p-6 max-w-sm w-full">
+      <div className="p-6 max-w-sm w-full flex flex-col items-center justify-center">
         <KumbhLoader
           size="fullscreen"
           text="YATRIVA"
