@@ -385,125 +385,155 @@ export default function HomePageContent() {
       </section>
 
       {/* ── Ground Assistance & Real-World Safety Suite ─────────────────────── */}
-      <section className="px-4 sm:px-6 py-4 max-w-5xl mx-auto w-full space-y-3">
-        <div className="flex items-center justify-between">
+      <section className="px-4 sm:px-6 py-5 max-w-5xl mx-auto w-full space-y-3.5">
+        <div className="flex items-center justify-between flex-wrap gap-2">
           <h2
-            className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-900"
+            className="text-sm sm:text-base font-black uppercase tracking-wider text-slate-900"
             style={{ color: '#0F1E35' }}
           >
             Ground Safety & Pilgrim Care
           </h2>
-          <span className="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+          <span className="text-xs font-extrabold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full shadow-2xs">
             Kumbh 2027 Services
           </span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {/* Offline Safety Pass */}
           <Link
             href={`/${locale}/safety-pass`}
-            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+            className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
-            <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-amber-50 text-amber-700">
-                <Smartphone className="h-4 w-4" />
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-amber-50 text-amber-700 border border-amber-200/60 shrink-0">
+                <Smartphone className="h-5 w-5 sm:h-5.5 sm:w-5.5 text-amber-600" />
               </div>
-              <span className="text-[11px] font-black text-slate-900 group-hover:text-amber-700 transition-colors">
-                Safety Pass
-              </span>
+              <div>
+                <span className="text-sm sm:text-base font-black text-slate-900 group-hover:text-amber-700 transition-colors block leading-snug">
+                  Safety Pass
+                </span>
+                <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">
+                  Offline Lockscreen ID
+                </span>
+              </div>
             </div>
-            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
-              1-Tap lockscreen emergency ID
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+              1-Tap emergency contacts pass for your phone lockscreen without internet.
             </p>
           </Link>
 
           {/* Lost & Found */}
           <Link
             href={`/${locale}/lost-and-found`}
-            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-red-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+            className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-red-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
-            <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-red-50 text-red-700">
-                <UserX className="h-4 w-4" />
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-red-50 text-red-700 border border-red-200/60 shrink-0">
+                <UserX className="h-5 w-5 sm:h-5.5 sm:w-5.5 text-red-600" />
               </div>
-              <span className="text-[11px] font-black text-slate-900 group-hover:text-red-700 transition-colors">
-                Lost & Found
-              </span>
+              <div>
+                <span className="text-sm sm:text-base font-black text-slate-900 group-hover:text-red-700 transition-colors block leading-snug">
+                  Lost & Found
+                </span>
+                <span className="text-[10px] font-bold text-red-700 uppercase tracking-wider">
+                  Digital Khoya-Paya
+                </span>
+              </div>
             </div>
-            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
-              Missing persons & police booths
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+              Search missing family members & locate official police loudspeaker booths.
             </p>
           </Link>
 
           {/* Elderly & Accessibility */}
           <Link
             href={`/${locale}/accessibility`}
-            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+            className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
-            <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-indigo-50 text-indigo-700">
-                <Accessibility className="h-4 w-4" />
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200/60 shrink-0">
+                <Accessibility className="h-5 w-5 sm:h-5.5 sm:w-5.5 text-indigo-600" />
               </div>
-              <span className="text-[11px] font-black text-slate-900 group-hover:text-indigo-700 transition-colors">
-                Senior Care
-              </span>
+              <div>
+                <span className="text-sm sm:text-base font-black text-slate-900 group-hover:text-indigo-700 transition-colors block leading-snug">
+                  Senior Care
+                </span>
+                <span className="text-[10px] font-bold text-indigo-700 uppercase tracking-wider">
+                  Accessibility & Lounges
+                </span>
+              </div>
             </div>
-            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
-              Step-free ramps & free e-carts
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+              Step-free ramp corridors, rest shelters (विश्राम कक्ष) & free e-carts.
             </p>
           </Link>
 
           {/* Ghat Water Safety */}
           <Link
             href={`/${locale}/water-safety`}
-            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+            className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
-            <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-blue-50 text-blue-700">
-                <LifeBuoy className="h-4 w-4" />
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-blue-50 text-blue-700 border border-blue-200/60 shrink-0">
+                <LifeBuoy className="h-5 w-5 sm:h-5.5 sm:w-5.5 text-blue-600" />
               </div>
-              <span className="text-[11px] font-black text-slate-900 group-hover:text-blue-700 transition-colors">
-                Ghat Depth
-              </span>
+              <div>
+                <span className="text-sm sm:text-base font-black text-slate-900 group-hover:text-blue-700 transition-colors block leading-snug">
+                  Ghat Depth
+                </span>
+                <span className="text-[10px] font-bold text-blue-700 uppercase tracking-wider">
+                  Dam Flow & Snan Safety
+                </span>
+              </div>
             </div>
-            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
-              Dam release & safe snan zones
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+              Real-time dam water release alerts, safe shallow barricades & changing rooms.
             </p>
           </Link>
 
           {/* Traffic & Shuttle Transit */}
           <Link
             href={`/${locale}/traffic-advisory`}
-            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+            className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
-            <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-amber-50 text-amber-700">
-                <Navigation className="h-4 w-4" />
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-amber-50 text-amber-700 border border-amber-200/60 shrink-0">
+                <Navigation className="h-5 w-5 sm:h-5.5 sm:w-5.5 text-amber-600" />
               </div>
-              <span className="text-[11px] font-black text-slate-900 group-hover:text-amber-700 transition-colors">
-                Shuttle Transit
-              </span>
+              <div>
+                <span className="text-sm sm:text-base font-black text-slate-900 group-hover:text-amber-700 transition-colors block leading-snug">
+                  Shuttle Transit
+                </span>
+                <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">
+                  Parking & Feeder Buses
+                </span>
+              </div>
             </div>
-            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
-              Satellite parking & bus routes
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+              Highway outer ring satellite parking lots & 24x7 free feeder bus routes.
             </p>
           </Link>
 
           {/* Weather & Health */}
           <Link
             href={`/${locale}/weather-health`}
-            className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-orange-400 hover:shadow-md transition-all group flex flex-col justify-between space-y-2 min-h-[96px]"
+            className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-orange-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
-            <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-orange-50 text-orange-700">
-                <Sun className="h-4 w-4" />
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-orange-50 text-orange-700 border border-orange-200/60 shrink-0">
+                <Sun className="h-5 w-5 sm:h-5.5 sm:w-5.5 text-orange-600" />
               </div>
-              <span className="text-[11px] font-black text-slate-900 group-hover:text-orange-700 transition-colors">
-                Weather & Health
-              </span>
+              <div>
+                <span className="text-sm sm:text-base font-black text-slate-900 group-hover:text-orange-700 transition-colors block leading-snug">
+                  Weather & Health
+                </span>
+                <span className="text-[10px] font-bold text-orange-700 uppercase tracking-wider">
+                  Hydration & Packing
+                </span>
+              </div>
             </div>
-            <p className="text-[11px] text-slate-500 line-clamp-2 leading-tight">
-              Free water kiosks & heatstroke guide
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+              250+ free RO drinking water kiosks, heatstroke guide & packing checklist.
             </p>
           </Link>
         </div>
