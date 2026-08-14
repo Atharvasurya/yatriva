@@ -62,25 +62,13 @@ export default function TemplesPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
                     
                     {/* Floating Deity Badge */}
-                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2">
+                    <div className="absolute bottom-3 left-3 flex items-center gap-2">
                       <span
                         className="inline-flex items-center text-[11px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider text-white backdrop-blur-md shadow-md"
                         style={{ background: 'rgba(194, 88, 26, 0.9)' }}
                       >
                         {temple.deity}
                       </span>
-
-                      {temple.verified ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/90 text-white backdrop-blur-md shadow-sm">
-                          <CheckCircle2 className="h-3 w-3" />
-                          <span>Verified</span>
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-md bg-amber-500/90 text-white backdrop-blur-md shadow-sm">
-                          <AlertTriangle className="h-3 w-3" />
-                          <span>Unverified</span>
-                        </span>
-                      )}
                     </div>
                   </div>
                 ) : (
@@ -91,18 +79,6 @@ export default function TemplesPage() {
                     >
                       {temple.deity}
                     </span>
-
-                    {temple.verified ? (
-                      <span className="inline-flex items-center gap-1 text-xs text-emerald-600 font-medium">
-                        <CheckCircle2 className="h-3.5 w-3.5" />
-                        <span>Verified</span>
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 text-xs text-amber-600 font-medium">
-                        <AlertTriangle className="h-3.5 w-3.5" />
-                        <span>Unverified</span>
-                      </span>
-                    )}
                   </div>
                 )}
 
