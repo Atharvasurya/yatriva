@@ -13,32 +13,32 @@ export default function Footer() {
     <footer
       className="mt-auto border-t"
       style={{
-        background: '#1B2B4B',
+        background: '#0F1E35',
         borderColor: 'rgba(255,255,255,0.08)',
       }}
     >
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-8">
         {/* Unofficial notice */}
         <div
-          className="flex items-start gap-3 rounded-xl p-4 mb-6"
+          className="flex items-start gap-3.5 rounded-2xl p-5 sm:p-6"
           style={{ background: 'rgba(232,119,34,0.12)', border: '1px solid rgba(232,119,34,0.25)' }}
         >
-          <ShieldAlert className="h-5 w-5 shrink-0 mt-0.5" style={{ color: '#E87722' }} aria-hidden="true" />
-          <p className="text-xs text-white/70 leading-relaxed">
+          <ShieldAlert className="h-5 w-5 shrink-0 mt-0.5 text-amber-400" aria-hidden="true" />
+          <p className="text-xs sm:text-sm text-white/80 leading-relaxed">
             {t('unofficialNote')}
           </p>
         </div>
 
         {/* Links row */}
         <nav
-          className="flex flex-wrap items-center gap-x-5 gap-y-2 mb-4"
+          className="flex flex-wrap items-center gap-x-6 gap-y-3"
           aria-label="Footer links"
         >
           {(['about', 'privacy', 'contact'] as const).map((key) => (
             <Link
               key={key}
               href={`/${locale}/${key}`}
-              className="text-sm text-white/50 hover:text-white/80 transition-colors min-h-[44px] inline-flex items-center"
+              className="text-sm font-semibold text-white/60 hover:text-white transition-colors min-h-[44px] inline-flex items-center"
             >
               {t(`links.${key}`)}
             </Link>
@@ -46,7 +46,10 @@ export default function Footer() {
         </nav>
 
         {/* Copyright */}
-        <p className="text-xs text-white/30">{t('copyright')}</p>
+        <div className="pt-4 border-t border-white/10 flex items-center justify-between flex-wrap gap-2">
+          <p className="text-xs text-white/40 font-medium">{t('copyright')}</p>
+          <p className="text-xs text-amber-400/80 font-bold">Simhastha Kumbh Mela 2027 • Nashik</p>
+        </div>
       </div>
     </footer>
   );

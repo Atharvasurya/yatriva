@@ -31,22 +31,21 @@ export default function QuickActionTile({
   const inner = (
     <div
       className={[
-        'card group flex flex-col items-center justify-center text-center',
-        'gap-3 p-4 min-h-[110px] transition-all duration-200',
+        'bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 group flex flex-col items-center justify-center text-center',
+        'gap-3.5 p-5 sm:p-6 min-h-[120px] transition-all duration-300 shadow-sm',
         'animate-fade-up',
         `delay-${(index + 1) * 100}`,
         disabled
           ? 'opacity-50 cursor-not-allowed'
-          : 'cursor-pointer hover:shadow-lg hover:-translate-y-0.5 active:scale-95',
+          : 'cursor-pointer hover:shadow-xl hover:-translate-y-1 active:scale-95 hover:border-amber-500/30',
       ].join(' ')}
-      style={disabled ? {} : { boxShadow: 'var(--shadow-tile)' }}
     >
-      {/* Icon circle */}
+      {/* Icon container */}
       <div
         className={`
-          flex items-center justify-center rounded-full
-          h-12 w-12 transition-all duration-300 transform
-          ${!disabled ? 'group-hover:scale-110 group-hover:rotate-6 shadow-sm' : ''}
+          flex items-center justify-center rounded-2xl
+          h-13 w-13 transition-all duration-300 transform
+          ${!disabled ? 'group-hover:scale-110 group-hover:rotate-3 shadow-inner' : ''}
         `}
         style={{ background: color }}
         aria-hidden="true"
@@ -54,13 +53,13 @@ export default function QuickActionTile({
         <Icon className="h-6 w-6 transition-colors duration-200" style={{ color: textColor }} strokeWidth={2} />
       </div>
 
-      {/* Label */}
-      <div>
-        <p className="font-bold text-sm leading-tight" style={{ color: 'var(--color-primary)' }}>
+      {/* Label & Description */}
+      <div className="space-y-0.5">
+        <p className="font-extrabold text-sm sm:text-base leading-tight text-slate-900 group-hover:text-amber-700 transition-colors">
           {label}
         </p>
         {description && (
-          <p className="text-xs text-slate-500 leading-snug mt-0.5">{description}</p>
+          <p className="text-xs text-slate-500 font-medium leading-snug">{description}</p>
         )}
       </div>
     </div>
@@ -72,7 +71,7 @@ export default function QuickActionTile({
     <Link
       href={fullHref}
       aria-label={label}
-      className="focus-visible:outline-2 focus-visible:outline-offset-2 rounded-[var(--radius-card)]"
+      className="focus-visible:outline-2 focus-visible:outline-offset-2 rounded-2xl sm:rounded-3xl block"
       style={{ outlineColor: textColor }}
     >
       {inner}

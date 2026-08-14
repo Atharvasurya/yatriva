@@ -54,84 +54,76 @@ export default function SnanDateCard({
   const label = t(`snanDates.${snanKey}.label`);
   const date = t(`snanDates.${snanKey}.date`);
 
-  const countdownText =
-    countdown.state === 'today'
-      ? t('countdown.today')
-      : countdown.state === 'passed'
-      ? t('countdown.passed')
-      : `${countdown.value.toLocaleString(locale)} ${t(`countdown.${countdown.unit}`)}`;
-
   return (
     <div
-      className={`card animate-fade-up hover-lift cursor-pointer transition-all duration-300 transform hover:scale-[1.02] delay-${(index + 1) * 100}`}
-      style={{ background: GRADIENT_STYLES[index % 3], overflow: 'visible' }}
+      className={`rounded-3xl shadow-lg hover:shadow-2xl cursor-pointer transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between overflow-hidden animate-fade-up delay-${(index + 1) * 100}`}
+      style={{ background: GRADIENT_STYLES[index % 3] }}
       role="article"
       aria-label={label}
     >
-      {/* Top decorative strip — clipped independently so card badge is not affected */}
+      {/* Top decorative accent strip */}
       <div
-        className="h-1 w-full rounded-t-[var(--radius-card)]"
-        style={{ background: '#E87722' }}
+        className="h-1.5 w-full"
+        style={{ background: 'linear-gradient(90deg, #E87722 0%, #FBBF24 100%)' }}
         aria-hidden="true"
       />
 
-      <div className="px-5 py-4 flex items-center gap-4">
-        {/* Icon */}
-        <div
-          className="shrink-0 flex items-center justify-center rounded-full h-12 w-12"
-          style={{ background: 'rgba(232,119,34,0.18)', border: '1.5px solid rgba(232,119,34,0.35)' }}
-          aria-hidden="true"
-        >
-          <Waves className="h-6 w-6" style={{ color: '#E87722' }} />
+      <div className="p-6 sm:p-7 space-y-5">
+        <div className="flex items-center justify-between gap-4">
+          {/* Icon */}
+          <div
+            className="shrink-0 flex items-center justify-center rounded-2xl h-13 w-13 shadow-inner"
+            style={{ background: 'rgba(232,119,34,0.22)', border: '1.5px solid rgba(232,119,34,0.4)' }}
+            aria-hidden="true"
+          >
+            <Waves className="h-6 w-6 text-amber-400" />
+          </div>
+
+          {/* Countdown */}
+          <div className="shrink-0 text-right">
+            <p
+              className={`font-black tabular-nums tracking-tight leading-none ${
+                countdown.state === 'today'
+                  ? 'text-3xl text-amber-300'
+                  : countdown.state === 'passed'
+                  ? 'text-base text-white/50'
+                  : 'text-3xl text-white'
+              }`}
+            >
+              {countdown.state === 'today'
+                ? t('countdown.today')
+                : countdown.state === 'passed'
+                ? t('countdown.passed')
+                : countdown.value.toLocaleString(locale)}
+            </p>
+            {countdown.state === 'future' && (
+              <p className="text-[11px] text-white/70 font-semibold mt-1">
+                {t(`countdown.${countdown.unit}`)}
+              </p>
+            )}
+          </div>
         </div>
 
-        {/* Content */}
-        <div className="flex-1 min-w-0">
-          <p className="text-xs font-semibold uppercase tracking-widest mb-0.5" style={{ color: '#E87722' }}>
+        {/* Title & Date Details */}
+        <div>
+          <p className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-1">
             {label}
           </p>
-          <p className="text-white font-bold text-base leading-tight">
+          <p className="text-white font-extrabold text-lg sm:text-xl leading-snug">
             {date}
           </p>
         </div>
 
-        {/* Countdown */}
-        <div className="shrink-0 text-right">
-          <p
-            className={`font-black tabular-nums leading-none ${
-              countdown.state === 'today'
-                ? 'text-2xl'
-                : countdown.state === 'passed'
-                ? 'text-sm text-white/50'
-                : 'text-2xl text-white'
-            }`}
-          >
-            {countdown.state === 'today'
-              ? t('countdown.today')
-              : countdown.state === 'passed'
-              ? t('countdown.passed')
-              : countdown.value.toLocaleString(locale)}
-          </p>
-          {countdown.state === 'future' && (
-            <p className="text-[10px] text-white/60 font-medium mt-0.5">
-              {t(`countdown.${countdown.unit}`)}
-            </p>
-          )}
-        </div>
+        {/* Verification Status Badge */}
+        {!verified && (
+          <div className="pt-1">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-amber-300/40 bg-amber-400/15 text-amber-200 font-bold text-[11px] leading-tight">
+              <AlertTriangle className="h-3.5 w-3.5 text-amber-400 shrink-0" />
+              <span>{t('snanPlaceholderNote')}</span>
+            </span>
+          </div>
+        )}
       </div>
-
-      {/* Placeholder badge */}
-      {!verified && (
-        <div className="px-5 pb-4">
-          <span
-            className="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-amber-300 bg-amber-50 text-amber-800 font-bold"
-            style={{ fontSize: '0.6rem', letterSpacing: '0.03em', flexWrap: 'wrap', lineHeight: 1.4 }}
-          >
-            <AlertTriangle className="h-3 w-3 text-amber-600 shrink-0" />
-            <span style={{ whiteSpace: 'normal' }}>{t('snanPlaceholderNote')}</span>
-          </span>
-        </div>
-      )}
     </div>
   );
 }

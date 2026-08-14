@@ -9,33 +9,33 @@ export default function ParkingPage() {
   const locale = useLocale() as 'en' | 'hi' | 'mr';
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-10 sm:space-y-12">
       {/* Header Banner */}
       <div
-        className="rounded-2xl p-6 text-white relative overflow-hidden shadow-lg animate-fade-up"
+        className="rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl animate-fade-up"
         style={{ background: 'linear-gradient(135deg, #9A7208 0%, #1B2B4B 100%)' }}
       >
-        <div className="relative z-10 flex items-start gap-4">
-          <div className="p-3 rounded-xl bg-white/10 shrink-0">
-            <ParkingCircle className="h-8 w-8 text-amber-400" />
+        <div className="relative z-10 flex items-start gap-5">
+          <div className="p-4 rounded-2xl bg-white/15 backdrop-blur-md shrink-0 shadow-inner">
+            <ParkingCircle className="h-10 w-10 text-amber-400" />
           </div>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-black">{t('title')}</h1>
-            <p className="text-white/90 text-sm mt-1 max-w-xl">{t('description')}</p>
+          <div className="space-y-2">
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight">{t('title')}</h1>
+            <p className="text-white/90 text-sm sm:text-base max-w-2xl leading-relaxed">{t('description')}</p>
           </div>
         </div>
       </div>
 
       {/* Unverified Alert Banner */}
-      <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 flex items-start gap-3">
+      <div className="p-5 rounded-2xl bg-amber-50 border border-amber-200 shadow-xs flex items-start gap-3.5">
         <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-        <p className="text-xs text-amber-900 leading-relaxed font-medium">
+        <p className="text-xs sm:text-sm text-amber-900 leading-relaxed font-semibold">
           {t('unverifiedNotice')}
         </p>
       </div>
 
       {/* Parking Zones Cards */}
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-6 sm:gap-8 sm:grid-cols-2">
         {PARKING_ZONES.map((zone, index) => {
           const name = zone.name[locale] || zone.name.en;
 

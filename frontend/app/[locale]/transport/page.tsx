@@ -13,27 +13,27 @@ export default function TransportPage() {
   const [activeScenario, setActiveScenario] = useState<Scenario>('car');
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-10 sm:space-y-12">
       {/* Header Banner */}
       <div
-        className="rounded-2xl p-6 text-white relative overflow-hidden shadow-lg animate-fade-up"
-        style={{ background: 'linear-gradient(135deg, #1B2B4B 0%, #3B82F6 100%)' }}
+        className="rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl animate-fade-up"
+        style={{ background: 'linear-gradient(135deg, #1B2B4B 0%, #2D5FA8 50%, #3B82F6 100%)' }}
       >
-        <div className="relative z-10 flex items-start gap-4">
-          <div className="p-3 rounded-xl bg-white/10 shrink-0">
-            <Bus className="h-8 w-8 text-white" />
+        <div className="relative z-10 flex items-start gap-5">
+          <div className="p-4 rounded-2xl bg-white/15 backdrop-blur-md shrink-0 shadow-inner">
+            <Bus className="h-10 w-10 text-white" />
           </div>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-black">{t('title')}</h1>
-            <p className="text-white/90 text-sm mt-1 max-w-xl">{t('description')}</p>
+          <div className="space-y-2">
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight">{t('title')}</h1>
+            <p className="text-white/90 text-sm sm:text-base max-w-2xl leading-relaxed">{t('description')}</p>
           </div>
         </div>
       </div>
 
       {/* Official Schedule Verification Warning */}
-      <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 flex items-start gap-3">
+      <div className="p-5 rounded-2xl bg-amber-50 border border-amber-200 shadow-xs flex items-start gap-3.5">
         <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-        <p className="text-xs text-amber-900 leading-relaxed font-semibold">
+        <p className="text-xs sm:text-sm text-amber-900 leading-relaxed font-semibold">
           {t('unverifiedNotice')}
         </p>
       </div>

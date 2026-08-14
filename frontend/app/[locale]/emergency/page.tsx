@@ -20,19 +20,19 @@ export default function EmergencyPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-10 sm:space-y-12">
       {/* Header Banner */}
       <div
-        className="rounded-2xl p-6 text-white relative overflow-hidden shadow-lg animate-fade-up"
-        style={{ background: 'linear-gradient(135deg, #B91C1C 0%, #1B2B4B 100%)' }}
+        className="rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl animate-fade-up"
+        style={{ background: 'linear-gradient(135deg, #991B1B 0%, #B91C1C 40%, #1B2B4B 100%)' }}
       >
-        <div className="relative z-10 flex items-start gap-4">
-          <div className="p-3 rounded-xl bg-white/10 shrink-0">
-            <AlertTriangle className="h-8 w-8 text-amber-300" />
+        <div className="relative z-10 flex items-start gap-5">
+          <div className="p-4 rounded-2xl bg-white/15 backdrop-blur-md shrink-0 shadow-inner">
+            <AlertTriangle className="h-10 w-10 text-amber-300" />
           </div>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-black">{t('title')}</h1>
-            <p className="text-white/90 text-sm mt-1 max-w-xl">{t('description')}</p>
+          <div className="space-y-2">
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight">{t('title')}</h1>
+            <p className="text-white/90 text-sm sm:text-base max-w-2xl leading-relaxed">{t('description')}</p>
           </div>
         </div>
       </div>

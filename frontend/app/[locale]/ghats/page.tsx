@@ -16,32 +16,32 @@ export default function GhatsPage() {
     : GHATS;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10 sm:space-y-12">
       {/* Header Banner */}
       <div
-        className="rounded-2xl p-6 sm:p-8 text-white relative overflow-hidden shadow-xl animate-fade-up"
+        className="rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl animate-fade-up"
         style={{ background: 'linear-gradient(135deg, #0F1E35 0%, #1B2B4B 50%, #2D5FA8 100%)' }}
       >
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
-          <Waves className="w-64 h-64 text-white" />
+          <Waves className="w-72 h-72 text-white" />
         </div>
-        <div className="relative z-10 flex items-start gap-4">
-          <div className="p-3.5 rounded-2xl bg-white/15 backdrop-blur-md shrink-0 shadow-inner">
-            <Waves className="h-8 w-8 sm:h-9 sm:w-9 text-amber-300" />
+        <div className="relative z-10 flex items-start gap-5">
+          <div className="p-4 rounded-2xl bg-white/15 backdrop-blur-md shrink-0 shadow-inner">
+            <Waves className="h-10 w-10 text-amber-300" />
           </div>
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-200 text-xs font-semibold mb-2 backdrop-blur-sm">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/20 text-amber-200 text-xs font-bold uppercase tracking-wider backdrop-blur-sm border border-amber-400/30">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Sacred Godavari Bathing Sites</span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight">{t('title')}</h1>
-            <p className="text-white/90 text-sm sm:text-base mt-2 max-w-2xl leading-relaxed">{t('description')}</p>
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight">{t('title')}</h1>
+            <p className="text-white/90 text-sm sm:text-base max-w-2xl leading-relaxed">{t('description')}</p>
           </div>
         </div>
       </div>
 
       {/* Filter Options */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1">
+      <div className="flex items-center gap-3 overflow-x-auto pb-1">
         <button
           onClick={() => setFilter('all')}
           className={`px-4 py-2 rounded-full text-xs font-bold transition-all min-h-[44px] cursor-pointer ${
