@@ -20,6 +20,11 @@ export default function LanguageSwitcher() {
   const t = useTranslations('nav');
 
   const switchLocale = (newLocale: string) => {
+    try {
+      sessionStorage.setItem('yatriva_initial_loader_shown', 'true');
+    } catch {
+      // ignore
+    }
     // Swap the locale segment in the current path
     const segments = pathname.split('/');
     segments[1] = newLocale;

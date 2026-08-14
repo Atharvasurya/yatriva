@@ -4,18 +4,30 @@ import { useState, useEffect } from 'react';
 import KumbhLoader from '@/components/ui/KumbhLoader';
 
 export default function InitialPageLoader() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [fadingOut, setFadingOut] = useState(false);
 
   useEffect(() => {
-    // Show on initial page load and every browser refresh
+    // Only run on the very first initial website entrance, never on language switch or navigation
+    try {
+      const alreadyShown = sessionStorage.getItem('yatriva_initial_loader_shown');
+      if (alreadyShown === 'true') {
+        return;
+      }
+      sessionStorage.setItem('yatriva_initial_loader_shown', 'true');
+    } catch {
+      // ignore storage errors
+    }
+
+    setLoading(true);
+
     const fadeTimer = setTimeout(() => {
       setFadingOut(true);
-    }, 850);
+    }, 700);
 
     const removeTimer = setTimeout(() => {
       setLoading(false);
-    }, 1150);
+    }, 1000);
 
     return () => {
       clearTimeout(fadeTimer);
