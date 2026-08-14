@@ -126,7 +126,17 @@ export default async function LocaleLayout({ children, params }: Props) {
           <Header />
           <OfflineBanner />
 
-          <div className="flex min-h-[calc(100dvh-56px)]">
+          {/* Global Background Image Layer */}
+          <div
+            className="fixed inset-0 pointer-events-none z-0 bg-cover bg-center bg-no-repeat opacity-[0.06]"
+            style={{
+              backgroundImage: `url('/images/bgmain.png')`,
+              backgroundAttachment: 'fixed',
+            }}
+            aria-hidden="true"
+          />
+
+          <div className="relative z-1 flex min-h-[calc(100dvh-56px)]">
             <SidebarNav />
             <div className="flex flex-col flex-1 min-w-0">
               <main

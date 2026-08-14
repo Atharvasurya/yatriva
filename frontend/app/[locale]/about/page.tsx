@@ -25,7 +25,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 sm:space-y-10">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
       {/* ── Meet Our Team Section (Positioned First) ───────────────────────── */}
       <div className="space-y-6 animate-fade-up">
         <div className="text-center space-y-2">
