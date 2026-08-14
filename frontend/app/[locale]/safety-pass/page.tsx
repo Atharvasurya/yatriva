@@ -11,7 +11,7 @@ export default async function SafetyPassPage({ params }: Props) {
   const { locale } = await params;
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen text-slate-900 py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Back navigation & Page Header */}
         <div className="flex items-center gap-3">
