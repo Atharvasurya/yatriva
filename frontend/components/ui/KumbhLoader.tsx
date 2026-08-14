@@ -144,7 +144,7 @@ export default function KumbhLoader({
           }
         }
         .animate-loader-progress {
-          animation: loaderProgress 1.4s ease-in-out infinite;
+          animation: loaderProgress 0.85s ease-in-out infinite;
         }
       `}</style>
     </div>
