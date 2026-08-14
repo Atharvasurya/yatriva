@@ -298,9 +298,6 @@ export default function HomePageContent() {
         </div>
       </section>
 
-      {/* ── Nashik Darshan Video Virtual Tour ──────────────────────────────── */}
-      <NashikDarshanVideo />
-
       {/* ── Family & Group Safety Registration Banner ─────────────────────── */}
       <section className="px-4 py-2 max-w-4xl mx-auto w-full">
         <div
@@ -336,7 +333,7 @@ export default function HomePageContent() {
       {/* ── Quick Guide Grid ──────────────────────────────────────────────── */}
       <section
         id="quick-guide"
-        className="px-4 pb-6 max-w-4xl mx-auto w-full"
+        className="px-4 pb-4 max-w-4xl mx-auto w-full"
         aria-labelledby="quick-guide-heading"
       >
         <h2
@@ -362,6 +359,9 @@ export default function HomePageContent() {
           ))}
         </div>
       </section>
+
+      {/* ── Nashik Darshan Video Virtual Tour ──────────────────────────────── */}
+      <NashikDarshanVideo />
 
       {/* Location Picker Modal */}
       <LocationPickerModal
