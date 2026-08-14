@@ -295,23 +295,15 @@ export default function HomePageContent() {
         className="px-4 sm:px-6 py-6 max-w-5xl mx-auto w-full space-y-3.5"
         aria-labelledby="snan-heading"
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-          <div className="flex items-center gap-2">
-            <Waves className="h-4.5 w-4.5 text-amber-600" aria-hidden="true" />
-            <h2
-              id="snan-heading"
-              className="text-sm sm:text-base font-black uppercase tracking-widest"
-              style={{ color: 'var(--color-primary)' }}
-            >
-              {t('snanSectionTitle')}
-            </h2>
-          </div>
-
-          {/* Official Verified Source Badge */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-300/80 shadow-2xs self-start sm:self-auto">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-            <span className="truncate max-w-md">{t('snanSourceBadge')}: {t('snanSourceDetails')}</span>
-          </div>
+        <div className="flex items-center gap-2">
+          <Waves className="h-4.5 w-4.5 text-amber-600" aria-hidden="true" />
+          <h2
+            id="snan-heading"
+            className="text-sm sm:text-base font-black uppercase tracking-widest"
+            style={{ color: 'var(--color-primary)' }}
+          >
+            {t('snanSectionTitle')}
+          </h2>
         </div>
 
         <div className="grid gap-3.5 sm:grid-cols-3">
