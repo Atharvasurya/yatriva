@@ -17,13 +17,13 @@ interface SafetyPassData {
 }
 
 const DEFAULT_DATA: SafetyPassData = {
-  fullName: 'Ramesh Sharma',
-  age: '62',
-  bloodGroup: 'B+',
-  homeCity: 'Indore, Madhya Pradesh',
-  emergencyPhone1: '+91 98765 43210',
-  emergencyPhone2: '+91 91234 56789',
-  groupLeaderName: 'Pandit Shastri Group (Bus #14)',
+  fullName: '',
+  age: '',
+  bloodGroup: 'A+',
+  homeCity: '',
+  emergencyPhone1: '',
+  emergencyPhone2: '',
+  groupLeaderName: '',
 };
 
 export default function PilgrimSafetyPassCard() {
@@ -33,9 +33,10 @@ export default function PilgrimSafetyPassCard() {
   const [formData, setFormData] = useState<SafetyPassData>(DEFAULT_DATA);
   const [downloading, setDownloading] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
   const passCanvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Load saved pass from localStorage on mount
+  // Load saved pass from localStorage on mount (if user previously saved their own details)
   useEffect(() => {
     try {
       const saved = localStorage.getItem('yatriva_pilgrim_safety_pass');
@@ -50,6 +51,7 @@ export default function PilgrimSafetyPassCard() {
   const handleChange = (field: keyof SafetyPassData, val: string) => {
     const updated = { ...formData, [field]: val };
     setFormData(updated);
+    setValidationError(null);
     try {
       localStorage.setItem('yatriva_pilgrim_safety_pass', JSON.stringify(updated));
     } catch {
@@ -59,6 +61,16 @@ export default function PilgrimSafetyPassCard() {
 
   // Generate high-resolution lockscreen image (1080x1920 phone aspect ratio)
   const handleDownload = () => {
+    if (!formData.fullName.trim()) {
+      setValidationError('Please enter Pilgrim Full Name before downloading.');
+      return;
+    }
+    if (!formData.emergencyPhone1.trim()) {
+      setValidationError('Please enter at least one Primary Emergency Contact Phone.');
+      return;
+    }
+
+    setValidationError(null);
     setDownloading(true);
     setDownloadSuccess(false);
 
@@ -334,6 +346,13 @@ export default function PilgrimSafetyPassCard() {
             />
           </div>
         </div>
+
+        {validationError && (
+          <div className="p-3 bg-rose-50 border border-rose-300 rounded-xl flex items-center gap-2 text-xs font-bold text-rose-800">
+            <AlertCircle className="h-4 w-4 text-rose-600 shrink-0" />
+            <span>{validationError}</span>
+          </div>
+        )}
 
         <button
           onClick={handleDownload}
