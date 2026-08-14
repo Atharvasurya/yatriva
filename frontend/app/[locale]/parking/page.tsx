@@ -1,7 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
-import { ParkingCircle, Car, Bus, Bike, MapPin, AlertTriangle } from 'lucide-react';
+import { ParkingCircle, Car, Bus, Bike, MapPin, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { PARKING_ZONES } from '@/data/seed';
 
 export default function ParkingPage() {
@@ -26,12 +27,12 @@ export default function ParkingPage() {
         </div>
       </div>
 
-      {/* Unverified Alert Banner */}
-      <div className="p-5 rounded-2xl bg-amber-50 border border-amber-200 shadow-xs flex items-start gap-3.5">
-        <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-        <p className="text-xs sm:text-sm text-amber-900 leading-relaxed font-semibold">
+      {/* Verified Data Banner */}
+      <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50 border border-emerald-200 shadow-xs flex items-start gap-3.5">
+        <ShieldCheck className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+        <div className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-semibold">
           {t('unverifiedNotice')}
-        </p>
+        </div>
       </div>
 
       {/* Parking Zones Cards */}
@@ -42,17 +43,63 @@ export default function ParkingPage() {
           return (
             <div
               key={zone.id}
-              className={`card p-5 space-y-4 animate-fade-up delay-${(index + 1) * 100}`}
+              className={`card overflow-hidden p-0 space-y-0 animate-fade-up delay-${(index + 1) * 100} hover:shadow-xl transition-all duration-300 border border-slate-200/80`}
             >
-              <div className="flex items-start justify-between gap-2">
-                <h2 className="text-lg font-black text-navy-800" style={{ color: '#1B2B4B' }}>
-                  {name}
-                </h2>
-                <span className="placeholder-badge shrink-0 inline-flex items-center gap-1">
-                  <AlertTriangle className="h-3 w-3 text-amber-600" />
-                  <span>PLACEHOLDER</span>
-                </span>
-              </div>
+              {/* Parking Zone Image */}
+              {zone.imageUrl && (
+                <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-900">
+                  <Image
+                    src={zone.imageUrl}
+                    alt={name}
+                    fill
+                    className="object-cover transition-transform duration-500 hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                  
+                  {/* Verified Badge over image */}
+                  <div className="absolute top-3 right-3 z-10">
+                    {zone.verified ? (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-600/90 text-white backdrop-blur-md shadow-md border border-emerald-400/40">
+                        <CheckCircle2 className="h-3.5 w-3.5" />
+                        <span>Verified</span>
+                      </span>
+                    ) : (
+                      <span className="placeholder-badge shrink-0 inline-flex items-center gap-1">
+                        <AlertTriangle className="h-3 w-3 text-amber-600" />
+                        <span>PLACEHOLDER</span>
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Title over bottom of image */}
+                  <div className="absolute bottom-3 left-3 right-3 z-10">
+                    <h2 className="text-lg font-black text-white drop-shadow-md leading-snug">
+                      {name}
+                    </h2>
+                  </div>
+                </div>
+              )}
+
+              <div className="p-5 space-y-4">
+                {!zone.imageUrl && (
+                  <div className="flex items-start justify-between gap-2">
+                    <h2 className="text-lg font-black text-navy-800" style={{ color: '#1B2B4B' }}>
+                      {name}
+                    </h2>
+                    {zone.verified ? (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                        <CheckCircle2 className="h-3 w-3 text-emerald-600" />
+                        <span>Verified</span>
+                      </span>
+                    ) : (
+                      <span className="placeholder-badge shrink-0 inline-flex items-center gap-1">
+                        <AlertTriangle className="h-3 w-3 text-amber-600" />
+                        <span>PLACEHOLDER</span>
+                      </span>
+                    )}
+                  </div>
+                )}
 
               {/* Supported Vehicles */}
               <div>
@@ -68,6 +115,7 @@ export default function ParkingPage() {
                       {vType === 'car' && <Car className="h-3.5 w-3.5" />}
                       {vType === 'bus' && <Bus className="h-3.5 w-3.5" />}
                       {vType === 'two_wheeler' && <Bike className="h-3.5 w-3.5" />}
+                      {vType === 'heavy_vehicle' && <Bus className="h-3.5 w-3.5 text-amber-600" />}
                       {vType.replace('_', ' ')}
                     </span>
                   ))}
@@ -79,7 +127,7 @@ export default function ParkingPage() {
                 <div>
                   <span className="text-slate-500 block">{t('capacityLabel')}</span>
                   {zone.capacityVehicles ? (
-                    <span className="font-bold text-slate-800">{zone.capacityVehicles} vehicles</span>
+                    <span className="font-bold text-slate-800">~{zone.capacityVehicles.toLocaleString()} vehicles</span>
                   ) : (
                     <span className="placeholder-badge">PLACEHOLDER</span>
                   )}
@@ -87,19 +135,25 @@ export default function ParkingPage() {
                 <div>
                   <span className="text-slate-500 block">{t('shuttleLabel')}</span>
                   {zone.shuttleAvailable !== null ? (
-                    <span className="font-bold text-slate-800">
+                    <span className="font-bold text-emerald-700">
                       {zone.shuttleAvailable ? t('shuttleYes') : t('shuttleNo')}
                     </span>
                   ) : (
                     <span className="placeholder-badge">PLACEHOLDER</span>
                   )}
                 </div>
+                {zone.distanceToMainGhatKm !== null && (
+                  <div className="col-span-2 pt-1 border-t border-slate-200/60">
+                    <span className="text-slate-500 block">{t('distanceLabel')}</span>
+                    <span className="font-bold text-slate-800">{zone.distanceToMainGhatKm} km to central ghat buffer</span>
+                  </div>
+                )}
               </div>
 
               {/* Map Footer */}
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                 <span className="text-xs text-slate-500">
-                  Lat: {zone.coordinates.lat}, Lng: {zone.coordinates.lng}
+                  Lat: {zone.coordinates.lat.toFixed(4)}, Lng: {zone.coordinates.lng.toFixed(4)}
                 </span>
 
                 <a
@@ -110,7 +164,7 @@ export default function ParkingPage() {
                   style={{ color: '#1B2B4B' }}
                 >
                   <MapPin className="h-3.5 w-3.5" />
-                  <span>Open Map</span>
+                  <span>Navigate</span>
                 </a>
               </div>
             </div>

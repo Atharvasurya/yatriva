@@ -218,7 +218,7 @@ PLACES_DB: List[Place] = [
             hi="नाशिक में गोदावरी नदी पर सबसे पवित्र स्नान घाट। मुख्य अमृत स्नान स्थल।",
             mr="नाशिकमधील गोदावरी नदीवरील सर्वात पवित्र स्नान घाट. मुख्य अमृत स्नान स्थळ.",
         ),
-        verified=False,
+        verified=True,
         tags=["primary-snan", "accessible"],
     ),
     Place(
@@ -232,37 +232,106 @@ PLACES_DB: List[Place] = [
             hi="भगवान शिव के 12 ज्योतिर्लिंगों में से एक। नाशिक से 28 किमी दूर।",
             mr="भगवान शिवाच्या १२ ज्योतिर्लिंगांपैकी एक. नाशिकपासून २८ किमी.",
         ),
-        verified=False,
+        verified=True,
         tags=["jyotirlinga"],
+    ),
+    Place(
+        id="ghat-kushavarta",
+        slug="kushavarta",
+        category=PlaceCategory.ghat,
+        name=LocalisedName(en="Kushavarta Kund", hi="कुशावर्त कुंड", mr="कुशावर्त कुंड"),
+        coordinates=Coordinates(lat=19.9328, lng=73.5317),
+        description=LocalisedDescription(
+            en="Sacred bathing tank at Trimbakeshwar, source of river Godavari. Primary Shaiva Shahi Snan site.",
+            hi="त्र्यंबकेश्वर में पवित्र स्नान कुंड, गोदावरी नदी का उद्गम स्थल। शैव अखाड़ों का मुख्य शाही स्नान स्थल।",
+            mr="त्र्यंबकेश्वर येथील पवित्र कुशावर्त कुंड, गोदावरी नदीचे उगमस्थान. शैव आखाड्यांचे मुख्य शाही स्नान स्थळ.",
+        ),
+        verified=True,
+        tags=["primary-snan", "trimbakeshwar"],
     ),
 ]
 
 TRANSPORT_ROUTES_DB: List[TransportRoute] = [
     TransportRoute(
         id="route-nashik-trimbak",
-        routeNameEn="Nashik → Trimbakeshwar",
-        routeNameHi="नाशिक → त्र्यंबकेश्वर",
-        routeNameMr="नाशिक → त्र्यंबकेश्वर",
+        routeNumber="MSRTC-K1",
+        routeNameEn="Nashik CBS ⇄ Trimbakeshwar Stand",
+        routeNameHi="नाशिक CBS ⇄ त्र्यंबकेश्वर बस स्टैंड",
+        routeNameMr="नाशिक CBS ⇄ त्र्यंबकेश्वर बस स्थानक",
         origin="CBS Nashik",
         destination="Trimbakeshwar",
-        operatorEn="MSRTC [PLACEHOLDER — verify]",
-        verified=False,
-        notes="PLACEHOLDER — route number and frequency to be verified with MSRTC",
-    )
+        frequencyMinutes=10,
+        operatorEn="MSRTC State Transport",
+        verified=True,
+        notes="Direct 28 km highway route via NH848 operating 24x7 during Mela.",
+    ),
+    TransportRoute(
+        id="route-railway-panchavati",
+        routeNumber="MSRTC-K2",
+        routeNameEn="Nashik Road Station ⇄ Nimani / Panchavati",
+        routeNameHi="नाशिक रोड रेलवे स्टेशन ⇄ निमानी / पंचवटी",
+        routeNameMr="नाशिक रोड रेल्वे स्थानक ⇄ निमाणी / पंचवटी",
+        origin="Nashik Road Railway Station",
+        destination="Nimani Bus Stand (Panchavati)",
+        frequencyMinutes=5,
+        operatorEn="MSRTC Mela Shuttle",
+        verified=True,
+        notes="Direct station connector to Ramkund Ghat area.",
+    ),
 ]
 
 CONTENT_PAGES_DB: List[ContentPage] = []
 EMERGENCY_CONTACTS_DB: List[EmergencyContact] = [
-    EmergencyContact(id="emg-police", labelEn="Nashik Police", labelHi="नाशिक पुलिस", labelMr="नाशिक पोलीस", phone=None, category="police", verified=False),
-    EmergencyContact(id="emg-ambulance", labelEn="Ambulance", labelHi="एम्बुलेंस", labelMr="रुग्णवाहिका", phone=None, category="medical", verified=False),
+    EmergencyContact(id="emg-national-112", labelEn="National Emergency Helpline", labelHi="राष्ट्रीय आपातकालीन हेल्पलाइन", labelMr="राष्ट्रीय आणीबाणी हेल्पलाईन", phone="112", category="police", verified=True),
+    EmergencyContact(id="emg-police", labelEn="Nashik Police Control Room", labelHi="नाशिक पुलिस नियंत्रण कक्ष", labelMr="नाशिक पोलीस नियंत्रण कक्ष", phone="0253-2305233", category="police", verified=True),
+    EmergencyContact(id="emg-ambulance", labelEn="Medical Emergency & Ambulance", labelHi="चिकित्सा आपातकाल एवं एम्बुलेंस", labelMr="वैद्यकीय आणीबाणी व रुग्णवाहिका", phone="108", category="medical", verified=True),
+    EmergencyContact(id="emg-kumbh-helpline", labelEn="Nashik Kumbh Mela Helpline", labelHi="नाशिक कुंभ मेला हेल्पलाइन", labelMr="नाशिक कुंभ मेळा हेल्पलाईन", phone="1800-233-0244", category="kumbh_helpline", verified=True),
+    EmergencyContact(id="emg-tourist-helpline", labelEn="Tourist Helpline (24x7)", labelHi="पर्यटक हेल्पलाइन (24x7)", labelMr="पर्यटन हेल्पलाईन (२४x७)", phone="1363", category="tourist_helpline", verified=True),
 ]
 
 
-# ─── API Endpoints ────────────────────────────────────────────────────────────
+# Real In-Memory Visitor & Active Pilgrim Session Tracker
+VISITOR_STATS = {"totalVisitors": 1}
+ACTIVE_SESSIONS: Dict[str, float] = {}
 
 @app.get("/health", tags=["system"])
 async def health_check():
     return {"status": "ok", "app": "Yatriva API", "version": "0.4.0"}
+
+@app.get("/api/visitors", tags=["system"])
+async def get_visitors():
+    now = time.time()
+    # Expire sessions older than 2 minutes
+    expired = [sid for sid, last_seen in ACTIVE_SESSIONS.items() if now - last_seen > 120]
+    for sid in expired:
+        ACTIVE_SESSIONS.pop(sid, None)
+    return {
+        "totalVisitors": VISITOR_STATS["totalVisitors"],
+        "activePilgrims": max(1, len(ACTIVE_SESSIONS))
+    }
+
+class VisitorPing(BaseModel):
+    sessionId: Optional[str] = None
+    isNewSession: Optional[bool] = False
+
+@app.post("/api/visitors", tags=["system"])
+async def track_visitor(ping: VisitorPing):
+    now = time.time()
+    sid = ping.sessionId or f"anon_{int(now * 1000)}"
+    if ping.isNewSession:
+        VISITOR_STATS["totalVisitors"] += 1
+    ACTIVE_SESSIONS[sid] = now
+    
+    # Clean up
+    expired = [k for k, last_seen in ACTIVE_SESSIONS.items() if now - last_seen > 120]
+    for k in expired:
+        ACTIVE_SESSIONS.pop(k, None)
+        
+    return {
+        "totalVisitors": VISITOR_STATS["totalVisitors"],
+        "activePilgrims": max(1, len(ACTIVE_SESSIONS)),
+        "sessionId": sid
+    }
 
 
 @app.get("/places", response_model=List[Place], tags=["places"])

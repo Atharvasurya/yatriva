@@ -91,6 +91,7 @@ export interface ParkingZone extends Place {
   vehicleTypes: Array<'car' | 'bus' | 'two_wheeler' | 'heavy_vehicle'>;
   distanceToMainGhatKm: number | null; // null = PLACEHOLDER
   shuttleAvailable: boolean | null;    // null = unknown
+  imageUrl?: string;
 }
 
 /**

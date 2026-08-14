@@ -38,12 +38,12 @@ export default function EmergencyPage() {
       </div>
 
       {/* Critical Data Notice Banner */}
-      <div className="p-5 rounded-2xl bg-amber-50 border border-amber-300 shadow-sm space-y-2">
-        <div className="flex items-center gap-2 text-amber-900 font-bold text-sm">
-          <Info className="h-4 w-4 shrink-0 text-amber-700" />
+      <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50 border border-emerald-300 shadow-xs space-y-1.5">
+        <div className="flex items-center gap-2 text-emerald-900 font-bold text-sm">
+          <Info className="h-4 w-4 shrink-0 text-emerald-700" />
           <span>{t('bannerTitle')}</span>
         </div>
-        <p className="text-xs text-amber-800 leading-relaxed">
+        <p className="text-xs text-emerald-800 leading-relaxed font-medium">
           {t('bannerText')}
         </p>
       </div>
