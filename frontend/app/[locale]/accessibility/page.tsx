@@ -96,23 +96,25 @@ export default async function AccessibilityPage({ params }: Props) {
     <div className="min-h-screen text-slate-900 py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Back navigation & Page Header */}
-        <div className="flex items-center gap-3">
-          <Link
-            href={`/${locale}`}
-            className="p-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px]"
-            aria-label="Back to Home"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Link>
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-800 border border-indigo-200 mb-1">
+        <div className="space-y-3">
+          <div className="flex items-center gap-3">
+            <Link
+              href={`/${locale}`}
+              className="p-2.5 rounded-xl bg-white border border-slate-200/90 text-slate-700 hover:bg-slate-100 hover:border-slate-300 transition-all inline-flex items-center justify-center min-h-[40px] min-w-[40px] shadow-2xs group shrink-0"
+              aria-label="Back to Home"
+            >
+              <ArrowLeft className="h-4 w-4 transform group-hover:-translate-x-0.5 transition-transform" />
+            </Link>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-800 border border-indigo-200 shadow-2xs">
               <Accessibility className="h-3.5 w-3.5 text-indigo-600" />
               <span>Elderly & Divyangjan Assistance</span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+          </div>
+          <div>
+            <h1 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
               Senior Citizen & Accessibility Guide
             </h1>
-            <p className="text-xs sm:text-sm text-slate-600 font-medium">
+            <p className="text-xs sm:text-sm text-slate-600 font-medium mt-1">
               Comfort, mobility, step-free routes, and medical care for senior citizens and Divyangjan at Simhastha Kumbh 2027.
             </p>
           </div>
