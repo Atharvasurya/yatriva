@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import {
@@ -19,6 +20,8 @@ interface StoryChapter {
     mr: string[];
   };
   highlightFact: { en: string; hi: string; mr: string };
+  imageSrc?: string;
+  imageAlt?: string;
   icon: typeof Waves;
   accentColor: string;
   bgLight: string;
@@ -43,21 +46,23 @@ const CHAPTERS: StoryChapter[] = [
       hi: 'विश्व के सबसे बड़े धार्मिक समागम की पौराणिक उत्पत्ति',
       mr: 'जगातील सर्वात मोठ्या आध्यात्मिक मेळाव्याची पौराणिक उत्पत्ती',
     },
+    imageSrc: '/images/samudra-manthan.jpg',
+    imageAlt: 'Samudra Manthan - Cosmic Ocean Churning and Golden Amrit Pot',
     narrative: {
-      en: 'According to Hindu Puranas, the Devas (gods) and Asuras (demons) churned the cosmic ocean of milk (Kshira Sagara) using Mount Mandara as the rod and serpent Vasuki as the rope to obtain the nectar of immortality (Amrita). When Lord Dhanvantari emerged holding the golden pot (Kumbha) of Amrita, a celestial pursuit ensued.',
+      en: 'According to Hindu Puranas, the Devas (gods) and Asuras (demons) churned the cosmic ocean of milk (Kshira Sagara) using Mount Mandara as the rod and serpent Vasuki as the rope to obtain the nectar of immortality (Amrita). When Lord Dhanvantari emerged holding the golden pot (Kumbha) of Amrita, a celestial pursuit ensued across the cosmos.',
       hi: 'हिंदू पुराणों के अनुसार, देवताओं और दानवों ने अमरता का अमृत पाने के लिए मंदराचल पर्वत और वासुकी नाग की सहायता से क्षीरसागर का मंथन किया। जब भगवान धन्वंतरि अमृत का स्वर्ण कुंभ (कलश) लेकर प्रकट हुए, तो अमृत पाने के लिए देवताओं और असुरों के बीच संघर्ष हुआ।',
       mr: 'हिंदू पुराणांनुसार, देव आणि दानवांनी अमृताच्या प्राप्तीसाठी मंदराचल पर्वत आणि वासुकी नागाच्या सहाय्याने क्षीरसागराचे मंथन केले. जेव्हा भगवान धन्वंतरी अमृताचा सुवर्ण कुंभ घेऊन प्रकट झाले, तेव्हा अमृत मिळवण्यासाठी देव-दानवांमध्ये संघर्ष सुरू झाला.',
     },
     bulletPoints: {
       en: [
-        'Lord Vishnu\'s celestial eagle vehicle, Garuda, flew with the Amrita Kumbha for 12 divine days (equivalent to 12 human earthly years).',
+        'Lord Vishnu\'s celestial vehicle Garuda flew with the Amrita Kumbha for 12 divine days (equal to 12 human earthly years).',
         'During the aerial pursuit, exactly 4 drops of divine Amrita fell upon 4 sacred riverbanks on Earth.',
         'The 4 sacred Kumbh sites are Nashik (Godavari), Ujjain (Shipra), Haridwar (Ganga), and Prayagraj (Triveni Sangam).',
-        'Bathing in the Godavari during Kumbh is believed to bestow the purifying essence of this celestial Amrita.',
+        'Bathing in the sacred Godavari during Kumbh is revered as purifying generations of karmic debt.',
       ],
       hi: [
         'भगवान विष्णु के वाहन गरुड़ जी अमृत कुंभ को लेकर 12 दिव्य दिनों (पृथ्वी के 12 मानव वर्ष) तक उड़े।',
-        'इस यात्रा के दौरान पृथ्वी पर 4 पवित्र नदी तटों पर अमृत की बूंदें गिरीं।',
+        'इस यात्रा के दौरान पृथ्वी पर 4 पवित्र नदी तटों पर अमृत की दिव्य बूंदें गिरीं।',
         'ये 4 पवित्र कुंभ स्थल हैं — नाशिक (गोदावरी), उज्जैन (शिप्रा), हरिद्वार (गंगा) और प्रयागराज (त्रिवेणी संगम)।',
         'कुंभ के पावन काल में गोदावरी में स्नान करने से अमृत तत्व की प्राप्ति और जन्म-जन्मांतर के पापों से मुक्ति मिलती है।',
       ],
@@ -69,7 +74,7 @@ const CHAPTERS: StoryChapter[] = [
       ],
     },
     highlightFact: {
-      en: '12 Divine Days = 12 Earth Years: Why the Kumbh Mela returns to Nashik once every 12 years.',
+      en: '12 Divine Days = 12 Earth Years: The astronomical reason why the Kumbh returns to Nashik once every 12 years.',
       hi: '12 दिव्य दिन = 12 मानव वर्ष: इसी कारण नाशिक में हर 12 वर्ष बाद सिंहस्थ कुंभ का आयोजन होता है।',
       mr: '१२ दिव्य दिवस = १२ मानवी वर्षे: म्हणूनच नाशिकमध्ये दर १२ वर्षांनी सिंहस्थ कुंभमेळा भरतो.',
     },
@@ -96,7 +101,7 @@ const CHAPTERS: StoryChapter[] = [
       mr: 'नाशिक सिंहस्थ कुंभपर्वाचे खगोलीय आणि आध्यात्मिक रहस्य',
     },
     narrative: {
-      en: 'The Kumbh Mela at Nashik and Trimbakeshwar is uniquely known as "Simhastha". It is strictly calculated based on Vedic astronomical alignments when Brihaspati (Jupiter) enters the zodiac sign of Leo (Simha Rashi) and the Sun aligns in Cancer (Karka) or Leo.',
+      en: 'The Kumbh Mela at Nashik and Trimbakeshwar is uniquely known as "Simhastha". It is strictly calculated based on ancient Vedic astronomical alignments when Brihaspati (Jupiter) enters the zodiac sign of Leo (Simha Rashi) and the Sun aligns in Cancer (Karka) or Leo.',
       hi: 'नाशिक और त्र्यंबकेश्वर के कुंभ को "सिंहस्थ" कहा जाता है। इसका निर्धारण वैदिक ज्योतिषीय गणना से होता है, जब देवगुरु बृहस्पति (गुरु) सिंह राशि में प्रवेश करते हैं और सूर्य कर्क या सिंह राशि में स्थित होते हैं।',
       mr: 'नाशिक आणि त्र्यंबकेश्वर येथील कुंभमेळ्याला "सिंहस्थ" असे विशेष नाव आहे. जेव्हा देवगुरु बृहस्पती (गुरू ग्रह) सिंह राशीत प्रवेश करतात, तेव्हा या सिंहस्थ पर्वाचा प्रारंभ होतो.',
     },
@@ -148,8 +153,8 @@ const CHAPTERS: StoryChapter[] = [
       mr: 'ब्रह्मगिरी पर्वतावर पवित्र गोदावरी नदीचे कसे झाले अवतरण',
     },
     narrative: {
-      en: 'Sage Gautama lived in an ashram on Brahmagiri hill in Trimbakeshwar during a severe 12-year drought. Through his ascetic powers, his hermitage flourished. When fellow sages inadvertently caused a divine cow (Gau) to perish, Sage Gautama undertook fierce penance to Lord Shiva to bring the celestial Ganga down to purify the earth and atone for the sin.',
-      hi: 'प्राचीन काल में 12 वर्षों के भयंकर अकाल के समय महर्षि गौतम त्र्यंबकेश्वर के ब्रह्मगिरि पर निवास करते थे। अपने तपोबल से उन्होंने सभी ऋषियों का भरण-पोषण किया। अनजाने में हुए एक प्रसंग के बाद, महर्षि गौतम ने भगवान शिव की कठोर तपस्या कर गंगाजी को धरती पर आने की प्रार्थना की।',
+      en: 'Sage Gautama lived in an ashram on Brahmagiri hill in Trimbakeshwar during a severe 12-year drought. Through his ascetic powers, his hermitage flourished. Sage Gautama undertook fierce penance to Lord Shiva to bring the celestial Ganga down to purify the earth, sanctifying Maharashtra as the sacred Godavari.',
+      hi: 'प्राचीन काल में 12 वर्षों के भयंकर अकाल के समय महर्षि गौतम त्र्यंबकेश्वर के ब्रह्मगिरि पर निवास करते थे। अपने तपोबल से उन्होंने सभी ऋषियों का भरण-पोषण किया। महर्षि गौतम ने भगवान शिव की कठोर तपस्या कर गंगाजी को धरती पर आने की प्रार्थना की, जो गोदावरी कहलाई।',
       mr: 'प्राचीन काळी १२ वर्षांच्या दुष्काळात महर्षी गौतम त्र्यंबकेश्वर येथील ब्रह्मगिरीवर तपश्चर्या करत होते. त्यांनी भगवान शंकराची कठोर आराधना करून गंगा मातेला भूतलावर आणले, जी पुढे "गोदावरी" म्हणून ओळखली गेली.',
     },
     bulletPoints: {
@@ -246,7 +251,7 @@ export default function KumbhStoryInteractive() {
   return (
     <section
       id="kumbh-story"
-      className="px-4 sm:px-6 py-6 max-w-5xl mx-auto w-full space-y-5"
+      className="px-4 sm:px-6 py-6 max-w-5xl mx-auto w-full space-y-6"
       aria-labelledby="kumbh-story-heading"
     >
       {/* ── Section Header ───────────────────────────────────────────── */}
@@ -329,10 +334,45 @@ export default function KumbhStoryInteractive() {
         })}
       </div>
 
-      {/* ── Active Chapter Interactive Presentation Box ──────────────── */}
+      {/* ── Active Chapter Presentation Box with Animated Clipart ───── */}
       <div
-        className={`p-5 sm:p-7 rounded-3xl border ${activeChapter.borderColor} bg-white shadow-md transition-all space-y-5 animate-in fade-in duration-200`}
+        className={`p-5 sm:p-8 rounded-3xl border ${activeChapter.borderColor} bg-white shadow-lg transition-all space-y-6 animate-in fade-in duration-200`}
       >
+        {/* Animated Clipart Feature Banner (if chapter has image) */}
+        {activeChapter.imageSrc && (
+          <div className="relative rounded-2xl overflow-hidden border border-amber-200/80 shadow-md bg-amber-50/40 group">
+            {/* Clipart Image */}
+            <div className="relative w-full h-56 sm:h-80">
+              <Image
+                src={activeChapter.imageSrc}
+                alt={activeChapter.imageAlt || 'Samudra Manthan Artwork'}
+                fill
+                className="object-cover object-center transform transition-transform duration-700 group-hover:scale-[1.02]"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent pointer-events-none" />
+
+              {/* Floating Golden Amrit Droplet Glow Effects */}
+              <div className="absolute top-4 right-4 sm:top-6 sm:right-6 pointer-events-none">
+                <div className="flex items-center gap-1.5 bg-amber-500/90 backdrop-blur-md text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-lg border border-amber-300/40 animate-pulse">
+                  <Sparkles className="h-3.5 w-3.5 text-amber-200" />
+                  <span>Amrita Kumbha</span>
+                </div>
+              </div>
+
+              {/* Bottom Image Caption Overlay */}
+              <div className="absolute bottom-3 left-4 right-4 text-white">
+                <span className="text-[10px] uppercase tracking-widest text-amber-300 font-extrabold block drop-shadow-md">
+                  Vedic Sacred Legend
+                </span>
+                <p className="text-xs sm:text-sm font-bold text-white/95 leading-tight drop-shadow-md">
+                  Samudra Manthan: Mount Mandara & Vasuki Serpent Churning the Cosmic Ocean of Milk
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Active Chapter Header */}
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
           <div className="flex items-start gap-3.5">
@@ -346,10 +386,10 @@ export default function KumbhStoryInteractive() {
               <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md">
                 Chapter {activeChapterIndex + 1} of 4
               </span>
-              <h3 className="text-lg sm:text-xl font-black text-slate-900 mt-1 leading-snug">
+              <h3 className="text-lg sm:text-2xl font-black text-slate-900 mt-1 leading-snug">
                 {activeChapter.title[locale] || activeChapter.title.en}
               </h3>
-              <p className="text-xs text-slate-500 font-semibold mt-0.5">
+              <p className="text-xs sm:text-sm text-slate-500 font-semibold mt-0.5">
                 {activeChapter.tagline[locale] || activeChapter.tagline.en}
               </p>
             </div>
@@ -366,7 +406,7 @@ export default function KumbhStoryInteractive() {
           {(activeChapter.bulletPoints[locale] || activeChapter.bulletPoints.en).map((point, i) => (
             <div
               key={i}
-              className="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/80 flex items-start gap-3 text-xs text-slate-700 leading-relaxed hover:border-slate-300 transition-colors"
+              className="p-4 rounded-2xl bg-slate-50/90 border border-slate-200/80 flex items-start gap-3 text-xs sm:text-xs text-slate-700 leading-relaxed hover:border-slate-300 transition-colors"
             >
               <div className="p-1 rounded-full bg-amber-100 text-amber-800 shrink-0 mt-0.5">
                 <Check className="h-3 w-3 stroke-[3]" />
@@ -378,20 +418,20 @@ export default function KumbhStoryInteractive() {
 
         {/* Highlight Key Fact Callout */}
         <div
-          className="p-4 rounded-2xl flex items-center gap-3 border shadow-2xs"
+          className="p-4 sm:p-4.5 rounded-2xl flex items-center gap-3.5 border shadow-2xs"
           style={{ background: activeChapter.bgLight, borderColor: activeChapter.accentColor + '40' }}
         >
           <div
-            className="p-2 rounded-xl text-white shrink-0"
+            className="p-2.5 rounded-xl text-white shrink-0 shadow-xs"
             style={{ background: activeChapter.accentColor }}
           >
-            <Star className="h-4 w-4" />
+            <Star className="h-4.5 w-4.5" />
           </div>
           <div>
             <span className="text-[10px] font-black uppercase tracking-wider text-slate-600 block">
               Core Spiritual Insight
             </span>
-            <p className="text-xs font-bold text-slate-900 leading-tight">
+            <p className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
               {activeChapter.highlightFact[locale] || activeChapter.highlightFact.en}
             </p>
           </div>
@@ -399,27 +439,27 @@ export default function KumbhStoryInteractive() {
       </div>
 
       {/* ── 4 Quick Milestone Stat Badges ───────────────────────────── */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
-        <div className="p-3.5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs text-center space-y-0.5">
-          <span className="text-lg sm:text-xl font-black text-amber-700 block">12 Years</span>
-          <span className="text-[11px] font-bold text-slate-500">1 Divine Day = 1 Year</span>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs text-center space-y-1">
+          <span className="text-xl sm:text-2xl font-black text-amber-700 block">12 Years</span>
+          <span className="text-xs font-bold text-slate-500">1 Divine Day = 1 Year</span>
         </div>
 
-        <div className="p-3.5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs text-center space-y-0.5">
-          <span className="text-lg sm:text-xl font-black text-navy-800 block">4 Sacred Sites</span>
-          <span className="text-[11px] font-bold text-slate-500">Nashik, Ujjain, Haridwar, Prayag</span>
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs text-center space-y-1">
+          <span className="text-xl sm:text-2xl font-black text-navy-800 block">4 Sacred Sites</span>
+          <span className="text-xs font-bold text-slate-500">Nashik, Ujjain, Haridwar, Prayag</span>
         </div>
 
-        <div className="p-3.5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs text-center space-y-0.5">
-          <span className="text-lg sm:text-xl font-black text-emerald-800 block">30M+ Pilgrims</span>
-          <span className="text-[11px] font-bold text-slate-500">Largest Human Gathering</span>
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs text-center space-y-1">
+          <span className="text-xl sm:text-2xl font-black text-emerald-800 block">30M+ Pilgrims</span>
+          <span className="text-xs font-bold text-slate-500">Largest Gathering</span>
         </div>
 
-        <div className="p-3.5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs text-center space-y-0.5">
-          <span className="text-lg sm:text-xl font-black text-saffron-600 block" style={{ color: '#E87722' }}>
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs text-center space-y-1">
+          <span className="text-xl sm:text-2xl font-black text-saffron-600 block" style={{ color: '#E87722' }}>
             13 Holy Akhadas
           </span>
-          <span className="text-[11px] font-bold text-slate-500">Ancient Ascetic Orders</span>
+          <span className="text-xs font-bold text-slate-500">Ancient Ascetic Orders</span>
         </div>
       </div>
     </section>
