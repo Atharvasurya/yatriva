@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
-import { MapPin, ExternalLink, Clock, CheckCircle2, AlertTriangle, Sparkles, Video } from 'lucide-react';
+import { MapPin, ExternalLink, Clock, CheckCircle2, AlertTriangle, Sparkles, Video, ArrowLeft } from 'lucide-react';
 import TempleIcon from '@/components/ui/TempleIcon';
 import { TEMPLES } from '@/data/seed';
 
@@ -11,7 +11,18 @@ export default function TemplesPage() {
   const locale = useLocale() as 'en' | 'hi' | 'mr';
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-5 sm:space-y-6">
+      {/* Back to Home Navigation */}
+      <Link
+        href={`/${locale}`}
+        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white hover:bg-amber-50/60 text-slate-700 hover:text-amber-900 border border-slate-200/90 hover:border-amber-300 text-xs font-bold shadow-2xs transition-all duration-200 hover:-translate-x-0.5 active:scale-95 group w-fit"
+      >
+        <ArrowLeft className="h-4 w-4 text-amber-700 transition-transform group-hover:-translate-x-0.5" />
+        <span>
+          {locale === 'hi' ? 'मुख्य पृष्ठ पर वापस जाएं' : locale === 'mr' ? 'मुख्य पृष्ठावर परत जा' : 'Back to Home'}
+        </span>
+      </Link>
+
       {/* Header Banner */}
       <div
         className="rounded-2xl p-6 sm:p-8 text-white relative overflow-hidden shadow-xl animate-fade-up"
