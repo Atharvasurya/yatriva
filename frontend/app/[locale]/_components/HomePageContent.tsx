@@ -428,6 +428,7 @@ export default function HomePageContent() {
           {/* Offline Safety Pass */}
           <Link
             href={`/${locale}/safety-pass`}
+            prefetch={true}
             className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
             <div className="flex items-center gap-3">
@@ -451,6 +452,7 @@ export default function HomePageContent() {
           {/* Lost & Found */}
           <Link
             href={`/${locale}/lost-and-found`}
+            prefetch={true}
             className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-red-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
             <div className="flex items-center gap-3">
@@ -474,6 +476,7 @@ export default function HomePageContent() {
           {/* Elderly & Accessibility */}
           <Link
             href={`/${locale}/accessibility`}
+            prefetch={true}
             className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
             <div className="flex items-center gap-3">
@@ -497,6 +500,7 @@ export default function HomePageContent() {
           {/* Ghat Water Safety */}
           <Link
             href={`/${locale}/water-safety`}
+            prefetch={true}
             className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
             <div className="flex items-center gap-3">
@@ -520,6 +524,7 @@ export default function HomePageContent() {
           {/* Traffic & Shuttle Transit */}
           <Link
             href={`/${locale}/traffic-advisory`}
+            prefetch={true}
             className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
             <div className="flex items-center gap-3">
@@ -543,6 +548,7 @@ export default function HomePageContent() {
           {/* Weather & Health */}
           <Link
             href={`/${locale}/weather-health`}
+            prefetch={true}
             className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-orange-400 hover:shadow-lg hover:-translate-y-0.5 transition-all group flex flex-col justify-between space-y-3 min-h-[112px] sm:min-h-[120px]"
           >
             <div className="flex items-center gap-3">

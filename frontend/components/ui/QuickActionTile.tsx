@@ -70,6 +70,7 @@ export default function QuickActionTile({
   return (
     <Link
       href={fullHref}
+      prefetch={true}
       aria-label={label}
       className="focus-visible:outline-2 focus-visible:outline-offset-2 rounded-2xl block"
       style={{ outlineColor: textColor }}
