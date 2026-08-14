@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
-import { Church, MapPin, ExternalLink, Clock, CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
+import { MapPin, ExternalLink, Clock, CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
+import TempleIcon from '@/components/ui/TempleIcon';
 import { TEMPLES } from '@/data/seed';
 
 export default function TemplesPage() {
@@ -17,11 +18,11 @@ export default function TemplesPage() {
         style={{ background: 'linear-gradient(135deg, #2D1B0E 0%, #C2581A 50%, #E87722 100%)' }}
       >
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
-          <Church className="w-64 h-64 text-white" />
+          <TempleIcon className="w-64 h-64 text-white" />
         </div>
         <div className="relative z-10 flex items-start gap-4">
           <div className="p-3.5 rounded-2xl bg-white/15 backdrop-blur-md shrink-0 shadow-inner">
-            <Church className="h-8 w-8 sm:h-9 sm:w-9 text-amber-200" />
+            <TempleIcon className="h-8 w-8 sm:h-9 sm:w-9 text-amber-200" />
           </div>
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-200 text-xs font-semibold mb-2 backdrop-blur-sm">

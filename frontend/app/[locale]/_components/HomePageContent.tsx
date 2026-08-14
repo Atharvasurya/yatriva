@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import {
-  Waves, Church, Bus, ParkingCircle, AlertTriangle, Info, MapPin, Compass, Navigation, HeartPulse, Utensils, Bath, UserPlus, ShieldCheck, X, ExternalLink
+  Waves, Bus, ParkingCircle, AlertTriangle, Info, MapPin, Compass, Navigation, HeartPulse, Utensils, Bath, UserPlus, ShieldCheck, X, ExternalLink
 } from 'lucide-react';
 import SnanDateCard from '@/components/ui/SnanDateCard';
 import QuickActionTile from '@/components/ui/QuickActionTile';
+import TempleIcon from '@/components/ui/TempleIcon';
 import NashikDarshanVideo from '@/components/ui/NashikDarshanVideo';
 import LeafletMapWrapper from '@/components/map/LeafletMapWrapper';
 import LocationPickerModal from '@/components/map/LocationPickerModal';
@@ -18,7 +19,7 @@ import type { PlaceCategory } from '@/types/place';
 
 const QUICK_ACTIONS = [
   { key: 'ghats', href: '/ghats', Icon: Waves, color: 'rgba(27,43,75,0.08)', textColor: 'var(--color-primary)' },
-  { key: 'temples', href: '/temples', Icon: Church, color: 'rgba(173,78,17,0.12)', textColor: 'var(--color-accent-text)' },
+  { key: 'temples', href: '/temples', Icon: TempleIcon, color: 'rgba(173,78,17,0.12)', textColor: 'var(--color-accent-text)' },
   { key: 'transport', href: '/transport', Icon: Bus, color: 'rgba(27,43,75,0.08)', textColor: 'var(--color-primary)' },
   { key: 'parking', href: '/parking', Icon: ParkingCircle, color: 'rgba(173,78,17,0.12)', textColor: 'var(--color-accent-text)' },
   { key: 'emergency', href: '/emergency', Icon: AlertTriangle, color: 'rgba(220,38,38,0.10)', textColor: '#B91C1C' },

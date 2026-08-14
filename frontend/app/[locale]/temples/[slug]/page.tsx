@@ -3,7 +3,8 @@
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
-import { Church, MapPin, ArrowLeft, ShieldCheck, Tag, Clock, AlertTriangle, BookOpen, Flame, Star } from 'lucide-react';
+import { MapPin, ArrowLeft, ShieldCheck, Tag, Clock, AlertTriangle, BookOpen, Flame, Star } from 'lucide-react';
+import TempleIcon from '@/components/ui/TempleIcon';
 import { TEMPLES } from '@/data/seed';
 import AiAudioReader from '@/components/ui/AiAudioReader';
 import TempleVideoPlayer from '@/components/ui/TempleVideoPlayer';
@@ -78,7 +79,7 @@ export default function TempleDetailPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
               <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-1.5 rounded-lg uppercase tracking-wider text-white bg-amber-600/90 backdrop-blur-md mb-2.5 shadow-md">
-                <Church className="h-4 w-4" />
+                <TempleIcon className="h-4 w-4" />
                 {temple.deity}
               </span>
               <h1 className="text-3xl sm:text-5xl font-black text-white drop-shadow-md tracking-tight">
@@ -97,7 +98,7 @@ export default function TempleDetailPage() {
                   className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider text-white"
                   style={{ background: '#C2581A' }}
                 >
-                  <Church className="h-3.5 w-3.5" />
+                  <TempleIcon className="h-3.5 w-3.5" />
                   {temple.deity}
                 </span>
                 <h1 className="text-2xl sm:text-3xl font-black text-slate-900">

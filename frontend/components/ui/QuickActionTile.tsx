@@ -8,7 +8,7 @@ interface QuickActionTileProps {
   href: string;
   label: string;
   description?: string;
-  Icon: LucideIcon;
+  Icon: LucideIcon | React.ComponentType<{ className?: string; style?: React.CSSProperties; strokeWidth?: number | string; size?: number | string }>;
   color: string;       // background for the icon circle
   textColor: string;   // icon + accent color
   index: number;
