@@ -99,7 +99,7 @@ export default function Footer() {
         borderColor: 'rgba(255,255,255,0.08)',
       }}
     >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-28 sm:pb-14 space-y-8">
         
         {/* Real Live Visitors Counter Bar */}
         <div
