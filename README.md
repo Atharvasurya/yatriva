@@ -238,15 +238,6 @@ npm run start
       <br />
       <a href="mailto:atharvasuryawanshi@gmail.com">atharvasuryawanshi@gmail.com</a>
     </td>
-    <td align="center" width="300">
-      <img src="frontend/public/images/team/khushal.png" width="120" height="120" style="border-radius:50%;" alt="Khushal Kulkarni"/>
-      <br />
-      <b>Khushal Hemant Kulkarni</b>
-      <br />
-      <sub>UI/UX Designer & Product Strategist</sub>
-      <br />
-      <a href="mailto:khushalkulkarni@gmail.com">khushalkulkarni@gmail.com</a>
-    </td>
   </tr>
 </table>
 
