@@ -243,6 +243,12 @@ npm run start
 
 ---
 
+## 📰 Press & Media Coverage
+
+- **Divya Marathi (Dainik Bhaskar Group)**: [नाशिक कुंभमेळा २०२७: अथर्व सूर्यवंशी यांनी विकसित केले 'यात्रिवा' डिजिटल व्यासपीठ (Nashik Kumbh Mela 2027: Atharv Suryavanshi develops Yatriva Digital Platform)](https://divyamarathi.bhaskar.com/dvm-originals/news/nashik-kumbh-mela-2027-atharv-suryavanshi-yatriva-digital-platform-138873995.html)
+
+---
+
 ## 📜 Disclaimer & Acknowledgement
 
 > **Notice**: Yatriva is an independent, community-driven digital visitor guide developed to assist pilgrims during the Nashik Simhastha Kumbh Mela 2027. It is not affiliated with, endorsed by, or connected to any government authority, police department, or religious organisation. Emergency contact details and public safety advisory numbers are compiled from public civic directories.
