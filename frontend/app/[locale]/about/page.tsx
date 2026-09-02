@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
-import { ShieldCheck, Globe, Info, Users, Sparkles, MapPin, Mail, ArrowLeft, Newspaper, ExternalLink, Award } from 'lucide-react';
+import { ShieldCheck, Globe, Info, Users, Sparkles, MapPin, Mail, ArrowLeft } from 'lucide-react';
 
 export default function AboutPage() {
   const t = useTranslations('about');
@@ -12,7 +12,7 @@ export default function AboutPage() {
   const teamMembers = [
     {
       name: 'Atharva Ravindra Suryawanshi',
-      bio: 'Full-stack developer skilled in Next.js, React, Python, and cloud architecture. Creator of Yatriva — featured in Divya Marathi (Dainik Bhaskar) for building civic-tech visitor tools for Nashik Simhastha Kumbh Mela 2027.',
+      bio: 'Full-stack developer skilled in Next.js, React, Python, and cloud architecture. Creator of Yatriva — building civic-tech visitor tools for Nashik Simhastha Kumbh Mela 2027.',
       location: 'Nashik, Maharashtra, India',
       email: 'atharvasuryawanshi@gmail.com',
       image: '/images/team/atharva.png',
@@ -70,20 +70,7 @@ export default function AboutPage() {
                   {member.bio}
                 </p>
 
-                <div className="pt-1">
-                  <a
-                    href="https://divyamarathi.bhaskar.com/dvm-originals/news/nashik-kumbh-mela-2027-atharv-suryavanshi-yatriva-digital-platform-138873995.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100/80 hover:bg-amber-200 text-amber-900 text-[11px] font-bold transition-colors border border-amber-300"
-                  >
-                    <Newspaper className="w-3 h-3 text-amber-700" />
-                    <span>Featured in Divya Marathi</span>
-                    <ExternalLink className="w-2.5 h-2.5 text-amber-600" />
-                  </a>
-                </div>
-
-                <div className="flex items-center justify-center gap-1.5 text-xs text-slate-500 font-semibold pt-0.5">
+                <div className="flex items-center justify-center gap-1.5 text-xs text-slate-500 font-semibold pt-1">
                   <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0" />
                   <span>{member.location}</span>
                 </div>
@@ -102,46 +89,6 @@ export default function AboutPage() {
           ))}
         </div>
       </div>
-
-      {/* ── Media Coverage & Recognition (Divya Marathi) ───────────────────── */}
-      <section
-        aria-label="Media Coverage"
-        className="bg-gradient-to-br from-amber-50 via-white to-orange-50/60 rounded-2xl p-6 sm:p-7 border border-amber-200/90 shadow-md space-y-4 hover:shadow-lg transition-all"
-      >
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-amber-200/60 pb-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100/80 text-amber-900 text-xs font-bold uppercase tracking-wider border border-amber-300/80">
-            <Newspaper className="w-3.5 h-3.5 text-amber-700" />
-            <span>{t('mediaBadge')}</span>
-          </div>
-          <span className="text-xs font-bold text-amber-800/90 bg-white px-2.5 py-1 rounded-lg border border-amber-200">
-            {t('mediaSource')}
-          </span>
-        </div>
-
-        <div className="space-y-2">
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
-            {t('mediaHeadline')}
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-            {t('mediaDesc')}
-          </p>
-        </div>
-
-        <div className="pt-2 flex flex-wrap items-center gap-3">
-          <a
-            href="https://divyamarathi.bhaskar.com/dvm-originals/news/nashik-kumbh-mela-2027-atharv-suryavanshi-yatriva-digital-platform-138873995.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-extrabold shadow-sm transition-all hover:scale-[1.02] active:scale-95"
-          >
-            <span>{t('mediaCta')}</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-          <span className="text-[11px] text-slate-500 font-medium">
-            Published on divyamarathi.bhaskar.com • Dainik Bhaskar Group
-          </span>
-        </div>
-      </section>
 
       {/* ── About Yatriva Hero Banner ───────────────────────────────────────── */}
       <div

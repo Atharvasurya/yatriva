@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { ShieldAlert, Users, Activity, ExternalLink, Newspaper } from 'lucide-react';
+import { ShieldAlert, Users, Activity } from 'lucide-react';
 
 export default function Footer() {
   const t = useTranslations('footer');
@@ -184,19 +184,6 @@ export default function Footer() {
               {t(`links.${key}`)}
             </Link>
           ))}
-
-          {/* External Media Coverage Link */}
-          <a
-            href="https://divyamarathi.bhaskar.com/dvm-originals/news/nashik-kumbh-mela-2027-atharv-suryavanshi-yatriva-digital-platform-138873995.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-semibold text-amber-400 hover:text-amber-300 transition-colors min-h-[44px] inline-flex items-center gap-1.5"
-            title="Divya Marathi coverage of Yatriva by Atharva Suryawanshi"
-          >
-            <Newspaper className="w-4 h-4 text-amber-400 shrink-0" />
-            <span>Media Coverage (Divya Marathi)</span>
-            <ExternalLink className="w-3.5 h-3.5 opacity-70" />
-          </a>
         </nav>
 
         {/* Copyright */}

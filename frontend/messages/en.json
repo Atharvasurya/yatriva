@@ -165,13 +165,7 @@
     "offlineTitle": "Offline First Design",
     "offlineText": "Designed to function under heavy network congestion with PWA support and local caching.",
     "legalTitle": "Disclaimer & Governance",
-    "legalText": "Yatriva is an independent project. It is not affiliated with, endorsed by, or connected to any government body, district administration, or religious trust.",
-    "mediaBadge": "Press & Media Recognition",
-    "mediaTitle": "Featured in Divya Marathi",
-    "mediaHeadline": "Nashik Kumbh Mela 2027: Atharv Suryavanshi develops Yatriva Digital Platform",
-    "mediaDesc": "Leading newspaper Divya Marathi (Dainik Bhaskar Group) featured Atharva Suryawanshi and Yatriva, highlighting how this offline-first, multilingual visitor platform was engineered to empower millions of devotees during Nashik Simhastha Kumbh Mela 2027.",
-    "mediaCta": "Read Coverage on Divya Marathi",
-    "mediaSource": "Divya Marathi (Dainik Bhaskar Group)"
+    "legalText": "Yatriva is an independent project. It is not affiliated with, endorsed by, or connected to any government body, district administration, or religious trust."
   },
   "map": {
     "title": "Interactive Pilgrim Map",

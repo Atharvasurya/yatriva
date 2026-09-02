@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://yatriva.vercel.app'),
   title: 'Yatriva — Nashik Kumbh Mela 2027 | Atharva Suryawanshi',
   description:
-    'Independent pilgrim visitor guide and digital platform for Nashik Simhastha Kumbh Mela 2027 by Atharva Suryawanshi. Featured in Divya Marathi (Dainik Bhaskar).',
+    'Independent pilgrim visitor guide and digital platform for Nashik Simhastha Kumbh Mela 2027 by Atharva Suryawanshi.',
 };
 
 // Root layout — thin shell that handles the HTML document.

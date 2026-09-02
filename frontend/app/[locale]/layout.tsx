@@ -65,10 +65,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const localizedDesc =
     locale === 'mr'
-      ? 'नाशिक-त्र्यंबकेश्वर सिंहस्थ कुंभमेळा २०२७ साठी अथर्व सूर्यवंशी यांनी विकसित केलेले स्वतंत्र डिजिटल व्यासपीठ व मार्गदर्शक. दिव्य मराठी विशेष वृत्त.'
+      ? 'नाशिक-त्र्यंबकेश्वर सिंहस्थ कुंभमेळा २०२७ साठी अथर्व सूर्यवंशी यांनी विकसित केलेले स्वतंत्र डिजिटल व्यासपीठ व मार्गदर्शक.'
       : locale === 'hi'
-      ? 'नासिक-त्र्यंबकेश्वर सिंहस्थ कुंभ मेला २०२७ के लिए अथर्व सूर्यवंशी द्वारा विकसित स्वतंत्र डिजिटल गाइड। दिव्य मराठी विशेष कवरेज।'
-      : 'Independent pilgrim visitor guide for Nashik-Trimbakeshwar Simhastha Kumbh Mela 2027 created by Atharva Suryawanshi. Featured in Divya Marathi (Dainik Bhaskar).';
+      ? 'नासिक-त्र्यंबकेश्वर सिंहस्थ कुंभ मेला २०२७ के लिए अथर्व सूर्यवंशी द्वारा विकसित स्वतंत्र डिजिटल गाइड।'
+      : 'Independent pilgrim visitor guide for Nashik-Trimbakeshwar Simhastha Kumbh Mela 2027 created by Atharva Suryawanshi.';
 
   return {
     metadataBase: new URL(siteUrl),
@@ -87,13 +87,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'Nashik Kumbh Mela Atharva Suryawanshi',
       'Nashik Simhastha Kumbh Mela 2027',
       'Trimbakeshwar Kumbh Mela',
-      'Divya Marathi Yatriva',
-      'Divya Marathi Atharva Suryawanshi',
       'यात्रिवा',
       'अथर्व सूर्यवंशी',
       'कुंभमेळा २०२७ नाशिक',
       'सिंहस्थ कुंभमेळा नाशिक',
-      'दिव्य मराठी यात्रिवा',
     ],
     authors: [
       {
@@ -179,8 +176,6 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = MESSAGE_MAP[(locale as LocaleKey)] ?? enMessages;
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yatriva.vercel.app';
-  const mediaUrl =
-    'https://divyamarathi.bhaskar.com/dvm-originals/news/nashik-kumbh-mela-2027-atharv-suryavanshi-yatriva-digital-platform-138873995.html';
 
   const schemaGraph = {
     '@context': 'https://schema.org',
@@ -199,27 +194,13 @@ export default async function LocaleLayout({ children, params }: Props) {
           'अथर्व सूर्यवंशी यात्रिवा',
         ],
         description:
-          'Independent visitor guide and digital platform for Nashik-Trimbakeshwar Simhastha Kumbh Mela 2027 developed by Atharva Suryawanshi. Featured in Divya Marathi.',
+          'Independent visitor guide and digital platform for Nashik-Trimbakeshwar Simhastha Kumbh Mela 2027 developed by Atharva Suryawanshi.',
         inLanguage: ['en', 'hi', 'mr'],
         publisher: {
           '@id': `${siteUrl}/#person-atharva`,
         },
         creator: {
           '@id': `${siteUrl}/#person-atharva`,
-        },
-        subjectOf: {
-          '@type': 'NewsArticle',
-          '@id': mediaUrl,
-          headline:
-            'नाशिक कुंभमेळा २०२७: अथर्व सूर्यवंशी यांचे यात्रिवा डिजिटल प्लॅटफॉर्म (Divya Marathi)',
-          alternativeHeadline:
-            'Nashik Kumbh Mela 2027: Atharv Suryavanshi develops Yatriva Digital Platform',
-          url: mediaUrl,
-          publisher: {
-            '@type': 'NewsMediaOrganization',
-            name: 'Divya Marathi (Dainik Bhaskar)',
-            url: 'https://divyamarathi.bhaskar.com',
-          },
         },
       },
       {
@@ -234,38 +215,11 @@ export default async function LocaleLayout({ children, params }: Props) {
         ],
         jobTitle: 'Founder & Lead Developer of Yatriva',
         description:
-          'Software engineer and creator of Yatriva — the independent digital visitor guide for Nashik Simhastha Kumbh Mela 2027. Covered by Divya Marathi (Dainik Bhaskar Group).',
+          'Software engineer and creator of Yatriva — the independent digital visitor guide for Nashik Simhastha Kumbh Mela 2027.',
         url: `${siteUrl}/${locale}/about`,
         sameAs: [
-          mediaUrl,
           'https://github.com/Atharvasurya',
         ],
-      },
-      {
-        '@type': 'NewsArticle',
-        '@id': `${mediaUrl}#article`,
-        url: mediaUrl,
-        headline:
-          'नाशिक कुंभमेळा २०२७: अथर्व सूर्यवंशी यांनी विकसित केले यात्रिवा डिजिटल व्यासपीठ',
-        alternativeHeadline:
-          'Nashik Kumbh Mela 2027: Atharv Suryavanshi develops Yatriva digital platform',
-        description:
-          'Divya Marathi coverage detailing how Atharva Suryawanshi developed Yatriva, an offline-first digital visitor platform designed for millions of pilgrims attending Nashik Simhastha Kumbh Mela 2027.',
-        about: [
-          {
-            '@type': 'Person',
-            name: 'Atharva Suryawanshi',
-          },
-          {
-            '@type': 'SoftwareApplication',
-            name: 'Yatriva',
-          },
-        ],
-        publisher: {
-          '@type': 'NewsMediaOrganization',
-          name: 'Divya Marathi (Dainik Bhaskar Group)',
-          url: 'https://divyamarathi.bhaskar.com',
-        },
       },
     ],
   };
