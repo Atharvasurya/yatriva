@@ -21,14 +21,6 @@ export default function LanguageSwitcher() {
 
   const switchLocale = (newLocale: string) => {
     if (newLocale === locale) return;
-    try {
-      sessionStorage.setItem('yatriva_suppress_loader_until', String(Date.now() + 5000));
-      if (typeof window !== 'undefined') {
-        (window as any).__yatriva_suppress_loader = true;
-      }
-    } catch {
-      // ignore
-    }
     // Swap the locale segment in the current path
     const segments = pathname.split('/');
     segments[1] = newLocale;

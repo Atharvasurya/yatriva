@@ -77,7 +77,8 @@ export default function NashikDarshanVideo() {
             href={`https://www.youtube.com/watch?v=${selectedTour.videoId}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900 hover:bg-rose-700 text-white text-xs font-bold transition-all shadow-xs active:scale-95 shrink-0 self-start sm:self-center"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-bold transition-all shadow-xs active:scale-95 shrink-0 self-start sm:self-center hover:opacity-90"
+            style={{ background: 'var(--color-primary)' }}
           >
             <Video className="h-3.5 w-3.5" />
             <span>{t('watchOnYouTube')}</span>
@@ -86,20 +87,20 @@ export default function NashikDarshanVideo() {
         </div>
 
         {/* Video Selector Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1.5 scrollbar-thin">
+        <div className="relative z-10 flex items-center gap-2 overflow-x-auto pb-1.5 scrollbar-thin">
           {DARSHAN_TOURS.map((tour) => {
             const isSelected = selectedTour.id === tour.id;
             return (
               <button
                 key={tour.id}
                 onClick={() => setSelectedTour(tour)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap min-h-[38px] cursor-pointer ${
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap min-h-[38px] cursor-pointer border ${
                   isSelected
-                    ? 'bg-[var(--color-primary)] text-white shadow-sm'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    ? 'bg-[var(--color-primary)] text-white shadow-sm border-[var(--color-primary)]'
+                    : 'bg-white text-stone-700 hover:bg-[var(--color-surface-alt)] border-[var(--color-border)]'
                 }`}
               >
-                <Play className={`h-3 w-3 ${isSelected ? 'fill-white text-white' : 'text-slate-500'}`} />
+                <Play className={`h-3 w-3 ${isSelected ? 'fill-white text-white' : 'text-stone-500'}`} />
                 <span>{t(tour.titleKey)}</span>
               </button>
             );

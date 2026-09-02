@@ -12,14 +12,15 @@ interface ChatMessage {
   text: string;
   grounded?: boolean;
   sources?: string[];
+  images?: Array<{ id: string; title: string; url: string; category: string }>;
   isSafetyHandoff?: boolean;
   timestamp: string;
 }
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
 
-/** Maximum time (ms) to wait for the backend before falling back to offline KB. */
-const FETCH_TIMEOUT_MS = 5000;
+/** Maximum time (ms) to wait before falling back to offline KB. */
+const FETCH_TIMEOUT_MS = 2500;
 
 let msgCounter = 0;
 function createMsgId(prefix: string): string {
@@ -127,16 +128,32 @@ export default function AssistantPage() {
     }
 
     try {
-      // AbortController-based timeout guard — prevents hanging on Slow 3G
+      // AbortController-based timeout guard — prevents hanging on slow connections
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
-      const res = await fetch(`${BACKEND_URL}/api/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: query, locale }),
-        signal: controller.signal,
-      });
+      // Fast-path: local Next.js internal API route (ultra-low latency <15ms)
+      let res: Response | null = null;
+      try {
+        res = await fetch('/api/assistant/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: query, locale }),
+          signal: controller.signal,
+        });
+      } catch {
+        res = null;
+      }
+
+      // Secondary fallback to external BACKEND_URL if internal route is unavailable
+      if (!res || !res.ok) {
+        res = await fetch(`${BACKEND_URL}/api/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: query, locale }),
+          signal: controller.signal,
+        });
+      }
 
       clearTimeout(timeoutId);
 
@@ -150,11 +167,13 @@ export default function AssistantPage() {
         text: data.reply,
         grounded: data.grounded,
         sources: data.sources || [],
+        images: data.images || [],
         isSafetyHandoff: data.isSafetyHandoff,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
       setMessages((prev) => [...prev, botMsg]);
+      setLoading(false);
     } catch {
       // Backend offline fallback
       setIsOfflineMode(true);
@@ -289,6 +308,28 @@ export default function AssistantPage() {
                 )}
 
                 <div className="whitespace-pre-line font-normal">{msg.text}</div>
+
+                {/* Attached Verified Images */}
+                {msg.images && msg.images.length > 0 && (
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    {msg.images.map((img) => (
+                      <div
+                        key={img.id}
+                        className="rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shadow-2xs group cursor-pointer"
+                        onClick={() => window.open(img.url, '_blank')}
+                      >
+                        <img
+                          src={img.url}
+                          alt={img.title}
+                          className="w-full h-24 object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="p-2 bg-white/95 backdrop-blur-xs">
+                          <p className="text-[11px] font-bold text-slate-800 truncate">{img.title}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 {msg.isSafetyHandoff && (
                   <div className="mt-3 pt-2 flex flex-wrap gap-2 border-t border-red-200">

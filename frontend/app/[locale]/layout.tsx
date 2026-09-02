@@ -13,7 +13,6 @@ import AiAssistantWidget from '@/components/ui/AiAssistantWidget';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 import OfflineBanner from '@/components/ui/OfflineBanner';
 import Analytics from '@/components/analytics/Analytics';
-import InitialPageLoader from '@/components/ui/InitialPageLoader';
 
 // Static message imports — Turbopack-safe; avoids the next-intl plugin requirement
 // (next-intl's createNextIntlPlugin is webpack-only and incompatible with Turbopack in Next.js 16)
@@ -166,7 +165,6 @@ export default async function LocaleLayout({ children, params }: Props) {
           <ScrollToTopButton />
           <BottomNav />
           <Analytics />
-          <InitialPageLoader />
         </NextIntlClientProvider>
       </body>
     </html>

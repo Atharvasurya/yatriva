@@ -92,7 +92,7 @@
     "priorityLabel": "Snan Priority",
     "riverLabel": "River / Tank",
     "viewDetails": "View Details & Map",
-    "backToGhats": "← Back to all Ghats",
+    "backToGhats": "Back to all Ghats",
     "coordinatesLabel": "Verified Coordinates",
     "unverifiedNotice": "Verified coordinates & historical context for sacred Godavari bathing ghats."
   },
@@ -102,7 +102,7 @@
     "deityLabel": "Deity",
     "timingsLabel": "Timings",
     "viewDetails": "View Details & Map",
-    "backToTemples": "← Back to all Temples",
+    "backToTemples": "Back to all Temples",
     "unverifiedNotice": "Verified temple darshan timings, history, and architectural significance."
   },
   "transport": {
@@ -127,7 +127,7 @@
     "title": "Spiritual Culture & Heritage",
     "description": "Authoritative explainer guides on the sacred history, rivers, temples, and monastic traditions of the Nashik Simhastha Kumbh Mela.",
     "readGuide": "Read Full Heritage Guide",
-    "backToCulture": "← Back to Culture & Heritage",
+    "backToCulture": "Back to Culture & Heritage",
     "topicsTitle": "Kumbh Heritage Guides"
   },
   "parking": {

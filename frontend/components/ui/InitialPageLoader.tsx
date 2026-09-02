@@ -11,9 +11,9 @@ export default function InitialPageLoader() {
     try {
       // Only suppress if user just clicked language switch
       const suppressUntil = Number(sessionStorage.getItem('yatriva_suppress_loader_until') || 0);
-      if (Date.now() < suppressUntil || (typeof window !== 'undefined' && (window as any).__yatriva_suppress_loader)) {
-        setLoading(false);
-        return;
+      if (Date.now() < suppressUntil || (typeof window !== 'undefined' && (window as unknown as { __yatriva_suppress_loader?: boolean }).__yatriva_suppress_loader)) {
+        const t = setTimeout(() => setLoading(false), 0);
+        return () => clearTimeout(t);
       }
     } catch {
       // ignore

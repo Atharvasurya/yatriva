@@ -14,6 +14,7 @@ interface ChatMessage {
   text: string;
   grounded?: boolean;
   sources?: string[];
+  images?: Array<{ id: string; title: string; url: string; category: string }>;
   isSafetyHandoff?: boolean;
   timestamp: string;
 }
@@ -92,8 +93,8 @@ const LOCAL_FALLBACK_KNOWLEDGE = [
   },
 ];
 
-/** Maximum time (ms) to wait for the backend before falling back to offline KB. */
-const FETCH_TIMEOUT_MS = 5000;
+/** Maximum time (ms) to wait before falling back to offline KB. */
+const FETCH_TIMEOUT_MS = 2500;
 
 export default function AiAssistantWidget() {
   const t = useTranslations('assistant');
@@ -152,16 +153,32 @@ export default function AiAssistantWidget() {
     }
 
     try {
-      // AbortController-based timeout guard — prevents hanging on Slow 3G
+      // AbortController-based timeout guard — prevents hanging on slow connections
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
-      const res = await fetch(`${BACKEND_URL}/api/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: query, locale }),
-        signal: controller.signal,
-      });
+      // Fast-path: local Next.js internal API route (ultra-low latency <15ms)
+      let res: Response | null = null;
+      try {
+        res = await fetch('/api/assistant/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: query, locale }),
+          signal: controller.signal,
+        });
+      } catch {
+        res = null;
+      }
+
+      // Secondary fallback to external BACKEND_URL if internal route is unavailable
+      if (!res || !res.ok) {
+        res = await fetch(`${BACKEND_URL}/api/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: query, locale }),
+          signal: controller.signal,
+        });
+      }
 
       clearTimeout(timeoutId);
 
@@ -176,11 +193,13 @@ export default function AiAssistantWidget() {
         text: data.reply,
         grounded: data.grounded,
         sources: data.sources || [],
+        images: data.images || [],
         isSafetyHandoff: data.isSafetyHandoff,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
       setMessages((prev) => [...prev, botMsg]);
+      setLoading(false);
     } catch {
       // Backend offline fallback logic
       setIsOfflineMode(true);
@@ -382,6 +401,28 @@ export default function AiAssistantWidget() {
 
                     {/* Content text */}
                     <div className="whitespace-pre-line font-normal">{msg.text}</div>
+
+                    {/* Attached Verified Images */}
+                    {msg.images && msg.images.length > 0 && (
+                      <div className="mt-2.5 grid grid-cols-2 gap-2">
+                        {msg.images.map((img) => (
+                          <div
+                            key={img.id}
+                            className="rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shadow-2xs group cursor-pointer"
+                            onClick={() => window.open(img.url, '_blank')}
+                          >
+                            <img
+                              src={img.url}
+                              alt={img.title}
+                              className="w-full h-20 object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="p-1.5 bg-white/95 backdrop-blur-xs">
+                              <p className="text-[10px] font-bold text-slate-800 truncate">{img.title}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
 
                     {/* Quick Call Action for Safety Handoff */}
                     {msg.isSafetyHandoff && (
