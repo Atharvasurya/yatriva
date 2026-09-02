@@ -177,7 +177,7 @@ export default function PrivacyPage() {
               {t('contactPrompt')}
             </p>
             <p className="text-xs text-amber-900/80 font-medium">
-              atharvasuryawanshi@gmail.com & khushalkulkarni@gmail.com
+              atharvasuryawanshi@gmail.com
             </p>
           </div>
         </div>

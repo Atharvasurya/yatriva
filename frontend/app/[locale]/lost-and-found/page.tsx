@@ -442,7 +442,7 @@ export default function LostAndFoundPage() {
                       required
                       value={formName}
                       onChange={(e) => setFormName(e.target.value)}
-                      placeholder="e.g. Radhabai Kulkarni"
+                      placeholder="e.g. Radhabai Patil"
                       className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-navy-800"
                     />
                   </div>

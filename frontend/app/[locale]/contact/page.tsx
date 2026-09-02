@@ -95,9 +95,6 @@ export default function ContactPage() {
             <a href="mailto:atharvasuryawanshi@gmail.com" className="block hover:underline truncate">
               atharvasuryawanshi@gmail.com
             </a>
-            <a href="mailto:khushalkulkarni@gmail.com" className="block hover:underline truncate">
-              khushalkulkarni@gmail.com
-            </a>
           </div>
         </div>
 

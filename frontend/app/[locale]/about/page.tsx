@@ -17,13 +17,6 @@ export default function AboutPage() {
       email: 'atharvasuryawanshi@gmail.com',
       image: '/images/team/atharva.png',
     },
-    {
-      name: 'Khushal Hemant Kulkarni',
-      bio: 'Management graduate skilled in UI/UX design, product strategy, and front-end development. Focused on user-centric product architecture and digital solutions.',
-      location: 'Nashik, Maharashtra, India',
-      email: 'khushalkulkarni@gmail.com',
-      image: '/images/team/khushal.png',
-    },
   ];
 
   return (
@@ -52,7 +45,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="max-w-md mx-auto">
           {teamMembers.map((member) => (
             <div
               key={member.name}
