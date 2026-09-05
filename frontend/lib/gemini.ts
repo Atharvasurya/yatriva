@@ -144,21 +144,63 @@ Response Guidelines:
 5. Provide helpful context and spiritual significance whenever relevant.
 `;
 
+export interface SourceLink {
+  title: string;
+  url: string;
+}
+
+export interface AssistantChatResult {
+  reply: string;
+  sources: string[];
+  sourceLinks?: SourceLink[];
+  images: AttachedImage[];
+  isSafetyHandoff: boolean;
+  grounded?: boolean;
+  isGeneralKnowledge?: boolean;
+}
+
 export async function askGeminiRealtime(
   message: string,
   locale: string = 'en',
   apiKey?: string
-): Promise<{
-  reply: string;
-  sources: string[];
-  images: AttachedImage[];
-  isSafetyHandoff: boolean;
-}> {
-  const key = apiKey || process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+): Promise<AssistantChatResult> {
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
 
-  // Emergency Guardrails
+  // 1. Primary: Forward to Full-Site Qdrant Grounded RAG Backend
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+    const backendRes = await fetch(`${BACKEND_URL}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, locale }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    if (backendRes.ok) {
+      const data = await backendRes.json();
+      return {
+        reply: data.reply,
+        sources: data.sources || [],
+        sourceLinks: data.sourceLinks || [],
+        images: data.images || findRelevantImages(message, data.reply),
+        isSafetyHandoff: data.isSafetyHandoff || false,
+        grounded: data.grounded ?? true,
+        isGeneralKnowledge: data.isGeneralKnowledge || false,
+      };
+    }
+  } catch {
+    // Backend offline or timeout -> proceed to client-side fallback
+  }
+
+  // 2. Emergency Guardrails
   const lower = message.toLowerCase();
-  const isEmergency = ['emergency', 'ambulance', 'police', 'stampede', 'heart attack', 'lost child', 'injury', 'गुम', 'हरवला', 'मदत', 'आपत्कालीन'].some((kw) => lower.includes(kw));
+  const isEmergency = [
+    'emergency', 'ambulance', 'police', 'stampede', 'heart attack', 'lost child', 'injury',
+    'गुम', 'हरवला', 'मदत', 'आपत्कालीन', 'दवाखाना'
+  ].some((kw) => lower.includes(kw));
 
   if (isEmergency) {
     let safetyReply = '';
@@ -174,107 +216,63 @@ export async function askGeminiRealtime(
     return {
       reply: safetyReply,
       sources: ['Nashik Police & Disaster Management 112/108'],
+      sourceLinks: [{ title: 'Emergency Helplines', url: `/${locale}/emergency` }],
       images,
       isSafetyHandoff: true,
+      grounded: true,
+      isGeneralKnowledge: false,
     };
   }
 
-  // If Gemini API Key is available, invoke real-time Gemini API
-  if (key) {
-    try {
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
-      const payload = {
-        contents: [
-          {
-            role: 'user',
-            parts: [
-              {
-                text: `${SYSTEM_INSTRUCTION}\n\nUser Language Preference: ${locale}\nUser Query: ${message}`,
-              },
-            ],
-          },
-        ],
-        generationConfig: {
-          temperature: 0.3,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 1024,
-        },
-      };
+  // 3. Fallback Grounding Policy (Part 2)
+  const isPractical = [
+    'parking', 'park', 'car', 'vehicle', 'bus', 'shuttle', 'traffic', 'crowd', 'surge', 'water',
+    'dam', 'depth', 'medical', 'hospital', 'doctor', 'insulin', 'wheelchair', 'senior', 'hotel',
+    'stay', 'dining', 'restaurant', 'पार्किंग', "गाडी", "वाहन", "गर्दी", "रुग्णालय", "हॉटेल"
+  ].some((k) => lower.includes(k));
 
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (rawText && rawText.trim().length > 0) {
-          const images = findRelevantImages(message, rawText);
-          const sources = [
-            'Google Gemini AI',
-            'Nashik District Administration',
-            'Simhastha Kumbh Portal 2027',
-            'Trimbakeshwar Devasthan Trust',
-          ];
-
-          return {
-            reply: rawText.trim(),
-            sources,
-            images,
-            isSafetyHandoff: false,
-          };
-        }
-      }
-    } catch (err) {
-      console.warn('Gemini API call warning, falling back to verified knowledge engine:', err);
+  if (isPractical) {
+    // Strictly no general knowledge for practical / safety queries
+    let notFoundReply = '';
+    if (locale === 'hi') {
+      notFoundReply = `क्षमा करें, मुझे इस व्यावहारिक/सुरक्षा संबंधी प्रश्न के लिए सत्यापित जानकारी नहीं मिली।\n\nकृपया आधिकारिक [आपातकालीन एवं सहायता पृष्ठ](/${locale}/emergency) या [परिवहन पृष्ठ](/${locale}/transport) देखें, या 112 / 108 पर संपर्क करें।`;
+    } else if (locale === 'mr') {
+      notFoundReply = `क्षमस्व, मला या व्यावहारिक/सुरक्षा प्रश्नासाठी अधिकृत माहिती आढळली नाही.\n\nकृपया अधिकृत [आपत्कालीन व मदत केंद्र](/${locale}/emergency) किंवा [वाहतूक पृष्ठ](/${locale}/transport) तपासा, किंवा 112 / 108 वर संपर्क साधा.`;
+    } else {
+      notFoundReply = `I could not find verified official records for this practical/safety query.\n\nPlease consult our [Emergency Guide](/${locale}/emergency) or [Transit Guide](/${locale}/transport), or dial 112 / 108.`;
     }
+
+    return {
+      reply: notFoundReply,
+      sources: ['Yatriva Safety Policy Guardrail'],
+      sourceLinks: [
+        { title: 'Emergency Helplines', url: `/${locale}/emergency` },
+        { title: 'Transit & Parking', url: `/${locale}/transport` },
+      ],
+      images: findRelevantImages(message, notFoundReply),
+      isSafetyHandoff: false,
+      grounded: false,
+      isGeneralKnowledge: false,
+    };
   }
 
-  // Grounded Realtime Synthesizer Fallback (When API Key is pending or network throttled)
-  const images = findRelevantImages(message, '');
-  const sources = [
-    'Yatriva Verified Dataset',
-    'Maharashtra Tourism (MTDC)',
-    'Nashik Municipal Corporation',
-  ];
-
-  // Dynamic context matching
-  let answer = '';
-  if (lower.includes('snan') || lower.includes('date') || lower.includes('तारीख') || lower.includes('तिथी') || lower.includes('अमृत')) {
-    answer = locale === 'hi'
-      ? `🔱 **सिंहस्थ कुंभ मेला 2027 मुख्य अमृत स्नान तिथियां**:\n\n1. **प्रथम अमृत स्नान (ध्वजारोहण)**: 2 अगस्त 2027\n2. **द्वितीय मुख्य शाही स्नान (भाद्रपद अमावस्या)**: 31 अगस्त 2027\n3. **तृतीय अमृत स्नान (ऋषि पंचमी / वामन जयंती)**: 11-12 सितंबर 2027\n\n- **मुख्य स्नान स्थल**: नाशिक में **रामकुंड** और त्र्यंबकेश्वर में **कुशावर्त कुंड**।\n- *सलाह: शाही स्नान के दिन ब्रह्ममुहूर्त (सुबह 4 बजे) से स्नान प्रारंभ होता है।*`
-      : locale === 'mr'
-      ? `🔱 **सिंहस्थ कुंभ मेळा 2027 अमृत स्नान तिथी**:\n\n1. **पहिले अमृत स्नान (ध्वजारोहण)**: २ ऑगस्ट २०२७\n2. **दुसरे मुख्य शाही स्नान (भाद्रपद अमावास्या)**: ३१ ऑगस्ट २०२७\n3. **तिसरे अमृत स्नान (ऋषी पंचमी / वामन जयंती)**: ११-१२ सप्टेंबर २०२७\n\n- **मुख्य स्नान घाट**: नाशिकमध्ये **रामकुंड** आणि त्र्यंबकेश्वरमध्ये **कुशावर्त कुंड**.\n- *टीप: शाही स्नानाच्या दिवशी सकाळी ४ वाजल्यापासून भाविकांची गर्दी सुरू होते.*`
-      : `🔱 **Nashik Simhastha Kumbh Mela 2027 Amrit Snan Schedule**:\n\n1. **1st Amrit Snan (Dhwajarohan / Flag Hoisting)**: 2 August 2027\n2. **2nd Major Shahi Snan (Bhadrapada Amavasya)**: 31 August 2027\n3. **3rd Amrit Snan (Rishi Panchami / Vaman Jayanti)**: 11–12 September 2027\n\n- **Primary Bathing Sites**: **Ramkund Ghat** (Nashik) and **Kushavarta Kund** (Trimbakeshwar).\n- *Tip: The holy dip starts at Brahma Muhurta (~4:00 AM) on Shahi Snan days.*`;
-  } else if (lower.includes('trimbak') || lower.includes('jyotirlinga') || lower.includes('त्र्यंबक') || lower.includes('शिव')) {
-    answer = locale === 'hi'
-      ? `🕉️ **त्र्यंबकेश्वर ज्योतिर्लिंग मंदिर**:\n\n- **महत्व**: भगवान शिव के १२ पवित्र ज्योतिर्लिंगों में से एक। यहां लिंगम में ब्रह्मा, विष्णु और महेश तीनों का संयुक्त रूप है।\n- **दूरी**: नाशिक शहर से २८ किमी दक्षिण-पश्चिम (NH848)।\n- **पवित्र कुंड**: मंदिर के निकट **कुशावर्त कुंड** है जहां से गोदावरी नदी का उद्गम माना जाता है।\n- **परिवहन**: नाशिक सीबीएस और तपोवन से नियमित MSRTC बसें और शटल सेवा उपलब्ध हैं।`
-      : locale === 'mr'
-      ? `🕉️ **श्री त्र्यंबकेश्वर ज्योतिर्लिंग मंदिर**:\n\n- **महत्त्व**: १२ ज्योतिर्लिंगांपैकी एक अत्यंत पवित्र तीर्थक्षेत्र. येथे ब्रह्मा, विष्णू आणि महेश या तिन्हींचे त्रिमुखी रूप आहे.\n- **अंतर**: नाशिक शहरापासून २८ किमी अंतरावर (NH848 मार्गे).\n- **कुशावर्त कुंड**: मंदिराच्या जवळ कुशावर्त कुंड असून येथून गोदावरी नदी प्रगट झाली मानले जाते.\n- **वाहतूक**: नाशिक सीबीएस आणि रिंग पार्किंग झोनमधून नियमित बस सेवा सुरू आहे.`
-      : `🕉️ **Shree Trimbakeshwar Jyotirlinga Temple**:\n\n- **Significance**: One of the 12 sacred Jyotirlinga shrines of Lord Shiva, featuring a three-faced lingam representing Brahma, Vishnu, and Shiva.\n- **Distance**: 28 km southwest of Nashik along NH848.\n- **Kushavarta Kund**: The sacred pool near the temple regarded as the holy origin point of River Godavari.\n- **Transit**: Frequent MSRTC pilgrimage shuttles run between Nashik CBS/Tapovan and Trimbakeshwar.`;
-  } else if (lower.includes('ramkund') || lower.includes('panchavati') || lower.includes('kalaram') || lower.includes('रामकुंड') || lower.includes('पंचवटी')) {
-    answer = locale === 'hi'
-      ? `🚩 **पंचवटी और रामकुंड दर्शन**:\n\n- **रामकुंड**: गोदावरी नदी का मुख्य पावन घाट जहां भगवान श्री राम ने स्नान व पिंडदान किया था।\n- **काळाराम मंदिर**: काले पत्थरों से बना १८वीं सदी का भव्य राम मंदिर।\n- **सीता गुफा**: वह प्राचीन गुफा जहां वनवास काल में माता सीता ने निवास किया था।\n- **सुविधाएं**: २४ घंटे सुरक्षा, चेंजिंग रूम, और प्राथमिक चिकित्सा केंद्र उपलब्ध हैं।`
-      : locale === 'mr'
-      ? `🚩 **पंचवटी व रामकुंड दर्शन**:\n\n- **रामकुंड**: गोदावरी नदीवरील सर्वात पवित्र स्नान घाट जेथे प्रभू श्रीरामांनी स्नान केले होते.\n- **काळाराम मंदिर**: पंचवटीतील काळ्या पाषाणातील ऐतिहासिक राम मंदिर.\n- **सीता गुंफा**: वनवासातील माता सीतेची पवित्र गुंफा.\n- **सुविधा**: महिलांसाठी वस्त्रबदल कक्ष, सुरक्षा रक्षक व वैद्यकीय मदत केंद्र सज्ज आहेत.`
-      : `🚩 **Panchavati & Ramkund Pilgrimage**:\n\n- **Ramkund Ghat**: The most sacred Godavari bathing site where Lord Rama bathed during his 14-year exile.\n- **Kalaram Mandir**: 18th-century historic black-stone temple dedicated to Lord Rama, Sita, and Lakshmana.\n- **Sita Gufa**: The sacred cave where Mother Sita resided in Panchavati Tapovan.\n- **Facilities**: 24x7 security, life buoys, changing rooms, and medical helpdesks.`;
+  // Cultural Query Fallback -> General Knowledge with explicit badge
+  let genText = '';
+  if (locale === 'hi') {
+    genText = `ℹ️ **[सामान्य ज्ञान / ऐतिहासिक पृष्ठभूमि]**\n\nकुंभ मेले का संबंध समुद्र मंथन से है, जहां भगवान धन्वंतरि अमृत कलश लेकर प्रकट हुए थे। जब देव-दानव युद्ध हुआ, तब अमृत की बूंदें नाशिक (गोदावरी), प्रयागराज, हरिद्वार, और उज्जैन में गिरीं। सिंहस्थ कुंभ गुरु के सिंह राशि में प्रवेश पर होता है।\n\n*(नोट: यह जानकारी सामान्य ऐतिहासिक पृष्ठभूमि के रूप में दी गई है।)*`;
+  } else if (locale === 'mr') {
+    genText = `ℹ️ **[सामान्य ज्ञान / ऐतिहासिक पार्श्वभूमी]**\n\nकुंभमेळ्याचा संबंध समुद्रमंथनातील अमृताच्या कुंभाशी आहे. देव आणि दानवांच्या संघर्षात नाशिक (गोदावरी), प्रयागराज, हरिद्वार आणि उज्जैन येथे अमृताचे थेंब पडले. गुरू ग्रह सिंह राशीत असताना नाशिक-त्र्यंबकेश्वर येथे सिंहस्थ कुंभ भरतो.\n\n*(टीप: ही माहिती सामान्य ऐतिहासिक पार्श्वभूमी म्हणून दिली आहे.)*`;
   } else {
-    answer = locale === 'hi'
-      ? `🙏 **यात्रिवा एआई कुंभ मार्गदर्शक**:\n\nआपके प्रश्न: *"**${message}**"* के लिए कुंभ मेले के आधिकारिक रिकॉर्ड अनुसार जानकारी उपलब्ध कराई जा रही है। नाशिक सिंहस्थ २०२७ में घाटों, अमृत स्नान तिथियों, त्र्यंबकेश्वर दर्शन, और बस/पार्किंग शटल की संपूर्ण सहायता हेतु यात्रिवा सदैव तत्पर है।\n\nआप किसी भी विशिष्ट घाट, मंदिर, होटल या आपातकालीन सहायता के बारे में पूछ सकते हैं!`
-      : locale === 'mr'
-      ? `🙏 **यात्रिवा एआय कुंभ सहाय्यक**:\n\nआपल्या प्रश्नाचे *"**${message}**"* उत्तर कुंभ मेळा डेटाबेसवरून देण्यात येत आहे. नाशिक सिंहस्थ २०२७ मधील पवित्र घाट, स्नान वेळापत्रक, त्र्यंबकेश्वर यात्रा व वाहतूक नियोजनासाठी यात्रिवा सदैव आपल्या सेवेत आहे.\n\nआपण कोणत्याही मंदिराविषयी किंवा मार्गाविषयी विचारू शकता!`
-      : `🙏 **Yatriva AI Pilgrim Assistant**:\n\nRegarding your query on *"**${message}**"*: Yatriva provides verified real-time insights for Nashik-Trimbakeshwar Simhastha Kumbh Mela 2027.\n\nYou can ask about sacred bathing ghats, Jyotirlinga darshan, shuttle routes, parking zones, elderly accessibility, or Ramayana heritage sites!`;
+    genText = `ℹ️ **[General Knowledge / Cultural Background]**\n\nThe Kumbh Mela originates from the ancient Samudra Manthan (churning of the cosmic ocean). When Lord Dhanvantari emerged with the pot (Kumbh) of nectar, celestial drops spilled across four sanctified earthly grounds: Nashik (Godavari), Prayagraj, Haridwar, and Ujjain. The Simhastha Kumbh occurs when Jupiter enters the zodiac sign of Leo (Simha).\n\n*(Note: This response draws upon general cultural background knowledge.)*`;
   }
-
-  const finalImages = findRelevantImages(message, answer);
 
   return {
-    reply: answer,
-    sources,
-    images: finalImages,
+    reply: genText,
+    sources: ['General Cultural Background'],
+    sourceLinks: [{ title: 'Culture & Heritage', url: `/${locale}/culture` }],
+    images: findRelevantImages(message, genText),
     isSafetyHandoff: false,
+    grounded: false,
+    isGeneralKnowledge: true,
   };
 }

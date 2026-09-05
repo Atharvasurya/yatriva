@@ -18,10 +18,12 @@ export async function POST(req: Request) {
     return NextResponse.json({
       reply: result.reply,
       sources: result.sources,
+      sourceLinks: result.sourceLinks || [],
       images: result.images,
       isSafetyHandoff: result.isSafetyHandoff,
       locale,
-      grounded: true,
+      grounded: result.grounded ?? true,
+      isGeneralKnowledge: result.isGeneralKnowledge ?? false,
     });
   } catch (error: any) {
     console.error('API assistant chat error:', error);

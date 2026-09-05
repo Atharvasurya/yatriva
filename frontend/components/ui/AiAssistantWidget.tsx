@@ -13,7 +13,9 @@ interface ChatMessage {
   sender: 'user' | 'bot';
   text: string;
   grounded?: boolean;
+  isGeneralKnowledge?: boolean;
   sources?: string[];
+  sourceLinks?: Array<{ title: string; url: string }>;
   images?: Array<{ id: string; title: string; url: string; category: string }>;
   isSafetyHandoff?: boolean;
   timestamp: string;
@@ -192,7 +194,9 @@ export default function AiAssistantWidget() {
         sender: 'bot',
         text: data.reply,
         grounded: data.grounded,
+        isGeneralKnowledge: data.isGeneralKnowledge || false,
         sources: data.sources || [],
+        sourceLinks: data.sourceLinks || [],
         images: data.images || [],
         isSafetyHandoff: data.isSafetyHandoff,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -387,6 +391,8 @@ export default function AiAssistantWidget() {
                         ? 'bg-navy-700 text-white rounded-tr-xs'
                         : msg.isSafetyHandoff
                         ? 'bg-red-50 border-2 border-red-300 text-red-900 rounded-tl-xs'
+                        : msg.isGeneralKnowledge
+                        ? 'bg-amber-50/40 border border-amber-200/90 text-slate-800 rounded-tl-xs'
                         : 'bg-white border border-slate-200 text-slate-800 rounded-tl-xs'
                     }`}
                     style={msg.sender === 'user' ? { background: '#1B2B4B' } : undefined}
@@ -396,6 +402,25 @@ export default function AiAssistantWidget() {
                       <div className="mb-2.5 pb-2 border-b border-red-200 flex items-center gap-2 text-red-700 font-bold text-[11px]">
                         <AlertTriangle className="h-4 w-4 text-red-600 shrink-0 animate-bounce" />
                         <span>{t('safetyTag')}</span>
+                      </div>
+                    )}
+
+                    {/* General Knowledge Badge for Cultural/Historical Context */}
+                    {msg.sender === 'bot' && msg.isGeneralKnowledge && (
+                      <div className="mb-2 pb-1.5 border-b border-amber-200/80 flex items-center justify-between gap-1.5 text-amber-900 text-[11px] font-semibold">
+                        <div className="flex items-center gap-1.5">
+                          <Sparkles className="h-3.5 w-3.5 text-amber-600 shrink-0" />
+                          <span>
+                            {locale === 'hi'
+                              ? 'सांस्कृतिक पृष्ठभूमि'
+                              : locale === 'mr'
+                              ? 'सांस्कृतिक पार्श्वभूमी'
+                              : 'General Cultural Background'}
+                          </span>
+                        </div>
+                        <span className="text-[9px] uppercase px-1.5 py-0.5 rounded bg-amber-200/80 text-amber-950 font-bold tracking-wider">
+                          General Knowledge
+                        </span>
                       </div>
                     )}
 
@@ -445,19 +470,32 @@ export default function AiAssistantWidget() {
                       </div>
                     )}
 
-                    {/* Grounded Source Tag */}
-                    {msg.sender === 'bot' && !msg.isSafetyHandoff && msg.sources && msg.sources.length > 0 && (
+                    {/* Verified Grounded Source Tag with Clickable Page Links */}
+                    {msg.sender === 'bot' && !msg.isSafetyHandoff && !msg.isGeneralKnowledge && msg.sources && msg.sources.length > 0 && (
                       <div className="mt-2.5 pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5 text-[10px] text-slate-500">
                         <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                         <span className="font-semibold text-slate-600">{t('groundedTag')}:</span>
-                        {msg.sources.map((src, idx) => (
-                          <span
-                            key={idx}
-                            className="bg-slate-100 px-2 py-0.5 rounded-md text-slate-700 font-medium"
-                          >
-                            {src}
-                          </span>
-                        ))}
+                        {msg.sourceLinks && msg.sourceLinks.length > 0 ? (
+                          msg.sourceLinks.map((link, idx) => (
+                            <a
+                              key={idx}
+                              href={link.url}
+                              className="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200/80 px-2 py-0.5 rounded-md font-semibold transition-colors flex items-center gap-1"
+                            >
+                              <span>{link.title}</span>
+                              <span>→</span>
+                            </a>
+                          ))
+                        ) : (
+                          msg.sources.map((src, idx) => (
+                            <span
+                              key={idx}
+                              className="bg-slate-100 px-2 py-0.5 rounded-md text-slate-700 font-medium"
+                            >
+                              {src}
+                            </span>
+                          ))
+                        )}
                       </div>
                     )}
 

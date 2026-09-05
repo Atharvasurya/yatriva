@@ -14,7 +14,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
-from rag import search_grounded_context
+import asyncio
+from rag import (
+    search_grounded_context,
+    execute_grounding_policy,
+    upsert_chunk,
+    reindex_all_corpus,
+    get_rag_stats,
+    find_relevant_images,
+)
 
 load_dotenv()
 
@@ -138,6 +146,18 @@ class EmergencyContact(BaseModel):
 
 # ─── Chat / RAG Pydantic Models ───────────────────────────────────────────────
 
+class SourceLink(BaseModel):
+    title: str
+    url: str
+
+
+class AttachedImage(BaseModel):
+    id: str
+    title: str
+    url: str
+    category: str
+
+
 class ChatRequest(BaseModel):
     message: str
     locale: Optional[str] = "en"
@@ -147,8 +167,22 @@ class ChatResponse(BaseModel):
     reply: str
     locale: str
     grounded: bool
+    isGeneralKnowledge: bool = False
     sources: List[str] = []
+    sourceLinks: List[SourceLink] = []
+    images: List[AttachedImage] = []
     isSafetyHandoff: bool = False
+
+
+class ReindexItemRequest(BaseModel):
+    id: str
+    title: str
+    content: str
+    category: str = "general"
+    is_practical_safety: bool = True
+    page: str = "/en"
+    section: str = "General"
+    keywords: List[str] = []
 
 
 # ─── Rate Limiter (Sliding Window: 10 requests / 60s per IP) ─────────────────
@@ -365,53 +399,86 @@ async def chat_with_assistant(chat_req: ChatRequest, request: Request):
     # 1. Safety Guardrail Check
     safety_handoff = check_safety_guardrails(message, locale)
     if safety_handoff:
+        imgs = find_relevant_images(message, safety_handoff)
         return ChatResponse(
             reply=safety_handoff,
             locale=locale,
             grounded=True,
+            isGeneralKnowledge=False,
             sources=["Emergency Guardrails"],
+            sourceLinks=[SourceLink(title="Emergency Helplines", url=f"/{locale}/emergency")],
+            images=[AttachedImage(**img) for img in imgs],
             isSafetyHandoff=True,
         )
 
-    # 2. Qdrant Vector Retrieval
+    # 2. Execute Full Grounding Policy (Part 2)
     contexts = search_grounded_context(message, limit=3)
-    sources = [c["title"] for c in contexts]
+    policy_res = execute_grounding_policy(message, locale, contexts)
+    imgs = find_relevant_images(message, policy_res["reply"])
 
-    # 3. Grounded Answer Synthesis
-    if not contexts:
-        if locale == "hi":
-            reply = "क्षमा करें, मुझे इस प्रश्न के लिए आधिकारिक कुंभ मेले के डेटासेट में सटीक जानकारी नहीं मिली।"
-        elif locale == "mr":
-            reply = "क्षमस्व, मला या प्रश्नासाठी अधिकृत कुंभ मेळा डेटासेटमध्ये अचूक माहिती आढळली नाही."
-        else:
-            reply = "I apologize, but I could not find verified information in the official Yatriva Kumbh Mela dataset for your query."
-
-        return ChatResponse(
-            reply=reply,
-            locale=locale,
-            grounded=False,
-            sources=[],
-            isSafetyHandoff=False,
-        )
-
-    top_context = contexts[0]
-    title = top_context["title"]
-    text = top_context["content"]
-
-    if locale == "hi":
-        reply = f"**{title}** से प्राप्त आधिकारिक जानकारी:\n\n{text}\n\n*नोट: यह जानकारी कुंभ मेले के सत्यापित डेटासेट से ली गई है।*"
-    elif locale == "mr":
-        reply = f"**{title}** कडून मिळवलेली अधिकृत माहिती:\n\n{text}\n\n*टीप: ही माहिती कुंभ मेळ्याच्या अधिकृत डेटासेटवरून घेण्यात आली आहे.*"
-    else:
-        reply = f"Grounded information regarding **{title}**:\n\n{text}\n\n*Note: All figures and dates are sourced directly from the verified Yatriva Kumbh dataset.*"
+    source_links = [
+        SourceLink(title=item["title"], url=item["url"])
+        for item in policy_res.get("sourceLinks", [])
+    ]
 
     return ChatResponse(
-        reply=reply,
+        reply=policy_res["reply"],
         locale=locale,
-        grounded=True,
-        sources=sources,
+        grounded=policy_res["grounded"],
+        isGeneralKnowledge=policy_res.get("isGeneralKnowledge", False),
+        sources=policy_res.get("sources", []),
+        sourceLinks=source_links,
+        images=[AttachedImage(**img) for img in imgs],
         isSafetyHandoff=False,
     )
+
+
+# ─── Phase 4.1 Auto-Reindexing Endpoints (Part 3) ─────────────────────────────
+
+@app.post("/api/rag/reindex", tags=["rag"])
+def trigger_full_reindex():
+    """
+    Triggers full re-index of all website knowledge chunks into Qdrant.
+    Can be invoked manually, from n8n data sync, or on deployment.
+    """
+    result = reindex_all_corpus()
+    return result
+
+
+@app.post("/api/rag/reindex-item", tags=["rag"])
+def trigger_reindex_item(item: ReindexItemRequest):
+    """
+    Incrementally re-embeds and updates a single content item/row in Qdrant.
+    Triggered upon admin panel content edits (Phase 5.7), lodging/dining updates,
+    or incremental Google Sheet -> Postgres sync.
+    """
+    result = upsert_chunk(item.model_dump())
+    return result
+
+
+@app.get("/api/rag/stats", tags=["rag"])
+def get_rag_statistics():
+    """Returns runtime statistics of the RAG vector corpus and index counts."""
+    return get_rag_stats()
+
+
+# ─── Nightly Scheduled Re-index Safety Net (Part 3) ───────────────────────────
+
+async def scheduled_nightly_reindex():
+    """Runs a nightly scheduled safety-net full re-index every 24 hours."""
+    while True:
+        await asyncio.sleep(24 * 3600)
+        try:
+            print("[RAG Scheduler] Running nightly safety-net full re-index...")
+            reindex_all_corpus()
+            print("[RAG Scheduler] Nightly re-index successfully completed.")
+        except Exception as e:
+            print(f"[RAG Scheduler] Nightly re-index warning: {e}")
+
+
+@app.on_event("startup")
+async def startup_rag_scheduler():
+    asyncio.create_task(scheduled_nightly_reindex())
 
 
 # =============================================================================
