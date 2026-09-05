@@ -220,7 +220,7 @@ export default function LeafletMap({
       L.marker([userLocation.lat, userLocation.lng], { icon: userIcon, zIndexOffset: 2000 })
         .addTo(layerGroup)
         .bindTooltip(
-          isLive ? '📍 Live GPS Location' : '📍 Current Landmark',
+          isLive ? 'Live GPS Location' : 'Current Landmark',
           {
             permanent: false,
             direction: 'top',

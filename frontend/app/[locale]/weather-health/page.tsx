@@ -145,8 +145,9 @@ export default function WeatherHealthPage() {
                   <MapPin className="h-3.5 w-3.5 text-blue-600 shrink-0" />
                   <span>{w.location}</span>
                 </p>
-                <p className="text-xs font-semibold text-slate-700 pt-1 border-t border-blue-200/50">
-                  💧 {w.amenities}
+                <p className="text-xs font-semibold text-slate-700 pt-1 border-t border-blue-200/50 flex items-center gap-1.5">
+                  <Droplets className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+                  <span>{w.amenities}</span>
                 </p>
               </div>
             ))}

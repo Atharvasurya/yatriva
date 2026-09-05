@@ -11,7 +11,11 @@ export default function LoginPage() {
   const t = useTranslations('auth');
   const router = useRouter();
 
-  const [phone, setPhone] = useState('');
+  // Country-code selector state — defaults to India (+91)
+  const [countryCode, setCountryCode] = useState('+91');
+  const [localPhone, setLocalPhone] = useState('');
+  // Full E.164 number sent to backend
+  const phone = `${countryCode}${localPhone.replace(/\s/g, '')}`;
   const [otp, setOtp] = useState('');
   const [step, setStep] = useState<'phone' | 'otp'>('phone');
   const [loading, setLoading] = useState(false);
@@ -31,8 +35,10 @@ export default function LoginPage() {
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage('');
-    if (!phone || phone.length < 10) {
-      setErrorMessage('Please enter a valid 10-digit mobile number.');
+    // Validate the local part has at least 7 digits (covers all international formats)
+    const digitsOnly = localPhone.replace(/\D/g, '');
+    if (digitsOnly.length < 7) {
+      setErrorMessage('Please enter a valid mobile number (at least 7 digits after country code).');
       return;
     }
 
@@ -88,7 +94,7 @@ export default function LoginPage() {
       const res = await fetch(`${backendUrl}/api/auth/otp/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, otp }),
+        body: JSON.stringify({ phone: phone, otp }),  // phone is full E.164
         credentials: 'include',
       });
 
@@ -164,14 +170,40 @@ export default function LoginPage() {
               <label className="block text-xs font-bold text-slate-700 mb-1">
                 {t('phoneLabel')} *
               </label>
-              <input
-                type="tel"
-                required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+91 98765 43210"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:bg-white focus:ring-2 focus:ring-navy-700"
-              />
+              {/* Country code + local number — side-by-side */}
+              <div className="flex gap-2">
+                <select
+                  value={countryCode}
+                  onChange={(e) => setCountryCode(e.target.value)}
+                  aria-label="Country code"
+                  className="shrink-0 bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-800 focus:bg-white focus:ring-2 focus:ring-navy-700 min-h-[44px] font-semibold"
+                >
+                  <option value="+91">🇮🇳 +91</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+971">🇦🇪 +971</option>
+                  <option value="+61">🇦🇺 +61</option>
+                  <option value="+49">🇩🇪 +49</option>
+                  <option value="+33">🇫🇷 +33</option>
+                  <option value="+81">🇯🇵 +81</option>
+                  <option value="+82">🇰🇷 +82</option>
+                  <option value="+65">🇸🇬 +65</option>
+                  <option value="+60">🇲🇾 +60</option>
+                  <option value="+66">🇹🇭 +66</option>
+                  <option value="+977">🇳🇵 +977</option>
+                  <option value="+94">🇱🇰 +94</option>
+                  <option value="+880">🇧🇩 +880</option>
+                  <option value="+92">🇵🇰 +92</option>
+                </select>
+                <input
+                  type="tel"
+                  required
+                  value={localPhone}
+                  onChange={(e) => setLocalPhone(e.target.value)}
+                  placeholder={countryCode === '+91' ? '98765 43210' : 'Local number'}
+                  className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:bg-white focus:ring-2 focus:ring-navy-700 min-h-[44px]"
+                />
+              </div>
             </div>
 
             <button

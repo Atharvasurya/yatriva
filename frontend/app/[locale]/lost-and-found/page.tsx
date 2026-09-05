@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import {
-  ArrowLeft, Search, PlusCircle, UserX, UserCheck, Phone, MapPin, ShieldAlert, AlertCircle, Filter, HelpCircle, CheckCircle2, X, MessageSquare, Radio, User, Clock, Languages, Shirt
+  ArrowLeft, Search, PlusCircle, UserX, UserCheck, Phone, MapPin, ShieldAlert, AlertCircle, Filter, HelpCircle, CheckCircle2, X, MessageSquare, Radio, User, Clock, Languages, Shirt, Megaphone
 } from 'lucide-react';
 
 interface MissingPersonRecord {
@@ -250,8 +250,8 @@ export default function LostAndFoundPage() {
                   {/* Card Header: Avatar, Name, Age/Gender & Status */}
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start gap-3">
-                      <div className="w-11 h-11 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 shrink-0 font-black text-sm">
-                        {rec.gender === 'child' ? '👶' : rec.gender === 'female' ? '👩' : '👨'}
+                      <div className="w-11 h-11 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 shrink-0">
+                        <User className="h-5 w-5 text-slate-600" />
                       </div>
                       <div>
                         <h3 className="font-black text-base text-slate-900 leading-snug">
@@ -387,8 +387,9 @@ export default function LostAndFoundPage() {
                   <MapPin className="h-3.5 w-3.5 text-slate-400 shrink-0" />
                   <span>{b.location}</span>
                 </p>
-                <p className="text-[11px] text-amber-900 bg-amber-50/80 p-2.5 rounded-xl font-medium border border-amber-200/60">
-                  📢 {b.frequency}
+                <p className="text-[11px] text-amber-900 bg-amber-50/80 p-2.5 rounded-xl font-medium border border-amber-200/60 flex items-center gap-1.5">
+                  <Megaphone className="h-3.5 w-3.5 text-amber-700 shrink-0" />
+                  <span>{b.frequency}</span>
                 </p>
                 <div className="pt-1">
                   <a

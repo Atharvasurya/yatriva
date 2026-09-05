@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import {
-  Home, Map, Bus, AlertTriangle, Waves, ParkingCircle, Info, BookOpen, Sparkles, ShieldAlert
+  Home, Map, Bus, AlertTriangle, Waves, ParkingCircle, Info, BookOpen, Sparkles, ShieldAlert, BedDouble
 } from 'lucide-react';
 import TempleIcon from '@/components/ui/TempleIcon';
 
@@ -19,6 +19,7 @@ const PRIMARY_NAV = [
 const SECTION_NAV = [
   { key: 'ghats',       href: '/ghats',        Icon: Waves },
   { key: 'temples',     href: '/temples',      Icon: TempleIcon },
+  { key: 'stayAndEat',  href: '/stay-and-eat', Icon: BedDouble },
   { key: 'culture',     href: '/culture',      Icon: BookOpen },
   { key: 'parking',     href: '/parking',      Icon: ParkingCircle },
   { key: 'crowdSafety', href: '/crowd-safety', Icon: ShieldAlert },

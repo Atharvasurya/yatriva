@@ -122,8 +122,9 @@ export default async function WaterSafetyPage({ params }: Props) {
                 Official water release updates from Irrigation Department, Nashik.
               </p>
             </div>
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
-              🟢 Safe Flow Condition
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+              <span>Safe Flow Condition</span>
             </span>
           </div>
 

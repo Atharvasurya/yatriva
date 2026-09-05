@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import {
-  ArrowLeft, Heart, Shield, Accessibility, Armchair, Zap, HeartPulse, MapPin, Phone, CheckCircle2, ChevronRight, AlertCircle, Sparkles
+  ArrowLeft, Heart, Shield, Accessibility, Armchair, Zap, HeartPulse, MapPin, Phone, CheckCircle2, ChevronRight, AlertCircle, Sparkles, Ruler, ThermometerSnowflake, Stethoscope
 } from 'lucide-react';
 
 interface Props {
@@ -171,8 +171,9 @@ export default async function AccessibilityPage({ params }: Props) {
                     <MapPin className="h-3.5 w-3.5 text-slate-400 shrink-0 mt-0.5" />
                     <span>{route.location}</span>
                   </p>
-                  <p className="text-xs font-bold text-slate-700 bg-white p-2 rounded-xl border border-slate-200">
-                    📐 {route.gradient}
+                  <p className="text-xs font-bold text-slate-700 bg-white p-2 rounded-xl border border-slate-200 flex items-center gap-1.5">
+                    <Ruler className="h-3.5 w-3.5 text-slate-500 shrink-0" />
+                    <span>{route.gradient}</span>
                   </p>
                 </div>
 
@@ -276,8 +277,9 @@ export default async function AccessibilityPage({ params }: Props) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="p-4 rounded-2xl bg-red-50/50 border border-red-200 space-y-2">
-              <h3 className="font-black text-xs sm:text-sm text-red-950">
-                🧊 Free Insulin Cold-Storage Vaults
+              <h3 className="font-black text-xs sm:text-sm text-red-950 flex items-center gap-1.5">
+                <ThermometerSnowflake className="h-4 w-4 text-red-700 shrink-0" />
+                <span>Free Insulin Cold-Storage Vaults</span>
               </h3>
               <p className="text-xs text-slate-700 leading-relaxed">
                 Diabetic pilgrims carrying insulin pens can deposit them in temperature-monitored refrigerated lockers located at:
@@ -290,8 +292,9 @@ export default async function AccessibilityPage({ params }: Props) {
             </div>
 
             <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-200 space-y-2">
-              <h3 className="font-black text-xs sm:text-sm text-blue-950">
-                🩺 Free Vitals & BP Kiosks
+              <h3 className="font-black text-xs sm:text-sm text-blue-950 flex items-center gap-1.5">
+                <Stethoscope className="h-4 w-4 text-blue-700 shrink-0" />
+                <span>Free Vitals & BP Kiosks</span>
               </h3>
               <p className="text-xs text-slate-700 leading-relaxed">
                 Every 500 meters along walking corridors, volunteers and nursing staff provide free:

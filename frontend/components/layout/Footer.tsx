@@ -36,29 +36,41 @@ export default function Footer() {
       isNewSession = true;
     }
 
+    let isMounted = true;
+    const abortController = new AbortController();
+
     // 2. Ping the server to record this visitor
     const sendPing = async (newSessionFlag: boolean) => {
+      if (typeof navigator !== 'undefined' && !navigator.onLine) {
+        return;
+      }
+
       try {
         const res = await fetch('/api/visitors', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionId, isNewSession: newSessionFlag }),
+          signal: abortController.signal,
         });
-        if (res.ok) {
+        if (res.ok && isMounted) {
           const data = await res.json();
           handleDataUpdate(data);
         }
-      } catch (err) {
-        console.error('Visitor ping error:', err);
+      } catch {
+        // Silently swallow fetch errors (e.g., dev server recompilation, offline, or abort)
+        // to prevent Next.js dev overlay from displaying "Console TypeError: Failed to fetch"
       }
     };
 
     const handleDataUpdate = (data: { totalVisitors?: number; activePilgrims?: number }) => {
+      if (!isMounted) return;
       if (typeof data.totalVisitors === 'number') {
         if (prevTotalRef.current !== null && data.totalVisitors > prevTotalRef.current) {
           // Highlight update
           setIsUpdating(true);
-          setTimeout(() => setIsUpdating(false), 1200);
+          setTimeout(() => {
+            if (isMounted) setIsUpdating(false);
+          }, 1200);
         }
         prevTotalRef.current = data.totalVisitors;
         setTotalVisitors(data.totalVisitors);
@@ -79,6 +91,8 @@ export default function Footer() {
     }, 30000);
 
     return () => {
+      isMounted = false;
+      abortController.abort();
       clearInterval(interval);
     };
   }, []);
@@ -99,7 +113,7 @@ export default function Footer() {
         borderColor: 'rgba(255,255,255,0.08)',
       }}
     >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-28 sm:pb-14 space-y-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-36 sm:pb-14 space-y-8">
         
         {/* Real Live Visitors Counter Bar */}
         <div
@@ -172,7 +186,7 @@ export default function Footer() {
 
         {/* Links row */}
         <nav
-          className="flex flex-wrap items-center gap-x-6 gap-y-3"
+          className="flex flex-wrap items-center justify-center sm:justify-start gap-x-6 gap-y-2"
           aria-label="Footer links"
         >
           {(['about', 'privacy', 'contact'] as const).map((key) => (
@@ -187,14 +201,23 @@ export default function Footer() {
         </nav>
 
         {/* Copyright */}
-        <div className="pt-4 border-t border-white/10 flex items-center justify-between flex-wrap gap-2 text-xs">
-          <p className="text-white/40 font-medium">
-            {t('copyright')} • Created by{' '}
-            <Link href={`/${locale}/about`} className="text-amber-400/90 hover:underline font-semibold">
-              Atharva Suryawanshi
-            </Link>
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center sm:justify-between gap-3 text-xs text-center sm:text-left">
+          <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 text-white/50 font-medium">
+            <span>{t('copyright')}</span>
+            <span className="hidden sm:inline text-white/20">•</span>
+            <span className="inline-flex items-center gap-1">
+              <span>Created by</span>
+              <Link
+                href={`/${locale}/about`}
+                className="text-amber-400 hover:text-amber-300 hover:underline font-semibold"
+              >
+                Atharva Suryawanshi
+              </Link>
+            </span>
+          </div>
+          <p className="text-amber-400/90 font-bold tracking-wide">
+            Simhastha Kumbh Mela 2027 • Nashik
           </p>
-          <p className="text-amber-400/80 font-bold">Simhastha Kumbh Mela 2027 • Nashik</p>
         </div>
       </div>
     </footer>

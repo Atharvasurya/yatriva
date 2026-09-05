@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getVisitorSnapshot, recordVisitorPing } from '@/lib/visitorTracker';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   const snapshot = getVisitorSnapshot();
   return NextResponse.json(snapshot);

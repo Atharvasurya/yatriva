@@ -176,7 +176,7 @@ export default function PilgrimSafetyPassCard() {
     ctx.fillText('PRIMARY EMERGENCY CONTACT 1 (FAMILY)', 120, 1045);
     ctx.fillStyle = '#0F1E35';
     ctx.font = '900 48px sans-serif';
-    ctx.fillText(`📞 ${formData.emergencyPhone1 || '—'}`, 120, 1105);
+    ctx.fillText(`Tel: ${formData.emergencyPhone1 || '—'}`, 120, 1105);
 
     // Emergency Contact 2 / Group
     ctx.fillStyle = '#0284C7';
@@ -184,7 +184,7 @@ export default function PilgrimSafetyPassCard() {
     ctx.fillText('GROUP LEADER / SECONDARY CONTACT 2', 120, 1195);
     ctx.fillStyle = '#0F1E35';
     ctx.font = '900 44px sans-serif';
-    ctx.fillText(`📞 ${formData.emergencyPhone2 || '—'}`, 120, 1255);
+    ctx.fillText(`Tel: ${formData.emergencyPhone2 || '—'}`, 120, 1255);
     if (formData.groupLeaderName) {
       ctx.fillStyle = '#64748B';
       ctx.font = 'normal 28px sans-serif';
@@ -423,13 +423,19 @@ export default function PilgrimSafetyPassCard() {
 
               <div className="pt-2 border-t border-slate-100 bg-saffron-50/60 p-2 rounded-xl border border-saffron-200">
                 <span className="text-[9px] font-extrabold text-saffron-800 uppercase block">Family Contact 1</span>
-                <p className="font-black text-xs text-navy-950">📞 {formData.emergencyPhone1 || '—'}</p>
+                <p className="font-black text-xs text-navy-950 flex items-center gap-1.5 mt-0.5">
+                  <Phone className="h-3 w-3 text-saffron-700 shrink-0" />
+                  <span>{formData.emergencyPhone1 || '—'}</span>
+                </p>
               </div>
 
               {formData.emergencyPhone2 && (
                 <div className="bg-sky-50/60 p-2 rounded-xl border border-sky-200">
                   <span className="text-[9px] font-extrabold text-sky-800 uppercase block">Group / Contact 2</span>
-                  <p className="font-bold text-xs text-slate-900">📞 {formData.emergencyPhone2}</p>
+                  <p className="font-bold text-xs text-slate-900 flex items-center gap-1.5 mt-0.5">
+                    <Phone className="h-3 w-3 text-sky-700 shrink-0" />
+                    <span>{formData.emergencyPhone2}</span>
+                  </p>
                 </div>
               )}
             </div>

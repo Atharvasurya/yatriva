@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import {
-  Waves, Bus, ParkingCircle, AlertTriangle, Info, Map, Globe, Check, BookOpen, ChevronRight, Sparkles, ShieldAlert, Accessibility, LifeBuoy, Navigation, Sun, Smartphone, UserX
+  Waves, Bus, ParkingCircle, AlertTriangle, Info, Map, Globe, Check, BookOpen, ChevronRight, Sparkles, ShieldAlert, Accessibility, LifeBuoy, Navigation, Sun, Smartphone, UserX, BedDouble
 } from 'lucide-react';
 import TempleIcon from '@/components/ui/TempleIcon';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
@@ -18,6 +18,7 @@ export default function MorePage() {
     { key: 'safetyPass', href: '/safety-pass', Icon: Smartphone, color: 'bg-amber-50 text-amber-700' },
     { key: 'lostAndFound', href: '/lost-and-found', Icon: UserX, color: 'bg-red-50 text-red-700' },
     { key: 'accessibility', href: '/accessibility', Icon: Accessibility, color: 'bg-indigo-50 text-indigo-600' },
+    { key: 'stayAndEat', href: '/stay-and-eat', Icon: BedDouble, color: 'bg-amber-50 text-amber-800' },
     { key: 'waterSafety', href: '/water-safety', Icon: LifeBuoy, color: 'bg-blue-50 text-blue-600' },
     { key: 'crowdSafety', href: '/crowd-safety', Icon: ShieldAlert, color: 'bg-red-50 text-red-700' },
     { key: 'trafficAdvisory', href: '/traffic-advisory', Icon: Navigation, color: 'bg-amber-50 text-amber-700' },

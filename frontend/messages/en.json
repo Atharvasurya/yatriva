@@ -26,6 +26,7 @@
     "weatherHealth": "Weather & Health",
     "safetyPass": "Offline Safety Pass",
     "assistant": "AI Assistant",
+    "stayAndEat": "Stay & Eat",
     "about": "About"
   },
   "assistant": {
@@ -476,5 +477,20 @@
     "downloadBtn": "Download Pass for Lockscreen (PNG)",
     "previewTitle": "Pass Lockscreen Preview",
     "helplineNote": "Emergency Helplines: Police 112 • Ambulance 108 • Kumbh Control 1924"
+  },
+  "stayAndEat": {
+    "title": "Lodging & Dining",
+    "description": "Find hotels, guesthouses, tent resorts, and restaurants for your Kumbh Mela pilgrimage.",
+    "testDataNotice": "Notice: The listings below are placeholder test records for testing and demonstration only. Official verified accommodations and meal distribution points will be published closer to Kumbh Mela 2027.",
+    "filterAll": "All Listings",
+    "filterLodging": "Lodging",
+    "filterRestaurants": "Dining",
+    "filterAllPrices": "All Prices",
+    "filterVegOnly": "Pure Veg Only",
+    "noResults": "No listings found matching your filters",
+    "noResultsHint": "Try resetting or choosing a different combination of filters.",
+    "vegOnly": "Pure Veg",
+    "vegAndNonVeg": "Veg & Non-Veg",
+    "viewOnMap": "View on Google Maps"
   }
 }
