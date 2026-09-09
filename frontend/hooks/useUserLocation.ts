@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Coordinates, Place, PlaceCategory } from '@/types/place';
 
 export interface PilgrimPresetLocation {
@@ -9,6 +9,19 @@ export interface PilgrimPresetLocation {
   nameHi: string;
   nameMr: string;
   coordinates: Coordinates;
+}
+
+export interface PlaceWithDistance extends Place {
+  distanceKm: number;
+  distanceFormatted: string;
+}
+
+export interface NearestEssentials {
+  toilet: PlaceWithDistance | null;
+  medical: PlaceWithDistance | null;
+  ghat: PlaceWithDistance | null;
+  parking: PlaceWithDistance | null;
+  police: PlaceWithDistance | null;
 }
 
 export const PRESET_PILGRIM_LOCATIONS: PilgrimPresetLocation[] = [
@@ -86,91 +99,252 @@ export function formatDistance(distanceKm: number): string {
 }
 
 export function useUserLocation() {
-  const [userLocation, setUserLocation] = useState<Coordinates | null>(
+  const [userLocation, setUserLocation] = useState<Coordinates>(
     PRESET_PILGRIM_LOCATIONS[0].coordinates // default to Ramkund Ghat
   );
   const [locationSource, setLocationSource] = useState<'gps' | 'manual'>('manual');
   const [activePreset, setActivePreset] = useState<PilgrimPresetLocation | null>(
     PRESET_PILGRIM_LOCATIONS[0]
   );
+  const [userAccuracy, setUserAccuracy] = useState<number | null>(null);
   const [gpsError, setGpsError] = useState<string | null>(null);
   const [isLocating, setIsLocating] = useState<boolean>(false);
+  const [isWatchingGps, setIsWatchingGps] = useState<boolean>(false);
+  const watchIdRef = useRef<number | null>(null);
 
-  // Request GPS position from browser
-  const requestGpsLocation = useCallback(() => {
+  // Restore saved location from localStorage on client mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const saved = localStorage.getItem('yatriva_user_location');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.lat && parsed.lng) {
+          setUserLocation({ lat: parsed.lat, lng: parsed.lng });
+          if (parsed.source) setLocationSource(parsed.source);
+          if (parsed.accuracy) setUserAccuracy(parsed.accuracy);
+          if (parsed.presetId) {
+            const found = PRESET_PILGRIM_LOCATIONS.find((p) => p.id === parsed.presetId);
+            if (found) setActivePreset(found);
+          }
+        }
+      }
+    } catch {
+      // Ignore localStorage parse errors
+    }
+  }, []);
+
+  // Persist location updates
+  const persistLocation = (coords: Coordinates, source: 'gps' | 'manual', presetId?: string, accuracy?: number | null) => {
+    if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem(
+        'yatriva_user_location',
+        JSON.stringify({
+          lat: coords.lat,
+          lng: coords.lng,
+          source,
+          presetId: presetId || null,
+          accuracy: accuracy || null,
+        })
+      );
+    } catch {
+      // Ignore quota errors
+    }
+  };
+
+  // Clean up watchPosition on unmount
+  useEffect(() => {
+    return () => {
+      if (watchIdRef.current !== null && typeof navigator !== 'undefined' && navigator.geolocation) {
+        navigator.geolocation.clearWatch(watchIdRef.current);
+      }
+    };
+  }, []);
+
+  // Stop active GPS watcher
+  const stopGpsWatch = useCallback(() => {
+    if (watchIdRef.current !== null && typeof navigator !== 'undefined' && navigator.geolocation) {
+      navigator.geolocation.clearWatch(watchIdRef.current);
+      watchIdRef.current = null;
+    }
+    setIsWatchingGps(false);
+  }, []);
+
+  // Request high-accuracy real-time GPS position with automatic fallback
+  const requestGpsLocation = useCallback((continuousWatch: boolean = false) => {
     if (typeof window === 'undefined' || !navigator.geolocation) {
-      setGpsError('Geolocation is not supported by your browser');
+      setGpsError('Geolocation is not supported by your browser or device');
       return;
     }
 
     setIsLocating(true);
     setGpsError(null);
 
+    const handleSuccess = (position: GeolocationPosition) => {
+      const coords = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      const accuracy = position.coords.accuracy ? Math.round(position.coords.accuracy) : null;
+
+      setUserLocation(coords);
+      setUserAccuracy(accuracy);
+      setLocationSource('gps');
+      setActivePreset(null);
+      setIsLocating(false);
+      setGpsError(null);
+
+      persistLocation(coords, 'gps', undefined, accuracy);
+    };
+
+    const handleError = (error: GeolocationPositionError, isRetry: boolean = false) => {
+      if (!isRetry && (error.code === error.TIMEOUT || error.code === error.POSITION_UNAVAILABLE)) {
+        // Fallback: retry with lower accuracy tolerance if high accuracy satellite timed out
+        console.warn('High-accuracy GPS timed out; falling back to standard accuracy...');
+        navigator.geolocation.getCurrentPosition(
+          (pos) => handleSuccess(pos),
+          (fallbackErr) => handleError(fallbackErr, true),
+          { enableHighAccuracy: false, timeout: 10000, maximumAge: 0 }
+        );
+        return;
+      }
+
+      let msg = 'Unable to fetch current GPS location.';
+      if (error.code === error.PERMISSION_DENIED) {
+        msg = 'Location permission denied in your browser settings. Please allow location access or select a landmark.';
+      } else if (error.code === error.POSITION_UNAVAILABLE) {
+        msg = 'GPS signal unavailable. Please ensure Location/GPS is turned ON in your system settings.';
+      } else if (error.code === error.TIMEOUT) {
+        msg = 'GPS satellite request timed out. Please try again or select a nearby landmark.';
+      }
+      setGpsError(msg);
+      setIsLocating(false);
+      stopGpsWatch();
+    };
+
+    // Primary request: fresh position (maximumAge: 0) with high accuracy
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setUserLocation({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-        setLocationSource('gps');
-        setActivePreset(null);
-        setIsLocating(false);
-      },
-      (error) => {
-        let msg = 'Unable to get location';
-        if (error.code === error.PERMISSION_DENIED) {
-          msg = 'Location permission denied. Please select a landmark manually.';
-        } else if (error.code === error.POSITION_UNAVAILABLE) {
-          msg = 'GPS signal unavailable in crowd area. Switched to manual picker.';
-        } else if (error.code === error.TIMEOUT) {
-          msg = 'GPS request timed out. Switched to manual picker.';
+      (pos) => {
+        handleSuccess(pos);
+
+        // Optionally start continuous real-time watch
+        if (continuousWatch) {
+          stopGpsWatch();
+          watchIdRef.current = navigator.geolocation.watchPosition(
+            (watchPos) => handleSuccess(watchPos),
+            (watchErr) => console.warn('GPS Watch update warning:', watchErr.message),
+            { enableHighAccuracy: true, maximumAge: 2000 }
+          );
+          setIsWatchingGps(true);
         }
-        setGpsError(msg);
-        setIsLocating(false);
       },
+      (err) => handleError(err, false),
       {
         enableHighAccuracy: true,
         timeout: 10000,
-        maximumAge: 60000,
+        maximumAge: 0, // Force fresh satellite/WiFi query, NO stale cache
       }
     );
-  }, []);
+  }, [stopGpsWatch]);
 
-  // Select a preset location manually (crowd fallback)
+  // Select a preset landmark manually (crowd fallback)
   const setManualPreset = useCallback((preset: PilgrimPresetLocation) => {
+    stopGpsWatch();
     setUserLocation(preset.coordinates);
     setActivePreset(preset);
+    setUserAccuracy(null);
     setLocationSource('manual');
     setGpsError(null);
-  }, []);
+    persistLocation(preset.coordinates, 'manual', preset.id, null);
+  }, [stopGpsWatch]);
 
-  // Find nearest POI of a specific category from user's current location
+  // Set custom coordinates (e.g. clicking anywhere on the map)
+  const setCustomLocation = useCallback((coords: Coordinates, customName: string = 'Custom Pinned Location') => {
+    stopGpsWatch();
+    setUserLocation(coords);
+    setActivePreset({
+      id: 'custom-pin',
+      nameEn: customName,
+      nameHi: customName,
+      nameMr: customName,
+      coordinates: coords,
+    });
+    setUserAccuracy(null);
+    setLocationSource('manual');
+    setGpsError(null);
+    persistLocation(coords, 'manual', 'custom-pin', null);
+  }, [stopGpsWatch]);
+
+  // Find nearest POIs of a specific category from user's current location
   const findNearestPois = useCallback(
-    (places: Place[], category?: PlaceCategory, limit: number = 3): Array<Place & { distanceKm: number }> => {
-      if (!userLocation) return [];
+    (
+      places: Place[],
+      category?: PlaceCategory,
+      limit: number = 5,
+      maxDistanceKm?: number
+    ): PlaceWithDistance[] => {
+      if (!userLocation || !places || places.length === 0) return [];
 
-      const filtered = category ? places.filter((p) => p.category === category) : places;
+      let filtered = category ? places.filter((p) => p.category === category) : places;
 
-      const withDistances = filtered.map((p) => ({
-        ...p,
-        distanceKm: calculateDistanceKm(userLocation, p.coordinates),
-      }));
+      const withDistances: PlaceWithDistance[] = filtered.map((p) => {
+        const d = calculateDistanceKm(userLocation, p.coordinates);
+        return {
+          ...p,
+          distanceKm: d,
+          distanceFormatted: formatDistance(d),
+        };
+      });
 
       withDistances.sort((a, b) => a.distanceKm - b.distanceKm);
 
-      return withDistances.slice(0, limit);
+      const constrained = maxDistanceKm
+        ? withDistances.filter((p) => p.distanceKm <= maxDistanceKm)
+        : withDistances;
+
+      return constrained.slice(0, limit);
     },
     [userLocation]
+  );
+
+  // Compute the 4 essential nearest facilities (Toilet, Medical, Ghat, Parking, plus Police)
+  const getNearestEssentials = useCallback(
+    (places: Place[]): NearestEssentials => {
+      if (!userLocation || !places || places.length === 0) {
+        return { toilet: null, medical: null, ghat: null, parking: null, police: null };
+      }
+
+      const nearestToilet = findNearestPois(places, 'toilet', 1)[0] || null;
+      const nearestMedical = findNearestPois(places, 'medical', 1)[0] || null;
+      const nearestGhat = findNearestPois(places, 'ghat', 1)[0] || null;
+      const nearestParking = findNearestPois(places, 'parking', 1)[0] || null;
+      const nearestPolice = findNearestPois(places, 'police', 1)[0] || null;
+
+      return {
+        toilet: nearestToilet,
+        medical: nearestMedical,
+        ghat: nearestGhat,
+        parking: nearestParking,
+        police: nearestPolice,
+      };
+    },
+    [userLocation, findNearestPois]
   );
 
   return {
     userLocation,
     locationSource,
     activePreset,
+    userAccuracy,
     gpsError,
     isLocating,
+    isWatchingGps,
     requestGpsLocation,
+    stopGpsWatch,
     setManualPreset,
+    setCustomLocation,
     findNearestPois,
+    getNearestEssentials,
   };
 }

@@ -967,9 +967,13 @@ export const INFO_CENTRES: Place[] = [
   },
 ];
 
+import { NASHIK_MONITOR_PLACES } from './nashikMonitorPlaces';
+
+export { NASHIK_MONITOR_PLACES };
+
 // ─── Consolidated Map POIs Export ────────────────────────────────────────────
 
-export const ALL_MAP_PLACES: Place[] = [
+export const HAND_CURATED_PLACES: Place[] = [
   ...GHATS,
   ...TEMPLES,
   ...PARKING_ZONES,
@@ -979,6 +983,19 @@ export const ALL_MAP_PLACES: Place[] = [
   ...PUBLIC_TOILETS,
   ...FOOD_ZONES,
   ...INFO_CENTRES,
+];
+
+// Merge Nashik Monitor places, deduplicating near-exact matches with hand-curated places
+export const ALL_MAP_PLACES: Place[] = [
+  ...HAND_CURATED_PLACES,
+  ...NASHIK_MONITOR_PLACES.filter((nm) => {
+    return !HAND_CURATED_PLACES.some(
+      (cp) =>
+        cp.category === nm.category &&
+        Math.abs(cp.coordinates.lat - nm.coordinates.lat) < 0.001 &&
+        Math.abs(cp.coordinates.lng - nm.coordinates.lng) < 0.001
+    );
+  }),
 ];
 
 // ─── Transport Routes ─────────────────────────────────────────────────────────

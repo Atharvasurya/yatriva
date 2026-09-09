@@ -102,6 +102,8 @@ class PlaceBase(BaseModel):
     address: Optional[str] = None
     verified: bool = False
     tags: List[str] = []
+    location_confidence: Optional[str] = None
+    data_source: Optional[str] = None
 
 
 class Place(PlaceBase):

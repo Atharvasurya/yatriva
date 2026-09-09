@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
-import { ShieldCheck, Globe, Info, Users, Sparkles, MapPin, Mail, ArrowLeft } from 'lucide-react';
+import { ShieldCheck, Globe, Info, Users, Sparkles, MapPin, Mail, ArrowLeft, Database } from 'lucide-react';
 
 export default function AboutPage() {
   const t = useTranslations('about');
@@ -131,6 +131,27 @@ export default function AboutPage() {
           <p className="text-xs text-slate-600 leading-relaxed">
             {t('offlineText')}
           </p>
+        </div>
+      </div>
+
+      {/* Civic Infrastructure Data Attribution (Nashik Monitor) */}
+      <div className="bg-white rounded-2xl p-5 sm:p-6 space-y-3 border-l-4 border-l-emerald-600 shadow-md border border-slate-200/80 animate-fade-up">
+        <div className="flex items-center gap-2.5">
+          <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700 shadow-xs">
+            <Database className="h-4.5 w-4.5 shrink-0" />
+          </div>
+          <h2 className="font-extrabold text-base sm:text-lg text-slate-900">
+            {t('nashikMonitorTitle')}
+          </h2>
+        </div>
+        <p className="text-xs text-slate-600 leading-relaxed">
+          {t('nashikMonitorText')}
+        </p>
+        <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+          <span>Source: NTKMA Mobility Plan, NMC RTI, and Google Places via Kumbhathon Innovation Foundation</span>
+          <span className="font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+            Confidence-Graded Data
+          </span>
         </div>
       </div>
 

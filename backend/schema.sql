@@ -57,14 +57,16 @@ CREATE TABLE places (
     address         TEXT,
 
     -- Data quality tracking
-    verified        BOOLEAN NOT NULL DEFAULT FALSE,
-    last_verified   DATE,
+    verified            BOOLEAN NOT NULL DEFAULT FALSE,
+    last_verified       DATE,
+    location_confidence TEXT,
+    data_source         TEXT,
 
     -- JSON array of tag strings e.g. ["accessible", "24h"]
-    tags            JSONB DEFAULT '[]'::JSONB,
+    tags                JSONB DEFAULT '[]'::JSONB,
 
-    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- Spatial index for proximity queries (Phase 2)

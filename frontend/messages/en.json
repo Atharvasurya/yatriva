@@ -166,7 +166,9 @@
     "offlineTitle": "Offline First Design",
     "offlineText": "Designed to function under heavy network congestion with PWA support and local caching.",
     "legalTitle": "Disclaimer & Governance",
-    "legalText": "Yatriva is an independent project. It is not affiliated with, endorsed by, or connected to any government body, district administration, or religious trust."
+    "legalText": "Yatriva is an independent project. It is not affiliated with, endorsed by, or connected to any government body, district administration, or religious trust.",
+    "nashikMonitorTitle": "Civic Infrastructure Data via Nashik Monitor",
+    "nashikMonitorText": "Civic infrastructure data via Nashik Monitor, an initiative by Kumbhathon Innovation Foundation. Covers surveyed bathing ghats, parking zones, medical facilities with honest geocode confidence grading, police posts, and public sanitation infrastructure across Nashik and Trimbakeshwar."
   },
   "map": {
     "title": "Interactive Pilgrim Map",

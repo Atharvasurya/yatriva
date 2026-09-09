@@ -428,6 +428,25 @@ body {
   animation: waterFloat 3s ease-in-out infinite;
 }
 
+@keyframes loaderProgress {
+  0% {
+    left: -50%;
+    width: 30%;
+  }
+  50% {
+    left: 25%;
+    width: 55%;
+  }
+  100% {
+    left: 100%;
+    width: 30%;
+  }
+}
+
+.animate-loader-progress {
+  animation: loaderProgress 0.85s ease-in-out infinite;
+}
+
 /* ─── Motion — prefers-reduced-motion ────────────────────────────────────── */
 /* Must be the last rule so it overrides everything above */
 @media (prefers-reduced-motion: reduce) {

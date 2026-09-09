@@ -9,12 +9,12 @@ export default function InitialPageLoader() {
 
   useEffect(() => {
     try {
-      // Only suppress if user just clicked language switch
-      const suppressUntil = Number(sessionStorage.getItem('yatriva_suppress_loader_until') || 0);
-      if (Date.now() < suppressUntil || (typeof window !== 'undefined' && (window as unknown as { __yatriva_suppress_loader?: boolean }).__yatriva_suppress_loader)) {
-        const t = setTimeout(() => setLoading(false), 0);
-        return () => clearTimeout(t);
+      // If user has already opened the website in this session, do not show again for in-page loading
+      if (sessionStorage.getItem('yatriva_website_opened')) {
+        setLoading(false);
+        return;
       }
+      sessionStorage.setItem('yatriva_website_opened', '1');
     } catch {
       // ignore
     }

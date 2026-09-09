@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import type { Place, Coordinates } from '@/types/place';
+import ErrorBoundary from '@/components/ui/ErrorBoundary';
 
 const DynamicLeafletMap = dynamic(
   () => import('@/components/map/LeafletMap'),
@@ -15,16 +16,20 @@ const DynamicLeafletMap = dynamic(
   }
 );
 
-interface LeafletMapWrapperProps {
+export interface LeafletMapWrapperProps {
   places: Place[];
   userLocation: Coordinates | null;
   locationSource: 'gps' | 'manual';
   onOpenLocationPicker: () => void;
   height?: string;
   initialZoom?: number;
+  userAccuracy?: number | null;
+  focusedPlace?: Place | null;
+  onSelectPlace?: (place: Place | null) => void;
+  onMapClickCoords?: (coords: Coordinates) => void;
+  isMapPinMode?: boolean;
+  onUserLocationChange?: (coords: Coordinates) => void;
 }
-
-import ErrorBoundary from '@/components/ui/ErrorBoundary';
 
 export default function LeafletMapWrapper(props: LeafletMapWrapperProps) {
   return (

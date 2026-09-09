@@ -23,6 +23,21 @@ export interface LocalisedDescription {
 }
 
 /**
+ * Location confidence grades from the Nashik Monitor data source.
+ * - 'verified': surveyed or manually confirmed position
+ * - 'locality-match': placed by matching address text to a locality centroid
+ * - 'approximate': no locality match, placed near city centre as fallback
+ * - 'HIGH' | 'MEDIUM' | 'LOW': upstream hospital geocode grades (not surveyed)
+ */
+export type LocationConfidence =
+  | 'verified'
+  | 'locality-match'
+  | 'approximate'
+  | 'HIGH'
+  | 'MEDIUM'
+  | 'LOW';
+
+/**
  * Base place type — every Point of Interest inherits from this.
  * `verified` tracks whether the data has been cross-checked against
  * an authoritative source (official Kumbh docs, OSM survey, etc.).
@@ -41,6 +56,10 @@ export interface Place {
   cultureSlug?: string;     // Link to heritage explainer page e.g. "ramkund"
   imageUrl?: string;        // Path or URL to main image
   galleryImages?: string[]; // Multiple images for automatic slideshow
+  /** Confidence grade from the Nashik Monitor data source — null for hand-curated entries */
+  locationConfidence?: LocationConfidence | null;
+  /** Data attribution source — 'nashik-monitor' for Kumbhathon Foundation data */
+  dataSource?: 'curated' | 'nashik-monitor';
 }
 
 export type PlaceCategory =
