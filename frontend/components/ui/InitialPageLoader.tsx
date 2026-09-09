@@ -3,15 +3,24 @@
 import { useState, useEffect } from 'react';
 import KumbhLoader from '@/components/ui/KumbhLoader';
 
+// Module-level in-memory flag that survives client-side SPA navigation
+let hasLoadedWebsite = false;
+
 export default function InitialPageLoader() {
-  const [loading, setLoading] = useState(true);
+  // Start with visible = false so it NEVER flashes during in-page navigation or SSR
+  const [visible, setVisible] = useState(false);
   const [fadingOut, setFadingOut] = useState(false);
 
   useEffect(() => {
+    // 1. If already loaded in memory during this browser session, never show
+    if (hasLoadedWebsite) {
+      return;
+    }
+
+    // 2. If already loaded in sessionStorage (e.g. user visited other pages or refreshed), never show
     try {
-      // If user has already opened the website in this session, do not show again for in-page loading
-      if (sessionStorage.getItem('yatriva_website_opened')) {
-        setLoading(false);
+      if (typeof window !== 'undefined' && sessionStorage.getItem('yatriva_website_opened')) {
+        hasLoadedWebsite = true;
         return;
       }
       sessionStorage.setItem('yatriva_website_opened', '1');
@@ -19,13 +28,19 @@ export default function InitialPageLoader() {
       // ignore
     }
 
+    // Mark as loaded so in-page navigation never triggers it again
+    hasLoadedWebsite = true;
+
+    // Only show on the very first initial website opening
+    setVisible(true);
+
     const fadeTimer = setTimeout(() => {
       setFadingOut(true);
     }, 750);
 
     const removeTimer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+      setVisible(false);
+    }, 1050);
 
     return () => {
       clearTimeout(fadeTimer);
@@ -33,7 +48,7 @@ export default function InitialPageLoader() {
     };
   }, []);
 
-  if (!loading) return null;
+  if (!visible) return null;
 
   return (
     <div
