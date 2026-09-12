@@ -1,9 +1,17 @@
 /**
  * lodgingDining.ts — Static data for the /stay-and-eat page.
  *
- * ⚠️  TEST DATA ONLY — every entry below is clearly fictional.
- *     Names are intentional placeholders.
- *     Replace with verified real listings before any public launch.
+ * ─────────────────────────────────────────────────────────────────────────────
+ * VERIFICATION GATE:
+ *   Only entries with  verificationStatus: 'verified'  appear on the public
+ *   /stay-and-eat page.  All placeholder / OSM-imported entries start as
+ *   'pending' and must be manually promoted after ground-truthing.
+ *
+ * DATA SOURCES:
+ *   'manual'  — hand-researched, fully verified
+ *   'osm'     — imported from OpenStreetMap via Overpass API (ODbL license)
+ *               Attribution: "Accommodation and dining location data
+ *               © OpenStreetMap contributors (ODbL)"
  *
  * This file is ISOLATED from seed.ts and the existing `places` / map data.
  * Do NOT import or reference this file from the map, places, or seed modules.
@@ -19,6 +27,12 @@ export type AccommodationType =
   | 'guesthouse'
   | 'hotel'
   | 'tent_resort';
+
+/** Lifecycle state for every listing. Only 'verified' entries are public. */
+export type VerificationStatus = 'verified' | 'pending' | 'rejected';
+
+/** Where this listing record came from. */
+export type DataSource = 'manual' | 'osm';
 
 export interface LocalizedString {
   en: string;
@@ -48,7 +62,19 @@ export interface LodgingListing {
   ratingLabel: LocalizedString;
   starCount: number;
   checklist: LocalizedString[];
+  // ── Verification & provenance (Phase 7.2) ─────────────────────────────────
+  /** Lifecycle gate. Only 'verified' entries appear on the public page. */
+  verificationStatus: VerificationStatus;
+  /** Where this record came from. */
+  dataSource: DataSource;
+  /** OSM node/way/relation ID e.g. "node/123456789". Null for manual entries. */
+  osmId?: string;
+  // ── Optional enrichment (filled via Google Sheet / manual research) ─────────
+  phone?: string;
+  website?: string;
+  address?: string;
 }
+
 
 export interface RestaurantListing {
   id: string;
@@ -73,13 +99,29 @@ export interface RestaurantListing {
   ratingLabel: LocalizedString;
   starCount: number;
   checklist: LocalizedString[];
+  // ── Verification & provenance (Phase 7.2) ─────────────────────────────────
+  /** Lifecycle gate. Only 'verified' entries appear on the public page. */
+  verificationStatus: VerificationStatus;
+  /** Where this record came from. */
+  dataSource: DataSource;
+  /** OSM node/way/relation ID. Null for manual entries. */
+  osmId?: string;
+  // ── Optional enrichment ─────────────────────────────────────────────────────
+  phone?: string;
+  website?: string;
+  address?: string;
 }
+
 
 export type Listing = LodgingListing | RestaurantListing;
 
-// ─── Test Seed Data ───────────────────────────────────────────────────────────
+// ─── Exports ─────────────────────────────────────────────────────────────────
 
-export const LODGING_DINING_LISTINGS: Listing[] = [
+/**
+ * ALL_LISTINGS — the full in-file dataset (verified + pending).
+ * Only used internally; do NOT use directly in public-facing components.
+ */
+const ALL_LISTINGS: Listing[] = [
 
   // ── LODGING (Hotels, Guesthouses, Tent Resorts) ───────────────────────────
 
@@ -146,6 +188,8 @@ export const LODGING_DINING_LISTINGS: Listing[] = [
       { en: 'Elevator & Wheelchair Access', hi: 'लिफ्ट व सुलभ प्रवेश', mr: 'लिफ्ट व सुलभ प्रवेश' },
       { en: 'Clean Restrooms & Power Backup', hi: 'स्वच्छ प्रसाधनगृह व बैकअप', mr: 'स्वच्छ प्रसाधनगृह व बॅकअप' },
     ],
+    verificationStatus: 'pending',
+    dataSource: 'manual',
   },
 
 
@@ -212,6 +256,8 @@ export const LODGING_DINING_LISTINGS: Listing[] = [
       { en: 'Family-Friendly Quiet Environment', hi: 'सुरक्षित पारिवारिक वातावरण', mr: 'सुरक्षित कौटुंबिक वातावरण' },
       { en: 'Short Walk to Ramkund & Kala Ram', hi: 'रामकुंड व कालाराम पैदल दूरी', mr: 'रामकुंड व काळाराम पायी अंतरावर' },
     ],
+    verificationStatus: 'pending',
+    dataSource: 'manual',
   },
 
   {
@@ -277,6 +323,8 @@ export const LODGING_DINING_LISTINGS: Listing[] = [
       { en: 'Fresh Morning Breakfast Included', hi: 'ताज़ा सुबह का नाश्ता शामिल', mr: 'ताजा सकाळचा नाश्ता समाविष्ट' },
       { en: 'Continuous Shuttle to Ramkund', hi: 'रामकुंड हेतु निरंतर शटल बस', mr: 'रामकुंडासाठी सतत शटल बस' },
     ],
+    verificationStatus: 'pending',
+    dataSource: 'manual',
   },
 
   {
@@ -342,6 +390,8 @@ export const LODGING_DINING_LISTINGS: Listing[] = [
       { en: 'Luxury AC Rooms with King Bed', hi: 'लक्जरी एसी कमरे व आरामदायक बेड', mr: 'लक्झरी एसी खोल्या व आरामदायी बेड' },
       { en: 'Valet Parking & 24/7 Security', hi: 'वैले पार्किंग एवं 24/7 सुरक्षा', mr: 'व्हॅलेट पार्किंग व २४/७ सुरक्षा' },
     ],
+    verificationStatus: 'pending',
+    dataSource: 'manual',
   },
 
   // ── RESTAURANTS / DINING (Standard Dining, Thali & Cafes) ─────────────────
@@ -410,6 +460,8 @@ export const LODGING_DINING_LISTINGS: Listing[] = [
       { en: '100% Pure Vegetarian Kitchen', hi: '100% शुद्ध शाकाहारी रसोई', mr: '100% शुद्ध शाकाहारी स्वयंपाकघर' },
       { en: 'Convenient 300m Walk from Ramkund', hi: 'रामकुंड से मात्र 300 मी पैदल दूरी', mr: 'रामकुंडापासून फक्त 300 मी पायी अंतर' },
     ],
+    verificationStatus: 'pending',
+    dataSource: 'manual',
   },
 
   {
@@ -476,6 +528,8 @@ export const LODGING_DINING_LISTINGS: Listing[] = [
       { en: 'Clean Family Restrooms', hi: 'स्वच्छ पारिवारिक शौचालय', mr: 'स्वच्छ कौटुंबिक प्रसाधनगृह' },
       { en: 'Close to Tapovan Snan Ghat', hi: 'तपोवन स्नान घाट के निकट', mr: 'तपोवन स्नान घाटाजवळ' },
     ],
+    verificationStatus: 'pending',
+    dataSource: 'manual',
   },
 
   {
@@ -542,6 +596,8 @@ export const LODGING_DINING_LISTINGS: Listing[] = [
       { en: 'Fresh Steaming Masala Chai', hi: 'ताज़ी गरमागरम मसाला चाय', mr: 'ताजा गरमागरम मसाला चहा' },
       { en: 'Convenient Bus Station Location', hi: 'बस स्टैंड के ठीक पास', mr: 'बस स्थानकाच्या अगदी जवळ' },
     ],
+    verificationStatus: 'pending',
+    dataSource: 'manual',
   },
 
   {
@@ -607,5 +663,34 @@ export const LODGING_DINING_LISTINGS: Listing[] = [
       { en: 'Open Late Till Midnight', hi: 'देर रात तक खुला', mr: 'उशिरा रात्रीपर्यंत खुले' },
       { en: 'Ample Free Parking Beside Venue', hi: 'परिसर के पास सुलभ पार्किंग', mr: 'परिसराशेजारी सुलभ पार्किंग' },
     ],
+    verificationStatus: 'pending',
+    dataSource: 'manual',
   },
 ];
+
+// ─── Public exports ───────────────────────────────────────────────────────────
+
+/**
+ * LODGING_DINING_LISTINGS — **PUBLIC PAGE EXPORT**
+ *
+ * Only contains entries where verificationStatus === 'verified'.
+ * Import this in /stay-and-eat/page.tsx.
+ *
+ * ⚠️  If this array is empty, the public page shows an appropriate
+ *     empty state — that is the correct behaviour until real listings
+ *     have been manually verified and promoted.
+ */
+export const LODGING_DINING_LISTINGS: Listing[] = ALL_LISTINGS.filter(
+  (l) => l.verificationStatus === 'verified',
+);
+
+/**
+ * PENDING_LISTINGS — **ADMIN QUEUE ONLY**
+ *
+ * Contains all entries where verificationStatus === 'pending'.
+ * Import this only in /admin/lodging-review/page.tsx.
+ * Never use this on the public-facing /stay-and-eat page.
+ */
+export const PENDING_LISTINGS: Listing[] = ALL_LISTINGS.filter(
+  (l) => l.verificationStatus === 'pending',
+);

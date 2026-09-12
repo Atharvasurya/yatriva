@@ -362,8 +362,48 @@ export default function StayAndEatPage() {
         )}
       </div>
 
+      {/* ── Zero Verified Listings State ──────────────────────────────────── */}
+      {LODGING_DINING_LISTINGS.length === 0 && (
+        <div className="bg-amber-50/90 border border-amber-200 rounded-2xl p-6 space-y-3 text-center shadow-xs">
+          <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mx-auto">
+            <AlertTriangle className="h-6 w-6 text-amber-600" />
+          </div>
+          <h2 className="text-base font-bold text-amber-900">
+            {locale === 'hi' ? 'विवरण सत्यापन जारी है' : locale === 'mr' ? 'तपशील सत्यापन सुरू आहे' : 'Listings under verification'}
+          </h2>
+          <p className="text-xs text-amber-800 max-w-md mx-auto leading-relaxed">
+            {locale === 'hi'
+              ? 'हम OSM डेटा का मैन्युअल सत्यापन कर रहे हैं। जब तक प्रत्येक प्रविष्टि की पुष्टि नहीं हो जाती, नीचे दी गई बुकिंग साइट्स का उपयोग करें।'
+              : locale === 'mr'
+              ? 'आम्ही OSM डेटाचे मॅन्युअल सत्यापन करत आहोत. प्रत्येक नोंद तपासल्यानंतरच ती येथे दिसेल. तोपर्यंत खालील बुकिंग साइट्स वापरा.'
+              : 'We are manually verifying OSM-imported records before publishing. Until verified listings appear here, use the booking platforms below to find accommodation and dining near Nashik.'}
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            {[
+              { label: 'Wego', url: 'https://www.wego.in/hotels/searches/nashik' },
+              { label: 'Goibibo', url: 'https://www.goibibo.com/hotels/hotels-in-nashik/' },
+              { label: 'MakeMyTrip', url: 'https://www.makemytrip.com/hotels/hotel-listing/?city=CTNSK' },
+              { label: 'Booking.com', url: 'https://www.booking.com/searchresults.html?ss=Nashik%2C+Maharashtra%2C+India&lang=en-gb' },
+            ].map(({ label, url }) => (
+              <a
+                key={label}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-amber-300 bg-white text-xs font-bold text-amber-900 hover:bg-amber-50 transition-all active:scale-95"
+              >
+                {label} <ExternalLink className="h-3 w-3" />
+              </a>
+            ))}
+          </div>
+          <p className="text-[10px] text-amber-600 pt-1">
+            {locale === 'hi' ? 'ये बाहरी लिंक हैं। Yatriva इनसे संबद्ध नहीं है।' : locale === 'mr' ? 'हे बाह्य दुवे आहेत. Yatriva यांच्याशी संलग्न नाही.' : 'External links — Yatriva is not affiliated with these platforms.'}
+          </p>
+        </div>
+      )}
+
       {/* ── Wego-Style Horizontal Cards Stack ───────────────────────────────── */}
-      {filtered.length === 0 ? (
+      {LODGING_DINING_LISTINGS.length > 0 && filtered.length === 0 ? (
         <div className="py-14 text-center bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 space-y-3">
           <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
             <Search className="h-6 w-6" />
@@ -379,7 +419,7 @@ export default function StayAndEatPage() {
               : 'Try selecting a different filter combination or clearing your search term.'}
           </p>
         </div>
-      ) : (
+      ) : LODGING_DINING_LISTINGS.length > 0 ? (
         <div className="space-y-4">
           {filtered.map((item) => {
             const name = item.name[locale] || item.name.en;
@@ -607,7 +647,28 @@ export default function StayAndEatPage() {
             );
           })}
         </div>
-      )}
+      ) : null}
+
+      {/* ── OSM Attribution ─────────────────────────────────────────────────── */}
+      <div className="flex items-center gap-2 text-[11px] text-slate-400 px-1 pt-2">
+        <ExternalLink className="h-3 w-3 shrink-0" />
+        <span>
+          {locale === 'hi'
+            ? 'आवास एवं भोजनालय स्थान डेटा '
+            : locale === 'mr'
+            ? 'निवास व भोजनालय स्थान डेटा '
+            : 'Accommodation and dining location data '}
+          <a
+            href="https://www.openstreetmap.org/copyright"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-slate-600"
+          >
+            {locale === 'hi' ? '© OpenStreetMap योगदानकर्ता' : locale === 'mr' ? '© OpenStreetMap सहयोगी' : '© OpenStreetMap contributors'}
+          </a>{' '}
+          (ODbL)
+        </span>
+      </div>
     </div>
   );
 }
