@@ -1,15 +1,12 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { usePathname } from 'next/navigation';
 import KumbhLoader from '@/components/ui/KumbhLoader';
 
 export default function InitialPageLoader() {
-  const pathname = usePathname();
   // Start visible so SSR / initial paint instantly presents the full-page loader
   const [visible, setVisible] = useState(true);
   const [fadingOut, setFadingOut] = useState(false);
-  const isFirstMount = useRef(true);
   const activeTimerRef = useRef<{ fade?: NodeJS.Timeout; remove?: NodeJS.Timeout }>({});
 
   const clearTimers = () => {
@@ -18,36 +15,23 @@ export default function InitialPageLoader() {
     activeTimerRef.current = {};
   };
 
-  const triggerLoader = (holdMs: number, fadeMs: number) => {
+  // Only trigger on opening or refreshing the website (component initial mount)
+  useEffect(() => {
     clearTimers();
     setVisible(true);
     setFadingOut(false);
 
     activeTimerRef.current.fade = setTimeout(() => {
       setFadingOut(true);
-    }, holdMs);
+    }, 700);
 
     activeTimerRef.current.remove = setTimeout(() => {
       setVisible(false);
       setFadingOut(false);
-    }, holdMs + fadeMs);
-  };
+    }, 1000);
 
-  // Trigger on initial page load / refresh
-  useEffect(() => {
-    triggerLoader(700, 300);
     return () => clearTimers();
   }, []);
-
-  // Trigger on client-side route changes
-  useEffect(() => {
-    if (isFirstMount.current) {
-      isFirstMount.current = false;
-      return;
-    }
-    triggerLoader(450, 250);
-    return () => clearTimers();
-  }, [pathname]);
 
   if (!visible) return null;
 
