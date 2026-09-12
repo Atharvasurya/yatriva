@@ -12,6 +12,7 @@ import DisclaimerBanner from '@/components/ui/DisclaimerBanner';
 import AiAssistantWidget from '@/components/ui/AiAssistantWidget';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 import OfflineBanner from '@/components/ui/OfflineBanner';
+import InitialPageLoader from '@/components/ui/InitialPageLoader';
 import Analytics from '@/components/analytics/Analytics';
 
 // Static message imports — Turbopack-safe; avoids the next-intl plugin requirement
@@ -254,6 +255,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         }}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <InitialPageLoader />
           {/* Accessibility: skip to content */}
           <a href="#main-content" className="skip-link">
             Skip to main content

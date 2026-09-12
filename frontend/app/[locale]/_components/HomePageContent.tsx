@@ -14,7 +14,6 @@ import KumbhStoryInteractive from '@/components/ui/KumbhStoryInteractive';
 import NashikDarshanVideo from '@/components/ui/NashikDarshanVideo';
 import LeafletMapWrapper from '@/components/map/LeafletMapWrapper';
 import LocationPickerModal from '@/components/map/LocationPickerModal';
-import InitialPageLoader from '@/components/ui/InitialPageLoader';
 import PlaceImageAvatar from '@/components/ui/PlaceImageAvatar';
 import { Button } from '@/components/ds/Button';
 import { Badge } from '@/components/ds/Badge';
@@ -57,7 +56,6 @@ export default function HomePageContent() {
 
   return (
     <>
-      <InitialPageLoader />
       {/* ── Hero Slideshow Section ────────────────────────────────────────── */}
       <HeroSlideshow>
         <div className="px-4 pt-6 pb-10 max-w-2xl mx-auto text-center">
