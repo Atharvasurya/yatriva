@@ -4,21 +4,11 @@ import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import { AlertTriangle, Shield, HeartPulse, PhoneCall, Info, ShieldAlert, ChevronRight, ArrowLeft } from 'lucide-react';
 import { EMERGENCY_CONTACTS } from '@/data/seed';
+import PlaceImageAvatar from '@/components/ui/PlaceImageAvatar';
 
 export default function EmergencyPage() {
   const t = useTranslations('emergency');
   const locale = useLocale() as 'en' | 'hi' | 'mr';
-
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'police':
-        return <Shield className="h-6 w-6 text-blue-600" />;
-      case 'medical':
-        return <HeartPulse className="h-6 w-6 text-red-600" />;
-      default:
-        return <PhoneCall className="h-6 w-6 text-saffron-600" style={{ color: '#E87722' }} />;
-    }
-  };
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-5 sm:space-y-6">
@@ -166,9 +156,14 @@ export default function EmergencyPage() {
               className={`card p-5 flex items-center justify-between gap-4 animate-fade-up delay-${(index + 1) * 100}`}
             >
               <div className="flex items-center gap-4 min-w-0">
-                <div className="p-3 rounded-xl bg-slate-100 shrink-0">
-                  {getCategoryIcon(contact.category)}
-                </div>
+                <PlaceImageAvatar
+                  place={{
+                    category: contact.category,
+                    name: { en: contact.labelEn, hi: contact.labelHi, mr: contact.labelMr },
+                  }}
+                  size="sm"
+                  className="shrink-0"
+                />
                 <div className="min-w-0">
                   <h2 className="font-bold text-base text-navy-800 truncate" style={{ color: '#1B2B4B' }}>
                     {label}

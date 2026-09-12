@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import TempleIcon from '@/components/ui/TempleIcon';
 import ConfidenceBadge from '@/components/ui/ConfidenceBadge';
+import PlaceImageAvatar from '@/components/ui/PlaceImageAvatar';
 import type { Place, PlaceCategory, Coordinates } from '@/types/place';
 import { calculateDistanceKm, formatDistance } from '@/hooks/useUserLocation';
 
@@ -828,22 +829,47 @@ export default function LeafletMap({
             </button>
           </div>
 
-          <h3 id="place-card-title" className="text-lg font-black text-navy-800 mb-1" style={{ color: '#1B2B4B' }}>
-            {activePlace.name[locale] || activePlace.name.en}
-          </h3>
+          <div className="flex items-start gap-3 mb-2.5">
+            <PlaceImageAvatar
+              place={activePlace}
+              size="md"
+              className="shrink-0 mt-0.5"
+            />
+            <div className="min-w-0 flex-1">
+              <h3
+                id="place-card-title"
+                className="text-base sm:text-lg font-black text-navy-800 leading-snug line-clamp-2"
+                style={{ color: '#1B2B4B' }}
+              >
+                {activePlace.name[locale] || activePlace.name.en}
+              </h3>
 
-          {/* Distance calculation */}
-          {userLocation && (
-            <p className="text-xs font-bold text-saffron-600 mb-2 flex items-center gap-1" style={{ color: '#E87722' }}>
-              <Navigation className="h-3.5 w-3.5" />
-              <span>
-                {formatDistance(calculateDistanceKm(userLocation, activePlace.coordinates))} away from your location
-              </span>
-            </p>
-          )}
+              {/* Distance calculation */}
+              {userLocation && (
+                <p
+                  className="text-xs font-bold text-saffron-600 mt-1 flex items-center gap-1"
+                  style={{ color: '#E87722' }}
+                >
+                  <Navigation className="h-3.5 w-3.5 shrink-0" />
+                  <span className="truncate">
+                    {formatDistance(
+                      calculateDistanceKm(userLocation, activePlace.coordinates)
+                    )}{' '}
+                    away from your location
+                  </span>
+                </p>
+              )}
+
+              {activePlace.address && (
+                <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
+                  {activePlace.address}
+                </p>
+              )}
+            </div>
+          </div>
 
           {activePlace.description?.[locale] && (
-            <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">
+            <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-3">
               {activePlace.description[locale]}
             </p>
           )}

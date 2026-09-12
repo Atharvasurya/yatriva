@@ -19,6 +19,7 @@ import type { Place, PlaceCategory, Coordinates } from '@/types/place';
 import type { NearestEssentials, PlaceWithDistance } from '@/hooks/useUserLocation';
 import ConfidenceBadge from '@/components/ui/ConfidenceBadge';
 import TempleIcon from '@/components/ui/TempleIcon';
+import PlaceImageAvatar from '@/components/ui/PlaceImageAvatar';
 
 interface NearestFacilitiesPanelProps {
   essentials: NearestEssentials;
@@ -225,15 +226,24 @@ export default function NearestFacilitiesPanel({
                     </span>
                   </div>
 
-                  <h4 className="font-extrabold text-sm text-slate-900 line-clamp-1 mt-1" title={itemName}>
-                    {itemName}
-                  </h4>
+                  <div className="flex items-start gap-2.5 mt-2">
+                    <PlaceImageAvatar
+                      place={item}
+                      size="sm"
+                      className="shrink-0 mt-0.5"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-extrabold text-sm text-slate-900 line-clamp-1" title={itemName}>
+                        {itemName}
+                      </h4>
 
-                  {item.description?.[locale] && (
-                    <p className="text-[11px] text-slate-600 line-clamp-2 mt-1 leading-snug">
-                      {item.description[locale]}
-                    </p>
-                  )}
+                      {item.description?.[locale] && (
+                        <p className="text-[11px] text-slate-600 line-clamp-2 mt-0.5 leading-snug">
+                          {item.description[locale]}
+                        </p>
+                      )}
+                    </div>
+                  </div>
 
                   <div className="mt-2.5 flex items-center gap-1.5 flex-wrap">
                     <ConfidenceBadge

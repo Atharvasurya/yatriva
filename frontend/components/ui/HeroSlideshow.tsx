@@ -1,7 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-
 const KUMBH_MELA_IMAGES = [
   {
     url: '/images/godaghat_hero.jpg',
@@ -34,16 +32,8 @@ interface HeroSlideshowProps {
 }
 
 export default function HeroSlideshow({ children }: HeroSlideshowProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    // Stately, slow 8-second cinematic interval
-    const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % KUMBH_MELA_IMAGES.length);
-    }, 8000);
-
-    return () => clearInterval(timer);
-  }, []);
+  // Temporarily paused slideshow — keeping godaghat_hero.jpg static as requested
+  const currentIndex = 0;
 
   return (
     <section

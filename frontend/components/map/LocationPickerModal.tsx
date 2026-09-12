@@ -58,16 +58,20 @@ export default function LocationPickerModal({
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResultItem[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  // Realtime search: immediate local matches + debounced OpenStreetMap Nominatim geocoding
+  // Realtime search: immediate local matches + 400ms debounced OpenStreetMap Nominatim geocoding
   useEffect(() => {
     const q = searchQuery.trim();
     if (!q || q.length < 2) {
       setSearchResults([]);
       setIsSearching(false);
+      setSearchError(null);
       return;
     }
+
+    setSearchError(null);
 
     // 1. Immediate local matching (0ms latency)
     const localMatches: SearchResultItem[] = [];
@@ -107,7 +111,7 @@ export default function LocationPickerModal({
 
     setSearchResults(localMatches.slice(0, 6));
 
-    // 2. Realtime online geocoding (debounced 300ms) for any custom street, locality, or landmark
+    // 2. Realtime online geocoding (debounced 400ms per Nominatim usage policy)
     setIsSearching(true);
     const timer = setTimeout(async () => {
       if (abortControllerRef.current) {
@@ -124,7 +128,7 @@ export default function LocationPickerModal({
         const res = await fetch(
           `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
             queryWithContext
-          )}&limit=5&addressdetails=1`,
+          )}&limit=6&addressdetails=1`,
           {
             signal: controller.signal,
             headers: {
@@ -135,15 +139,17 @@ export default function LocationPickerModal({
 
         if (res.ok) {
           const data = await res.json();
-          const geoMatches: SearchResultItem[] = data.map((item: { place_id: number; display_name: string; lat: string; lon: string }) => ({
-            id: `geo-${item.place_id}`,
-            name: item.display_name.split(',')[0].trim(),
-            detail: item.display_name.split(',').slice(1, 3).join(',').trim() || 'Nashik, Maharashtra',
-            coordinates: {
-              lat: parseFloat(item.lat),
-              lng: parseFloat(item.lon),
-            },
-          }));
+          const geoMatches: SearchResultItem[] = data.map(
+            (item: { place_id: number; display_name: string; lat: string; lon: string }) => ({
+              id: `geo-${item.place_id}`,
+              name: item.display_name.split(',')[0].trim(),
+              detail: item.display_name.split(',').slice(1, 4).join(',').trim() || 'Nashik, Maharashtra',
+              coordinates: {
+                lat: parseFloat(item.lat),
+                lng: parseFloat(item.lon),
+              },
+            })
+          );
 
           // Merge without duplicates
           const combined = [...localMatches];
@@ -153,15 +159,22 @@ export default function LocationPickerModal({
             }
           });
           setSearchResults(combined.slice(0, 6));
+          setSearchError(null);
+        } else {
+          if (localMatches.length === 0) {
+            setSearchError('Search unavailable right now');
+          }
         }
       } catch (err: unknown) {
         if ((err as Error)?.name !== 'AbortError') {
-          // Keep local results if network failed
+          if (localMatches.length === 0) {
+            setSearchError('Search unavailable right now');
+          }
         }
       } finally {
         setIsSearching(false);
       }
-    }, 300);
+    }, 400);
 
     return () => {
       clearTimeout(timer);
@@ -207,83 +220,6 @@ export default function LocationPickerModal({
           >
             <X className="h-5 w-5" />
           </button>
-        </div>
-
-        {/* Custom Location Search with Realtime Dropdown */}
-        <div className="relative">
-          <div className="relative flex items-center">
-            <Search className="absolute left-3.5 h-4 w-4 text-slate-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search custom area, hotel, street, or landmark..."
-              className="w-full pl-10 pr-9 py-2.5 rounded-xl bg-slate-100 border border-transparent text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-slate-300 focus:ring-2 focus:ring-slate-900/5 transition-all outline-none"
-            />
-            {isSearching ? (
-              <Loader2 className="absolute right-3 h-4 w-4 text-saffron-600 animate-spin" />
-            ) : searchQuery ? (
-              <button
-                type="button"
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 text-slate-400 hover:text-slate-600 p-0.5 cursor-pointer"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            ) : null}
-          </div>
-
-          {/* Realtime Floating Dropdown */}
-          {searchQuery.trim().length >= 2 && (
-            <div className="absolute top-full left-0 right-0 mt-1.5 z-50 bg-white rounded-2xl border border-slate-200 shadow-2xl overflow-hidden animate-fade-down max-h-56 flex flex-col">
-              <div className="p-2 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold text-slate-400 px-3 uppercase tracking-wider bg-slate-50/70 shrink-0">
-                <span>Matching Locations</span>
-                {isSearching && (
-                  <span className="flex items-center gap-1 text-saffron-600 normal-case font-semibold">
-                    Searching...
-                  </span>
-                )}
-              </div>
-              <div className="overflow-y-auto divide-y divide-slate-100 p-1 flex-1 scrollbar-thin">
-                {searchResults.map((result) => (
-                  <button
-                    key={result.id}
-                    type="button"
-                    onClick={() => {
-                      onSelectCustomCoords?.(result.coordinates, result.name);
-                      setSearchQuery('');
-                      onClose();
-                    }}
-                    className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-50 transition-colors text-left cursor-pointer group"
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-orange-50 group-hover:text-saffron-600 text-slate-500 flex items-center justify-center shrink-0 transition-colors">
-                        <MapPin className="h-4 w-4" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-xs font-bold text-slate-900 truncate">
-                          {result.name}
-                        </p>
-                        {result.detail && (
-                          <p className="text-[11px] text-slate-500 truncate">
-                            {result.detail}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                    <span className="text-[11px] font-bold text-saffron-600 bg-orange-50 group-hover:bg-orange-100 px-2.5 py-1 rounded-full shrink-0 ml-2 transition-colors">
-                      Select
-                    </span>
-                  </button>
-                ))}
-                {!isSearching && searchResults.length === 0 && (
-                  <div className="p-4 text-center text-xs text-slate-500">
-                    No matching location found. Try typing a street or area name.
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Primary Action: Use Current Location (Clean & Simple) */}
@@ -380,6 +316,99 @@ export default function LocationPickerModal({
             <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
               <ShieldAlert className="h-4 w-4 shrink-0 text-amber-600 mt-0.5" />
               <p className="flex-1">{gpsError}</p>
+            </div>
+          )}
+        </div>
+
+        {/* Custom Location Search with Realtime Dropdown (Directly below Use Current Location, above Popular Landmarks) */}
+        <div className="relative">
+          <div className="relative flex items-center">
+            <Search className="absolute left-3.5 h-4 w-4 text-slate-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search custom area, hotel, street, or landmark..."
+              className="w-full pl-10 pr-9 py-2.5 rounded-xl bg-slate-100 border border-transparent text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-slate-300 focus:ring-2 focus:ring-slate-900/5 transition-all outline-none"
+              aria-label="Search custom area, hotel, street, or landmark"
+            />
+            {isSearching ? (
+              <Loader2 className="absolute right-3 h-4 w-4 text-saffron-600 animate-spin" />
+            ) : searchQuery ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery('');
+                  setSearchResults([]);
+                  setSearchError(null);
+                }}
+                className="absolute right-3 text-slate-400 hover:text-slate-600 p-0.5 cursor-pointer"
+                aria-label="Clear search"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            ) : null}
+          </div>
+
+          {/* Realtime Search Results Dropdown */}
+          {searchQuery.trim().length >= 2 && (
+            <div className="absolute top-full left-0 right-0 mt-1.5 z-50 bg-white rounded-2xl border border-slate-200 shadow-2xl overflow-hidden animate-fade-down max-h-56 flex flex-col">
+              <div className="p-2 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold text-slate-400 px-3 uppercase tracking-wider bg-slate-50/70 shrink-0">
+                <span>Matching Locations</span>
+                {isSearching && (
+                  <span className="flex items-center gap-1 text-saffron-600 normal-case font-semibold">
+                    Searching...
+                  </span>
+                )}
+              </div>
+              <div className="overflow-y-auto divide-y divide-slate-100 p-1 flex-1 scrollbar-thin">
+                {searchResults.map((result) => (
+                  <button
+                    key={result.id}
+                    type="button"
+                    onClick={() => {
+                      onSelectCustomCoords?.(result.coordinates, result.name);
+                      setSearchQuery('');
+                      setSearchResults([]);
+                      onClose();
+                    }}
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-50 transition-colors text-left cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-orange-50 group-hover:text-saffron-600 text-slate-500 flex items-center justify-center shrink-0 transition-colors">
+                        <MapPin className="h-4 w-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-xs font-bold text-slate-900 truncate">
+                          {result.name}
+                        </p>
+                        {result.detail && (
+                          <p className="text-[11px] text-slate-500 truncate">
+                            {result.detail}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-bold text-saffron-600 bg-orange-50 group-hover:bg-orange-100 px-2.5 py-1 rounded-full shrink-0 ml-2 transition-colors">
+                      Select
+                    </span>
+                  </button>
+                ))}
+
+                {/* Honest Network Failure State */}
+                {!isSearching && searchError && (
+                  <div className="p-3.5 text-center text-xs text-rose-600 font-semibold bg-rose-50/60 rounded-xl m-1">
+                    {searchError}
+                  </div>
+                )}
+
+                {/* Honest No Matches Found State */}
+                {!isSearching && !searchError && searchResults.length === 0 && (
+                  <div className="p-3.5 text-center text-xs text-slate-500 font-medium">
+                    No matches found — try a different search
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>

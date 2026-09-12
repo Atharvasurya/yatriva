@@ -15,6 +15,7 @@ import NashikDarshanVideo from '@/components/ui/NashikDarshanVideo';
 import LeafletMapWrapper from '@/components/map/LeafletMapWrapper';
 import LocationPickerModal from '@/components/map/LocationPickerModal';
 import InitialPageLoader from '@/components/ui/InitialPageLoader';
+import PlaceImageAvatar from '@/components/ui/PlaceImageAvatar';
 import { Button } from '@/components/ds/Button';
 import { Badge } from '@/components/ds/Badge';
 import { useUserLocation, formatDistance } from '@/hooks/useUserLocation';
@@ -247,18 +248,25 @@ export default function HomePageContent() {
                       key={item.id}
                       className="p-3.5 sm:p-4 bg-white rounded-xl border border-slate-200/80 shadow-2xs flex items-center justify-between gap-4 hover:border-slate-300 transition-all"
                     >
-                      <div className="space-y-1">
-                        <p className="font-extrabold text-xs sm:text-sm text-slate-900 leading-tight">
-                          {item.name[locale] || item.name.en}
-                        </p>
-                        <div className="flex items-center gap-2">
-                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md">
-                            <Navigation className="h-2.5 w-2.5 text-amber-600" />
-                            <span>{formatDistance(item.distanceKm)} away</span>
-                          </span>
-                          <span className="text-[11px] text-slate-400 font-medium hidden sm:inline">
-                            • ~{Math.max(1, Math.ceil(item.distanceKm * 12))} min walk
-                          </span>
+                      <div className="flex items-center gap-3 min-w-0">
+                        <PlaceImageAvatar
+                          place={item}
+                          size="sm"
+                          className="shrink-0"
+                        />
+                        <div className="space-y-1 min-w-0">
+                          <p className="font-extrabold text-xs sm:text-sm text-slate-900 leading-tight truncate">
+                            {item.name[locale] || item.name.en}
+                          </p>
+                          <div className="flex items-center gap-2">
+                            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md">
+                              <Navigation className="h-2.5 w-2.5 text-amber-600" />
+                              <span>{formatDistance(item.distanceKm)} away</span>
+                            </span>
+                            <span className="text-[11px] text-slate-400 font-medium hidden sm:inline">
+                              • ~{Math.max(1, Math.ceil(item.distanceKm * 12))} min walk
+                            </span>
+                          </div>
                         </div>
                       </div>
                       <a
