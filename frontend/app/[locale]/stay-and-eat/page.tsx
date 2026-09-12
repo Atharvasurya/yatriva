@@ -14,13 +14,13 @@ import {
   Hotel,
   AlertTriangle,
   Search,
-  Star,
   Check,
   Heart,
   Navigation,
   Sparkles,
   Compass,
   Leaf,
+  ExternalLink,
 } from 'lucide-react';
 import {
   LODGING_DINING_LISTINGS,
@@ -387,10 +387,13 @@ export default function StayAndEatPage() {
             const distance = item.distance[locale] || item.distance.en;
             const priceAmount = item.priceAmount || item.priceDisplay[locale];
             const priceSubtext = item.priceSubtext?.[locale] || item.priceSubtext?.en || 'includes taxes and fees';
-            const ratingScore = item.ratingScore || (item.rating * 2).toFixed(1);
-            const ratingLabel = item.ratingLabel?.[locale] || item.ratingLabel?.en || 'Very Good';
-            const starCount = item.starCount || 4;
             const isFav = favorites.has(item.id);
+
+            // ── Booking platform deep-links (Nashik / Trimbakeshwar destination) ──
+            const wegoHotelUrl = `https://www.wego.in/hotels/searches/nashik`;
+            const goibiboUrl = `https://www.goibibo.com/hotels/hotels-in-nashik/`;
+            const mmtUrl = `https://www.makemytrip.com/hotels/hotel-listing/?city=CTNSK`;
+            const bookingUrl = `https://www.booking.com/searchresults.html?ss=Nashik%2C+Maharashtra%2C+India&lang=en-gb`;
 
             return (
               <article
@@ -475,17 +478,11 @@ export default function StayAndEatPage() {
                 {/* ── Middle Column: Title, Map Link & Checklist ───────────────── */}
                 <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between space-y-3">
                   <div>
-                    {/* Title + Star Rating (Wego style) */}
+                    {/* Title */}
                     <div className="flex flex-wrap items-center gap-2">
                       <h2 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-navy-700 transition-colors leading-snug">
                         {name}
                       </h2>
-                      {/* Golden Stars */}
-                      <div className="flex items-center text-amber-500">
-                        {Array.from({ length: starCount }).map((_, i) => (
-                          <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                        ))}
-                      </div>
                     </div>
 
                     {/* View on Map Link (Wego compass target icon) */}
@@ -529,47 +526,81 @@ export default function StayAndEatPage() {
                 {/* ── Dashed Vertical Divider ─────────────────────────────────── */}
                 <div className="border-r border-dashed border-slate-200 my-4 hidden md:block" />
 
-                {/* ── Right Column: Review Score & Price ───────────────────────── */}
-                <div className="w-full md:w-56 lg:w-60 p-4 sm:p-5 flex flex-col justify-between items-start md:items-end md:text-right border-t md:border-t-0 border-slate-100 bg-slate-50/50 md:bg-transparent">
-                  {/* Top Score Badge Row */}
-                  <div className="flex items-center justify-between md:justify-end w-full gap-2.5">
-                    <div className="leading-tight">
-                      <div className="text-xs sm:text-sm font-bold text-slate-900">
-                        {ratingLabel}
-                      </div>
-                      <div className="text-[11px] text-slate-500">
-                        {item.reviewsCount} {locale === 'hi' ? 'समीक्षाएं' : locale === 'mr' ? 'अभिप्राय' : 'Reviews'}
-                      </div>
+                {/* ── Right Column: Price & Booking Platforms ───────────────────── */}
+                <div className="w-full md:w-60 lg:w-64 p-4 sm:p-5 flex flex-col gap-3 border-t md:border-t-0 border-slate-100 bg-slate-50/50 md:bg-transparent">
+                  {/* Price Display */}
+                  <div className="md:text-right">
+                    <div className="text-2xl sm:text-3xl font-black text-slate-900 leading-none tracking-tight">
+                      {priceAmount}
                     </div>
-
-                    {/* Wego Green Score Pill */}
-                    <div className="bg-emerald-700 text-white font-black text-sm px-2.5 py-1 rounded-lg shadow-2xs">
-                      {ratingScore}
+                    <div className="text-[11px] text-slate-500 mt-1 leading-snug">
+                      {priceSubtext}
                     </div>
                   </div>
 
-                  {/* Bottom Price & Action CTA */}
-                  <div className="w-full pt-4 md:pt-0 mt-3 md:mt-auto">
-                    <div className="text-right">
-                      <div className="text-2xl sm:text-3xl font-black text-slate-900 leading-none tracking-tight">
-                        {priceAmount}
-                      </div>
-                      <div className="text-[11px] text-slate-500 mt-1 leading-snug">
-                        {priceSubtext}
-                      </div>
-                    </div>
+                  {/* Directions Action Button */}
+                  <a
+                    href={`https://maps.google.com/?q=${item.coordinates.lat},${item.coordinates.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2 w-full rounded-xl text-xs font-bold text-white shadow-xs active:scale-95 transition-all hover:brightness-110"
+                    style={{ background: '#1B2B4B' }}
+                  >
+                    <Navigation className="h-3.5 w-3.5" />
+                    <span>{locale === 'hi' ? 'दिशा-निर्देश' : locale === 'mr' ? 'दिशा-निर्देश' : 'Directions'}</span>
+                  </a>
 
-                    {/* Directions Action Button */}
-                    <a
-                      href={`https://maps.google.com/?q=${item.coordinates.lat},${item.coordinates.lng}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-1.5 px-4 py-2 mt-3 w-full rounded-xl text-xs font-bold text-white shadow-xs active:scale-95 transition-all hover:brightness-110"
-                      style={{ background: '#1B2B4B' }}
-                    >
-                      <Navigation className="h-3.5 w-3.5" />
-                      <span>{locale === 'hi' ? 'दिशा-निर्देश' : locale === 'mr' ? 'दिशा-निर्देश' : 'Directions'}</span>
-                    </a>
+                  {/* ── Search on Other Platforms ─────────────────────────── */}
+                  <div className="pt-2 border-t border-dashed border-slate-200">
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-1">
+                      <ExternalLink className="h-3 w-3" />
+                      {locale === 'hi' ? 'अन्य प्लेटफॉर्म पर खोजें' : locale === 'mr' ? 'इतर प्लॅटफॉर्मवर शोधा' : 'Search on other platforms'}
+                    </p>
+                    <div className="grid grid-cols-2 gap-1.5">
+                      <a
+                        href={wegoHotelUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-[10px] font-bold text-slate-700 transition-all active:scale-95"
+                        title="Search on Wego (opens in new tab)"
+                      >
+                        <span>Wego</span>
+                        <ExternalLink className="h-2.5 w-2.5 text-slate-400" />
+                      </a>
+                      <a
+                        href={goibiboUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-[10px] font-bold text-slate-700 transition-all active:scale-95"
+                        title="Search on Goibibo (opens in new tab)"
+                      >
+                        <span>Goibibo</span>
+                        <ExternalLink className="h-2.5 w-2.5 text-slate-400" />
+                      </a>
+                      <a
+                        href={mmtUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-[10px] font-bold text-slate-700 transition-all active:scale-95"
+                        title="Search on MakeMyTrip (opens in new tab)"
+                      >
+                        <span>MakeMyTrip</span>
+                        <ExternalLink className="h-2.5 w-2.5 text-slate-400" />
+                      </a>
+                      <a
+                        href={bookingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-[10px] font-bold text-slate-700 transition-all active:scale-95"
+                        title="Search on Booking.com (opens in new tab)"
+                      >
+                        <span>Booking.com</span>
+                        <ExternalLink className="h-2.5 w-2.5 text-slate-400" />
+                      </a>
+                    </div>
+                    <p className="text-[9px] text-slate-400 mt-1.5 leading-snug">
+                      {locale === 'hi' ? 'ये बाहरी लिंक हैं। Yatriva इन साइटों से संबद्ध नहीं है।' : locale === 'mr' ? 'हे बाह्य दुवे आहेत. Yatriva या साइटशी संलग्न नाही.' : 'External links. Yatriva is not affiliated with these platforms.'}
+                    </p>
                   </div>
                 </div>
               </article>
