@@ -188,17 +188,15 @@ export default function LocationPickerModal({
 
   return (
     <div
-      className="fixed inset-0 z-[1000] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs animate-fade-in"
+      className="fixed inset-0 z-[1000] flex items-center justify-center p-3 sm:p-5 bg-slate-950/60 backdrop-blur-xs animate-fade-in"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-lg bg-white rounded-t-3xl sm:rounded-2xl p-5 sm:p-6 space-y-4 shadow-2xl overflow-hidden animate-slide-up max-h-[90vh] flex flex-col"
+        className="w-full max-w-lg bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-3.5 shadow-2xl border border-slate-200/90 overflow-hidden animate-scale-up max-h-[85vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-labelledby="picker-title"
       >
-        {/* Handle pill for mobile dragging UI */}
-        <div className="w-12 h-1 bg-slate-200 rounded-full mx-auto sm:hidden" />
 
         {/* Header */}
         <div className="flex items-center justify-between pb-1">
@@ -414,12 +412,12 @@ export default function LocationPickerModal({
         </div>
 
         {/* Preset Landmarks Section */}
-        <div className="pt-2 border-t border-slate-100 flex-1 overflow-hidden flex flex-col">
-          <span className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">
+        <div className="pt-2.5 border-t border-slate-100 flex-1 min-h-0 overflow-hidden flex flex-col">
+          <span className="text-[11px] sm:text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider shrink-0">
             Popular Landmarks
           </span>
 
-          <div className="space-y-1 overflow-y-auto pr-1 flex-1 scrollbar-thin">
+          <div className="space-y-1 overflow-y-auto pr-1 flex-1 min-h-0 max-h-[220px] sm:max-h-[260px] scrollbar-thin">
             {PRESET_PILGRIM_LOCATIONS.map((preset) => {
               const isSelected = currentSource === 'manual' && activePresetId === preset.id;
               const name =
