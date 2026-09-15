@@ -20,6 +20,7 @@ import type { NearestEssentials, PlaceWithDistance } from '@/hooks/useUserLocati
 import ConfidenceBadge from '@/components/ui/ConfidenceBadge';
 import TempleIcon from '@/components/ui/TempleIcon';
 import PlaceImageAvatar from '@/components/ui/PlaceImageAvatar';
+import GoogleMapsIcon from '@/components/ui/GoogleMapsIcon';
 
 interface NearestFacilitiesPanelProps {
   essentials: NearestEssentials;
@@ -268,11 +269,11 @@ export default function NearestFacilitiesPanel({
                     href={`https://maps.google.com/?q=${item.coordinates.lat},${item.coordinates.lng}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 shadow-2xs border border-slate-200 transition-all active:scale-95"
+                    className="p-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 shadow-2xs border border-slate-200 transition-all active:scale-95 flex items-center justify-center group"
                     title="Navigate in Google Maps"
                     aria-label={`Navigate to ${itemName}`}
                   >
-                    <ExternalLink className="h-3.5 w-3.5" />
+                    <GoogleMapsIcon className="h-3.5 w-3.5 transition-transform group-hover:scale-110" />
                   </a>
                 </div>
               </div>

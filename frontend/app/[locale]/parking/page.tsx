@@ -30,6 +30,7 @@ import {
 } from '@/hooks/useUserLocation';
 import LocationPickerModal from '@/components/map/LocationPickerModal';
 import ConfidenceBadge from '@/components/ui/ConfidenceBadge';
+import GoogleMapsIcon from '@/components/ui/GoogleMapsIcon';
 
 const DEFAULT_ITEMS_LIMIT = 12;
 
@@ -458,11 +459,11 @@ export default function ParkingPage() {
                     href={`https://maps.google.com/?q=${place.coordinates.lat},${place.coordinates.lng}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-1.5 rounded-xl border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
+                    className="p-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all shadow-2xs cursor-pointer flex items-center justify-center shrink-0 group"
                     title="Open in Google Maps"
                     aria-label="Open in Google Maps"
                   >
-                    <ExternalLink className="h-4 w-4" />
+                    <GoogleMapsIcon className="h-4 w-4 transition-transform group-hover:scale-110" />
                   </a>
                 </div>
               </div>
