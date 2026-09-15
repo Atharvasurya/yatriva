@@ -473,6 +473,27 @@ function InteractiveFactCard({
   );
 }
 
+// Precomputed fixed mandala node coordinates to guarantee zero SSR/client hydration floating-point drift
+const MANDALA_12_PETALS = Array.from({ length: 12 }, (_, i) => {
+  const angle = (i * 30 * Math.PI) / 180;
+  return {
+    x1: +(100 + 40 * Math.cos(angle)).toFixed(2),
+    y1: +(100 + 40 * Math.sin(angle)).toFixed(2),
+    x2: +(100 + 82 * Math.cos(angle)).toFixed(2),
+    y2: +(100 + 82 * Math.sin(angle)).toFixed(2),
+    cx: +(100 + 70 * Math.cos(angle)).toFixed(2),
+    cy: +(100 + 70 * Math.sin(angle)).toFixed(2),
+  };
+});
+
+const MANDALA_8_CIRCLES = Array.from({ length: 8 }, (_, i) => {
+  const angle = (i * 45 * Math.PI) / 180;
+  return {
+    cx: +(100 + 60 * Math.cos(angle)).toFixed(2),
+    cy: +(100 + 60 * Math.sin(angle)).toFixed(2),
+  };
+});
+
 /* ─── Main Component ─────────────────────────────────────────────────────────── */
 
 export default function KumbhStoryInteractive() {
@@ -687,21 +708,25 @@ export default function KumbhStoryInteractive() {
           <circle cx="100" cy="100" r="32" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
           <circle cx="100" cy="100" r="14" fill="none" stroke="currentColor" strokeWidth="1.5" />
           {/* 12 Petal Nodes representing 12-Year Kumbh Cycle */}
-          {Array.from({ length: 12 }).map((_, i) => {
-            const angle = (i * 30 * Math.PI) / 180;
-            const x1 = 100 + 40 * Math.cos(angle);
-            const y1 = 100 + 40 * Math.sin(angle);
-            const x2 = 100 + 82 * Math.cos(angle);
-            const y2 = 100 + 82 * Math.sin(angle);
-            const cx = 100 + 70 * Math.cos(angle);
-            const cy = 100 + 70 * Math.sin(angle);
-            return (
-              <g key={`mandala-petal-${i}`}>
-                <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="0.8" />
-                <circle cx={cx} cy={cy} r="4" fill="currentColor" opacity="0.35" />
-              </g>
-            );
-          })}
+          {MANDALA_12_PETALS.map((petal, i) => (
+            <g key={`mandala-petal-${i}`}>
+              <line
+                x1={petal.x1}
+                y1={petal.y1}
+                x2={petal.x2}
+                y2={petal.y2}
+                stroke="currentColor"
+                strokeWidth="0.8"
+              />
+              <circle
+                cx={petal.cx}
+                cy={petal.cy}
+                r="4"
+                fill="currentColor"
+                opacity="0.35"
+              />
+            </g>
+          ))}
         </svg>
 
         {/* Counter-Rotating Sacred Mandala Watermark (Bottom Left) */}
@@ -714,12 +739,17 @@ export default function KumbhStoryInteractive() {
           <circle cx="100" cy="100" r="72" fill="none" stroke="currentColor" strokeWidth="1" />
           <circle cx="100" cy="100" r="48" fill="none" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 3" />
           <circle cx="100" cy="100" r="24" fill="none" stroke="currentColor" strokeWidth="1" />
-          {Array.from({ length: 8 }).map((_, i) => {
-            const angle = (i * 45 * Math.PI) / 180;
-            const x = 100 + 60 * Math.cos(angle);
-            const y = 100 + 60 * Math.sin(angle);
-            return <circle key={`mandala-inner-${i}`} cx={x} cy={y} r="5" fill="none" stroke="currentColor" strokeWidth="0.8" />;
-          })}
+          {MANDALA_8_CIRCLES.map((c, i) => (
+            <circle
+              key={`mandala-inner-${i}`}
+              cx={c.cx}
+              cy={c.cy}
+              r="5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.8"
+            />
+          ))}
         </svg>
 
         {/* Floating Sacred Golden Embers */}
