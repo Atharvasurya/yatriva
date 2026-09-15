@@ -438,21 +438,21 @@ export default function LocationPickerModal({
                   }}
                   className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-xl text-left text-sm font-medium transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-slate-900 text-white font-bold shadow-sm'
-                      : 'hover:bg-slate-50 text-slate-700'
+                      ? 'bg-amber-50 hover:bg-amber-100/70 text-amber-950 font-bold border border-amber-300/90 shadow-2xs'
+                      : 'hover:bg-slate-50 text-slate-700 border border-transparent'
                   }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
                     <MapPin
                       className={`h-4 w-4 shrink-0 ${
-                        isSelected ? 'text-amber-400' : 'text-slate-400'
+                        isSelected ? 'text-amber-600' : 'text-slate-400'
                       }`}
                     />
-                    <span className="truncate text-xs sm:text-sm">{name}</span>
+                    <span className={`truncate text-xs sm:text-sm ${isSelected ? 'text-amber-950 font-bold' : 'text-slate-700'}`}>{name}</span>
                   </div>
                   {isSelected && (
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-400 shrink-0">
-                      <Check className="h-4 w-4" />
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-600 shrink-0">
+                      <Check className="h-4 w-4 stroke-[2.5]" />
                     </span>
                   )}
                 </button>

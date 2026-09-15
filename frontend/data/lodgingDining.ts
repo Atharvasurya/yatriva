@@ -188,7 +188,7 @@ const ALL_LISTINGS: Listing[] = [
       { en: 'Elevator & Wheelchair Access', hi: 'लिफ्ट व सुलभ प्रवेश', mr: 'लिफ्ट व सुलभ प्रवेश' },
       { en: 'Clean Restrooms & Power Backup', hi: 'स्वच्छ प्रसाधनगृह व बैकअप', mr: 'स्वच्छ प्रसाधनगृह व बॅकअप' },
     ],
-    verificationStatus: 'pending',
+    verificationStatus: 'verified',
     dataSource: 'manual',
   },
 
@@ -256,7 +256,7 @@ const ALL_LISTINGS: Listing[] = [
       { en: 'Family-Friendly Quiet Environment', hi: 'सुरक्षित पारिवारिक वातावरण', mr: 'सुरक्षित कौटुंबिक वातावरण' },
       { en: 'Short Walk to Ramkund & Kala Ram', hi: 'रामकुंड व कालाराम पैदल दूरी', mr: 'रामकुंड व काळाराम पायी अंतरावर' },
     ],
-    verificationStatus: 'pending',
+    verificationStatus: 'verified',
     dataSource: 'manual',
   },
 
@@ -323,7 +323,7 @@ const ALL_LISTINGS: Listing[] = [
       { en: 'Fresh Morning Breakfast Included', hi: 'ताज़ा सुबह का नाश्ता शामिल', mr: 'ताजा सकाळचा नाश्ता समाविष्ट' },
       { en: 'Continuous Shuttle to Ramkund', hi: 'रामकुंड हेतु निरंतर शटल बस', mr: 'रामकुंडासाठी सतत शटल बस' },
     ],
-    verificationStatus: 'pending',
+    verificationStatus: 'verified',
     dataSource: 'manual',
   },
 
@@ -390,7 +390,7 @@ const ALL_LISTINGS: Listing[] = [
       { en: 'Luxury AC Rooms with King Bed', hi: 'लक्जरी एसी कमरे व आरामदायक बेड', mr: 'लक्झरी एसी खोल्या व आरामदायी बेड' },
       { en: 'Valet Parking & 24/7 Security', hi: 'वैले पार्किंग एवं 24/7 सुरक्षा', mr: 'व्हॅलेट पार्किंग व २४/७ सुरक्षा' },
     ],
-    verificationStatus: 'pending',
+    verificationStatus: 'verified',
     dataSource: 'manual',
   },
 
@@ -460,7 +460,7 @@ const ALL_LISTINGS: Listing[] = [
       { en: '100% Pure Vegetarian Kitchen', hi: '100% शुद्ध शाकाहारी रसोई', mr: '100% शुद्ध शाकाहारी स्वयंपाकघर' },
       { en: 'Convenient 300m Walk from Ramkund', hi: 'रामकुंड से मात्र 300 मी पैदल दूरी', mr: 'रामकुंडापासून फक्त 300 मी पायी अंतर' },
     ],
-    verificationStatus: 'pending',
+    verificationStatus: 'verified',
     dataSource: 'manual',
   },
 
@@ -528,7 +528,7 @@ const ALL_LISTINGS: Listing[] = [
       { en: 'Clean Family Restrooms', hi: 'स्वच्छ पारिवारिक शौचालय', mr: 'स्वच्छ कौटुंबिक प्रसाधनगृह' },
       { en: 'Close to Tapovan Snan Ghat', hi: 'तपोवन स्नान घाट के निकट', mr: 'तपोवन स्नान घाटाजवळ' },
     ],
-    verificationStatus: 'pending',
+    verificationStatus: 'verified',
     dataSource: 'manual',
   },
 
@@ -596,7 +596,7 @@ const ALL_LISTINGS: Listing[] = [
       { en: 'Fresh Steaming Masala Chai', hi: 'ताज़ी गरमागरम मसाला चाय', mr: 'ताजा गरमागरम मसाला चहा' },
       { en: 'Convenient Bus Station Location', hi: 'बस स्टैंड के ठीक पास', mr: 'बस स्थानकाच्या अगदी जवळ' },
     ],
-    verificationStatus: 'pending',
+    verificationStatus: 'verified',
     dataSource: 'manual',
   },
 
@@ -663,7 +663,7 @@ const ALL_LISTINGS: Listing[] = [
       { en: 'Open Late Till Midnight', hi: 'देर रात तक खुला', mr: 'उशिरा रात्रीपर्यंत खुले' },
       { en: 'Ample Free Parking Beside Venue', hi: 'परिसर के पास सुलभ पार्किंग', mr: 'परिसराशेजारी सुलभ पार्किंग' },
     ],
-    verificationStatus: 'pending',
+    verificationStatus: 'verified',
     dataSource: 'manual',
   },
 ];

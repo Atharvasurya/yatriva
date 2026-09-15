@@ -47,8 +47,8 @@ export default function LanguageSwitcher() {
             aria-label={`Switch to ${nativeLabel}`}
             disabled={isPending}
             className={[
-              'min-h-[44px] min-w-[44px] rounded-full px-3 py-1.5',
-              'text-xs font-bold transition-all duration-200',
+              'min-h-[38px] min-w-[36px] sm:min-h-[40px] sm:min-w-[40px] rounded-full px-2.5 sm:px-3 py-1',
+              'text-[11px] sm:text-xs font-bold transition-all duration-200',
               'focus-visible:outline-2 focus-visible:outline-offset-1',
               locale === code
                 ? 'bg-white text-navy-700 shadow-sm'

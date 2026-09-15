@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo, useRef } from 'react';
+import { useState, useMemo, useRef, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import { Map, Compass, ShieldAlert, ChevronRight, Navigation, Sparkles } from 'lucide-react';
@@ -10,6 +11,48 @@ import NearestFacilitiesPanel from '@/components/map/NearestFacilitiesPanel';
 import { useUserLocation } from '@/hooks/useUserLocation';
 import { ALL_MAP_PLACES } from '@/data/seed';
 import type { Place, Coordinates } from '@/types/place';
+
+function MapSearchParamsHandler({
+  places,
+  onSelectPlace,
+}: {
+  places: Place[];
+  onSelectPlace: (place: Place) => void;
+}) {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const placeParam = searchParams.get('place');
+    const latParam = searchParams.get('lat');
+    const lngParam = searchParams.get('lng');
+
+    if (placeParam) {
+      const match = places.find(
+        (p) => p.slug === placeParam || p.id === placeParam || p.id === `place-${placeParam}`
+      );
+      if (match) {
+        onSelectPlace(match);
+        return;
+      }
+    }
+
+    if (latParam && lngParam) {
+      const lat = parseFloat(latParam);
+      const lng = parseFloat(lngParam);
+      if (!isNaN(lat) && !isNaN(lng)) {
+        const closest = places.find(
+          (p) =>
+            Math.abs(p.coordinates.lat - lat) < 0.001 &&
+            Math.abs(p.coordinates.lng - lng) < 0.001
+        );
+        if (closest) {
+          onSelectPlace(closest);
+        }
+      }
+    }
+  }, [searchParams, places, onSelectPlace]);
+
+  return null;
+}
 
 export default function MapPage() {
   const t = useTranslations('map');
@@ -58,6 +101,10 @@ export default function MapPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-6 space-y-5 sm:space-y-6">
+      <Suspense fallback={null}>
+        <MapSearchParamsHandler places={ALL_MAP_PLACES} onSelectPlace={handleSelectPlace} />
+      </Suspense>
+
       {/* Header Banner */}
       <div
         className="rounded-2xl p-6 text-white relative overflow-hidden shadow-lg animate-fade-up"

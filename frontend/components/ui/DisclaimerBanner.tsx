@@ -30,7 +30,7 @@ export default function DisclaimerBanner() {
     <div
       role="alert"
       aria-live="polite"
-      className="relative z-50 flex items-center gap-3 bg-amber-50 border-b border-amber-200 px-4 py-2.5"
+      className="relative z-10 flex items-center gap-3 bg-amber-50 border-b border-amber-200 px-4 py-2.5"
     >
       <AlertTriangle
         className="h-4 w-4 shrink-0 text-amber-600"

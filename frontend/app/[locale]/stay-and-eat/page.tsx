@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -36,6 +37,23 @@ const ACCOM_LABELS: Record<AccommodationType, { en: string; hi: string; mr: stri
   guesthouse:   { en: 'Guesthouse', hi: 'गेस्टहाउस', mr: 'गेस्टहाऊस' },
   tent_resort:  { en: 'Tent Resort', hi: 'टेंट रिसॉर्ट', mr: 'टेंट रिसॉर्ट' },
 };
+
+function SearchParamsHandler({
+  onSearchChange,
+  onTabChange,
+}: {
+  onSearchChange: (q: string) => void;
+  onTabChange: (t: 'all' | 'lodging' | 'restaurant') => void;
+}) {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const q = searchParams.get('search');
+    const type = searchParams.get('type');
+    if (q) onSearchChange(q);
+    if (type === 'lodging' || type === 'restaurant') onTabChange(type);
+  }, [searchParams, onSearchChange, onTabChange]);
+  return null;
+}
 
 export default function StayAndEatPage() {
   const locale = useLocale() as 'en' | 'hi' | 'mr';
@@ -108,6 +126,10 @@ export default function StayAndEatPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-5 sm:space-y-6">
+      <Suspense fallback={null}>
+        <SearchParamsHandler onSearchChange={setSearchQuery} onTabChange={setActiveTab} />
+      </Suspense>
+
       {/* ── Back Navigation ─────────────────────────────────────────────────── */}
       <Link
         href={`/${locale}`}
