@@ -901,11 +901,10 @@ export default function LeafletMap({
               href={`https://maps.google.com/?q=${activePlace.coordinates.lat},${activePlace.coordinates.lng}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-auto inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-navy-800 text-white text-xs font-bold transition-all hover:bg-navy-900 active:scale-95 min-h-[40px]"
-              style={{ background: '#1B2B4B' }}
+              className="ml-auto inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-600 hover:bg-slate-700 text-white text-xs font-bold transition-all shadow-xs active:scale-95 min-h-[40px]"
             >
-              <span>Navigate</span>
-              <ExternalLink className="h-3.5 w-3.5 text-saffron-400" />
+              <span>{locale === 'hi' ? 'नेविगेट' : locale === 'mr' ? 'मार्ग' : 'Navigate'}</span>
+              <ExternalLink className="h-3.5 w-3.5 text-amber-300" />
             </a>
           </div>
         </div>

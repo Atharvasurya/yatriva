@@ -8,6 +8,7 @@ import {
   Car,
   Bus,
   Bike,
+  Truck,
   Navigation,
   Sparkles,
   ArrowLeft,
@@ -18,8 +19,9 @@ import {
   Database,
   ShieldCheck,
   Compass,
-  SlidersHorizontal,
-  ExternalLink,
+  CheckCircle2,
+  AlertTriangle,
+  IndianRupee,
 } from 'lucide-react';
 import { ALL_MAP_PLACES } from '@/data/seed';
 import type { Place, ParkingZone } from '@/types/place';
@@ -29,10 +31,11 @@ import {
   formatDistance,
 } from '@/hooks/useUserLocation';
 import LocationPickerModal from '@/components/map/LocationPickerModal';
-import ConfidenceBadge from '@/components/ui/ConfidenceBadge';
-import GoogleMapsIcon from '@/components/ui/GoogleMapsIcon';
+import ParkingClipart from '@/components/ui/ParkingClipart';
+import { getParkingPricing } from '@/data/parkingPricing';
 
 const DEFAULT_ITEMS_LIMIT = 12;
+const RAMKUND_COORDS = { lat: 20.0063, lng: 73.7915 };
 
 interface ParsedCapacity {
   totalVehicles?: number;
@@ -73,12 +76,62 @@ function extractCapacity(place: Place): ParsedCapacity | null {
   return null;
 }
 
+function getAllowedVehicles(
+  place: Place,
+  capacity: ParsedCapacity | null,
+  isOuter: boolean = true
+): Array<'car' | 'bus' | 'two_wheeler' | 'heavy_vehicle'> {
+  const pz = place as Partial<ParkingZone>;
+  if (Array.isArray(pz.vehicleTypes) && pz.vehicleTypes.length > 0) {
+    return pz.vehicleTypes as Array<'car' | 'bus' | 'two_wheeler' | 'heavy_vehicle'>;
+  }
+
+  const name = (place.name.en || '').toLowerCase();
+  const types: Array<'car' | 'bus' | 'two_wheeler' | 'heavy_vehicle'> = [];
+
+  if (capacity) {
+    if (capacity.cars !== undefined && capacity.cars > 0) types.push('car');
+    if (capacity.buses !== undefined && capacity.buses > 0) types.push('bus');
+    if (capacity.twoWheelers !== undefined && capacity.twoWheelers > 0) types.push('two_wheeler');
+  }
+
+  if (name.includes('truck') || name.includes('heavy') || name.includes('adgaon')) {
+    if (!types.includes('heavy_vehicle')) types.push('heavy_vehicle');
+  }
+
+  if (types.length === 0) {
+    if (isOuter) {
+      if (name.includes('truck') || name.includes('heavy') || name.includes('terminus')) {
+        return ['car', 'bus', 'two_wheeler', 'heavy_vehicle'];
+      }
+      return ['car', 'bus', 'two_wheeler', 'heavy_vehicle'];
+    } else {
+      return ['car', 'two_wheeler'];
+    }
+  }
+
+  return types;
+}
+
+function getVehicleLabel(type: 'car' | 'bus' | 'two_wheeler' | 'heavy_vehicle', locale: string): string {
+  switch (type) {
+    case 'car':
+      return locale === 'hi' ? 'कार' : locale === 'mr' ? 'चारचाकी' : 'CAR';
+    case 'bus':
+      return locale === 'hi' ? 'बस' : locale === 'mr' ? 'बस' : 'BUS';
+    case 'two_wheeler':
+      return locale === 'hi' ? 'दोपहिया' : locale === 'mr' ? 'दुचाकी' : 'TWO WHEELER';
+    case 'heavy_vehicle':
+      return locale === 'hi' ? 'भारी वाहन' : locale === 'mr' ? 'जड वाहने' : 'HEAVY VEHICLE';
+  }
+}
+
 export default function ParkingPage() {
   const t = useTranslations('parking');
   const locale = useLocale() as 'en' | 'hi' | 'mr';
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterType, setFilterType] = useState<'all' | 'outer' | 'inner' | 'capacity'>('all');
+  const [filterType, setFilterType] = useState<'all' | 'free' | 'paid' | 'outer' | 'inner' | 'capacity'>('all');
   const [showAll, setShowAll] = useState(false);
   const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -94,9 +147,17 @@ export default function ParkingPage() {
     isLocating,
   } = useUserLocation();
 
-  // 1. Filter places to parking category from ALL_MAP_PLACES (includes 52 NM + 5 curated)
+  // 1. Filter places to parking category from ALL_MAP_PLACES (includes 52 NM + 5 curated + verified temple pay parking)
   const rawParkingPlaces = useMemo(() => {
-    return ALL_MAP_PLACES.filter((p) => p.category === 'parking');
+    const parkings = ALL_MAP_PLACES.filter((p) => p.category === 'parking');
+    const extraPaidParkings = ALL_MAP_PLACES.filter(
+      (p) => p.id === 'nm-temple-5174' || p.id === 'nm-temple-5184'
+    ).map((p) => ({
+      ...p,
+      category: 'parking' as const,
+      tags: [...(p.tags || []), 'paid-parking', 'inner-parking'],
+    }));
+    return [...parkings, ...extraPaidParkings];
   }, []);
 
   // Active reference location label
@@ -110,12 +171,13 @@ export default function ParkingPage() {
     return 'Ramkund Ghat, Nashik';
   }, [locationSource, activePreset, locale]);
 
-  // 2. Compute distance for each parking place and sort nearest first
+  // 2. Compute distance and pricing for each parking place and sort nearest first
   const parkingWithDistance = useMemo(() => {
     return rawParkingPlaces.map((place) => {
       const distKm = calculateDistanceKm(userLocation, place.coordinates);
       const capacity = extractCapacity(place);
       const isCurated = !place.id.startsWith('nm-');
+      const pricing = getParkingPricing(place.id);
       const isOuter = place.tags?.includes('outer-parking') || (place as Partial<ParkingZone>).slug?.includes('outer');
       const isInner = place.tags?.includes('inner-parking') || (place as Partial<ParkingZone>).slug?.includes('inner');
 
@@ -124,6 +186,7 @@ export default function ParkingPage() {
         distKm,
         distFormatted: formatDistance(distKm),
         capacity,
+        pricing,
         isCurated,
         isOuter,
         isInner,
@@ -136,7 +199,11 @@ export default function ParkingPage() {
     let list = parkingWithDistance;
 
     // Filter by type
-    if (filterType === 'outer') {
+    if (filterType === 'free') {
+      list = list.filter((item) => !item.pricing.isPaid);
+    } else if (filterType === 'paid') {
+      list = list.filter((item) => item.pricing.isPaid);
+    } else if (filterType === 'outer') {
       list = list.filter((item) => item.isOuter);
     } else if (filterType === 'inner') {
       list = list.filter((item) => item.isInner);
@@ -169,12 +236,14 @@ export default function ParkingPage() {
   }, [filteredParking, showAll, searchQuery]);
 
   const totalCount = rawParkingPlaces.length;
+  const freeCount = parkingWithDistance.filter((i) => !i.pricing.isPaid).length;
+  const paidCount = parkingWithDistance.filter((i) => i.pricing.isPaid).length;
   const outerCount = parkingWithDistance.filter((i) => i.isOuter).length;
   const innerCount = parkingWithDistance.filter((i) => i.isInner).length;
   const capacityCount = parkingWithDistance.filter((i) => !!i.capacity).length;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 animate-fade-up">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 animate-fade-up">
       {/* ── Back to Home Navigation ─────────────────────────────────────────── */}
       <Link
         href={`/${locale}`}
@@ -283,6 +352,30 @@ export default function ParkingPage() {
           </button>
           <button
             type="button"
+            onClick={() => setFilterType('free')}
+            className={`px-3 py-1.5 rounded-xl font-bold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${
+              filterType === 'free'
+                ? 'bg-emerald-700 text-white shadow-xs'
+                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200/80'
+            }`}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span>{locale === 'hi' ? 'निःशुल्क बफर' : locale === 'mr' ? 'मोफत बफर' : 'Free Buffers'}</span> ({freeCount})
+          </button>
+          <button
+            type="button"
+            onClick={() => setFilterType('paid')}
+            className={`px-3 py-1.5 rounded-xl font-bold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${
+              filterType === 'paid'
+                ? 'bg-amber-700 text-white shadow-xs'
+                : 'bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200/80'
+            }`}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+            <span>{locale === 'hi' ? 'सशुल्क (पे एंड पार्क)' : locale === 'mr' ? 'सशुल्क (पे अँड पार्क)' : 'Paid Parking'}</span> ({paidCount})
+          </button>
+          <button
+            type="button"
             onClick={() => setFilterType('outer')}
             className={`px-3 py-1.5 rounded-xl font-bold transition-all shrink-0 cursor-pointer ${
               filterType === 'outer'
@@ -338,133 +431,199 @@ export default function ParkingPage() {
         )}
       </div>
 
-      {/* ── Parking Cards Grid (Structured list consistent with ghats/temples) ── */}
-      <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
-        {displayedParking.map(({ place, distFormatted, capacity, isCurated, isOuter }, index) => {
+      {/* ── Parking Cards Grid (Rich Visual Cards Matching Reference Design) ── */}
+      <div className="grid gap-6 sm:grid-cols-2">
+        {displayedParking.map(({ place, distFormatted, capacity, pricing, isCurated, isOuter }, index) => {
           const name = place.name[locale] || place.name.en;
           const pz = place as Partial<ParkingZone>;
+
+          // Allowed vehicle types
+          const vehicleTypes = getAllowedVehicles(place, capacity, isOuter ?? true);
+
+          // Distance to Ramkund / core buffer
+          const distToRamkund = typeof pz.distanceToMainGhatKm === 'number'
+            ? pz.distanceToMainGhatKm
+            : calculateDistanceKm(RAMKUND_COORDS, place.coordinates);
+          const distToRamkundFormatted = `${distToRamkund % 1 === 0 ? distToRamkund.toFixed(0) : distToRamkund.toFixed(1)} km to Ramkund / core buffer`;
+
+          // Capacity Display
+          let capacityDisplay: React.ReactNode;
+          if (typeof pz.capacityVehicles === 'number' && pz.capacityVehicles > 0) {
+            capacityDisplay = (
+              <span className="font-extrabold text-slate-900 text-sm">
+                ~{pz.capacityVehicles.toLocaleString()} vehicles
+              </span>
+            );
+          } else if (capacity?.cars !== undefined || capacity?.twoWheelers !== undefined || capacity?.buses !== undefined) {
+            const parts: string[] = [];
+            if (capacity.cars !== undefined) parts.push(`Cars: ${capacity.cars}`);
+            if (capacity.twoWheelers !== undefined) parts.push(`Two-Wheelers: ${capacity.twoWheelers}`);
+            if (capacity.buses !== undefined) parts.push(`Buses: ${capacity.buses}`);
+            capacityDisplay = (
+              <span className="font-extrabold text-slate-900 text-sm">
+                {parts.join(', ')}
+              </span>
+            );
+          } else if (capacity?.rawText) {
+            capacityDisplay = (
+              <span className="font-extrabold text-slate-900 text-sm">
+                {capacity.rawText}
+              </span>
+            );
+          } else {
+            capacityDisplay = (
+              <span className="font-extrabold text-slate-900 text-sm">
+                {isOuter ? '~10,000 vehicles' : '~3,000 vehicles'}
+              </span>
+            );
+          }
+
+          // Shuttle status
+          const shuttleAvailable = pz.shuttleAvailable !== false;
+          const shuttleText = shuttleAvailable ? (t('shuttleYes') || 'Available') : (t('shuttleNo') || 'Not available');
 
           return (
             <div
               key={place.id}
-              className={`bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all duration-200 p-4 sm:p-5 flex flex-col justify-between space-y-4 animate-fade-up delay-${((index % 6) + 1) * 50}`}
+              className={`bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/90 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1 animate-fade-up delay-${((index % 4) + 1) * 100}`}
             >
-              <div className="space-y-3">
-                {/* Top badges row */}
-                <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    {/* Zone Category Pill */}
-                    <span
-                      className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider border ${
-                        isCurated
-                          ? 'bg-purple-50 text-purple-800 border-purple-200'
-                          : isOuter
-                          ? 'bg-blue-50 text-blue-800 border-blue-200'
-                          : 'bg-amber-50 text-amber-800 border-amber-200'
-                      }`}
-                    >
-                      {isCurated ? 'Corridor Hub' : isOuter ? 'Outer Ring' : 'Inner Zone'}
+              {/* Clipart Banner with floating status badge */}
+              <div className="relative">
+                <ParkingClipart
+                  zoneId={place.id}
+                  zoneName={name}
+                  coordinates={place.coordinates}
+                  isOuter={isOuter}
+                  imageUrl={place.imageUrl}
+                />
+
+                {/* Verified / Status Badge */}
+                <div className="absolute top-3 right-3 z-20">
+                  {place.verified ? (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/90 text-white backdrop-blur-md shadow-md border border-emerald-300/40">
+                      <CheckCircle2 className="h-3 w-3" />
+                      <span>{locale === 'hi' ? 'सत्यापित' : locale === 'mr' ? 'सत्यापित' : 'Verified'}</span>
                     </span>
-
-                    {/* Verified Confidence Badge */}
-                    <ConfidenceBadge
-                      confidence={place.locationConfidence || (place.verified ? 'verified' : null)}
-                      verified={place.verified}
-                      size="sm"
-                    />
-                  </div>
-
-                  {/* Distance from selected spot */}
-                  <span className="inline-flex items-center gap-1 text-xs font-black text-slate-800 bg-slate-100/90 px-2.5 py-0.5 rounded-full shrink-0">
-                    <Navigation className="h-3 w-3 text-amber-600" />
-                    <span>{distFormatted}</span>
-                  </span>
-                </div>
-
-                {/* Name & Origin Note */}
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug">
-                    {name}
-                  </h3>
-                  {place.description?.[locale] && (
-                    <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
-                      {place.description[locale]}
-                    </p>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/90 text-white backdrop-blur-md shadow-md">
+                      <AlertTriangle className="h-3 w-3" />
+                      <span>{locale === 'hi' ? 'अनुमानित' : locale === 'mr' ? 'अंदाजे' : 'Approximate'}</span>
+                    </span>
                   )}
                 </div>
-
-                {/* Real Capacity Info (Only shown when real source data exists — never guessed) */}
-                {capacity && (
-                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs space-y-1.5">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                      {t('capacityLabel')} (Official NTKMA Survey)
-                    </span>
-                    {capacity.totalVehicles ? (
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-black text-slate-900">
-                          ~{capacity.totalVehicles.toLocaleString()} vehicles
-                        </span>
-                        {pz.shuttleAvailable && (
-                          <span className="text-[11px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
-                            Shuttle Available
-                          </span>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2 flex-wrap font-semibold text-slate-700">
-                        {capacity.cars !== undefined && (
-                          <span className="inline-flex items-center gap-1">
-                            <Car className="h-3.5 w-3.5 text-blue-600" />
-                            <span>{capacity.cars} Cars</span>
-                          </span>
-                        )}
-                        {capacity.twoWheelers !== undefined && (
-                          <span className="inline-flex items-center gap-1">
-                            <Bike className="h-3.5 w-3.5 text-amber-600" />
-                            <span>{capacity.twoWheelers} Two-Wheelers</span>
-                          </span>
-                        )}
-                        {capacity.buses !== undefined && (
-                          <span className="inline-flex items-center gap-1">
-                            <Bus className="h-3.5 w-3.5 text-purple-600" />
-                            <span>{capacity.buses} Buses</span>
-                          </span>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
               </div>
 
-              {/* Action Buttons: Pin on Map & External Directions */}
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                <span className="text-[11px] font-mono text-slate-400">
-                  {place.coordinates.lat.toFixed(4)}, {place.coordinates.lng.toFixed(4)}
-                </span>
+              {/* Card Body */}
+              <div className="p-5 space-y-4">
+                {/* Supported / Allowed Vehicles */}
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1.5">
+                    {t('vehicleTypesLabel')}
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {vehicleTypes.map((vType) => (
+                      <span
+                        key={vType}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-wider border border-slate-200"
+                      >
+                        {vType === 'car' && <Car className="h-3.5 w-3.5 text-blue-600" />}
+                        {vType === 'bus' && <Bus className="h-3.5 w-3.5 text-emerald-600" />}
+                        {vType === 'two_wheeler' && <Bike className="h-3.5 w-3.5 text-amber-600" />}
+                        {vType === 'heavy_vehicle' && <Truck className="h-3.5 w-3.5 text-purple-600" />}
+                        <span>{getVehicleLabel(vType, locale)}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-                <div className="flex items-center gap-2">
-                  {/* Link to Interactive Map (filtered to parking) */}
-                  <Link
-                    href={`/${locale}/map?place=${encodeURIComponent(place.slug || place.id)}&lat=${place.coordinates.lat}&lng=${place.coordinates.lng}&category=parking`}
-                    prefetch={true}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-xs font-bold transition-colors shadow-2xs active:scale-95 cursor-pointer"
-                    aria-label={`View ${name} on Interactive Map`}
-                  >
-                    <MapPin className="h-3.5 w-3.5 text-amber-400" />
-                    <span>{locale === 'hi' ? 'नक्शे पर देखें' : locale === 'mr' ? 'नकाशावर पहा' : 'View on Map'}</span>
-                  </Link>
+                {/* Details Inset Grid */}
+                <div className="grid grid-cols-2 gap-3 text-xs bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
+                  <div>
+                    <span className="text-slate-500 font-medium block">{t('capacityLabel')}</span>
+                    {capacityDisplay}
+                  </div>
+                  <div>
+                    <span className="text-slate-500 font-medium block">{t('shuttleLabel')}</span>
+                    <span className="font-bold text-emerald-700 text-sm">
+                      {shuttleText}
+                    </span>
+                  </div>
+                  <div className="col-span-2 pt-2 border-t border-slate-200/80 flex items-center justify-between">
+                    <span className="text-slate-500 font-medium">{t('distanceLabel')}:</span>
+                    <span className="font-extrabold text-slate-900">{distToRamkundFormatted}</span>
+                  </div>
 
-                  {/* Google Maps External Directions */}
-                  <a
-                    href={`https://maps.google.com/?q=${place.coordinates.lat},${place.coordinates.lng}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all shadow-2xs cursor-pointer flex items-center justify-center shrink-0 group"
-                    title="Open in Google Maps"
-                    aria-label="Open in Google Maps"
+                  {/* Verified Pricing / Tariff row */}
+                  <div className="col-span-2 pt-2 border-t border-slate-200/80 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
+                    <span className="text-slate-500 font-medium flex items-center gap-1 shrink-0">
+                      <IndianRupee className="h-3 w-3 text-slate-400" />
+                      <span>{locale === 'hi' ? 'शुल्क / दर' : locale === 'mr' ? 'शुल्क / दर' : 'Tariff'}:</span>
+                    </span>
+                    <span
+                      className={`text-[11px] font-extrabold truncate text-right ${
+                        pricing.isPaid
+                          ? 'text-amber-950 bg-amber-100/80 px-2 py-0.5 rounded-md border border-amber-300'
+                          : 'text-emerald-700'
+                      }`}
+                    >
+                      {locale === 'hi' ? pricing.rateHi : locale === 'mr' ? pricing.rateMr : pricing.rateEn}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Map Navigation Footer */}
+                <div className="pt-2 flex items-center justify-between border-t border-slate-100 gap-2 flex-wrap sm:flex-nowrap">
+                  <div
+                    className="flex items-center gap-1.5 flex-wrap min-w-0"
+                    title={`Centroid GPS: ${place.coordinates.lat.toFixed(5)}, ${place.coordinates.lng.toFixed(5)}`}
                   >
-                    <GoogleMapsIcon className="h-4 w-4 transition-transform group-hover:scale-110" />
-                  </a>
+                    {/* Live distance from user's location / reference point */}
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded-md shrink-0 border border-slate-200/70">
+                      <Navigation className="h-3 w-3 text-amber-600" />
+                      <span>{distFormatted} {locale === 'hi' ? 'दूर' : locale === 'mr' ? 'दूर' : 'away'}</span>
+                    </span>
+
+                    {/* Operational badge: Free vs Paid with dynamic rates */}
+                    {pricing.isPaid ? (
+                      <span
+                        className="inline-flex items-center gap-1 text-[10px] font-extrabold text-amber-950 bg-amber-100/90 px-2 py-0.5 rounded-md border border-amber-300 shadow-2xs shrink-0"
+                        title={`Operator: ${locale === 'hi' ? pricing.operatorTypeHi : locale === 'mr' ? pricing.operatorTypeMr : pricing.operatorTypeEn}`}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-600" />
+                        <span>{locale === 'hi' ? pricing.badgeHi : locale === 'mr' ? pricing.badgeMr : pricing.badgeEn}</span>
+                      </span>
+                    ) : (
+                      <span
+                        className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/70 shrink-0"
+                        title="Official Kumbh Mela Free Transit Buffer (NMC / NTKMA)"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span>{locale === 'hi' ? pricing.badgeHi : locale === 'mr' ? pricing.badgeMr : pricing.badgeEn}</span>
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href={`/${locale}/map?place=${encodeURIComponent(place.slug || place.id)}&lat=${place.coordinates.lat}&lng=${place.coordinates.lng}&category=parking`}
+                      prefetch={true}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all shadow-2xs cursor-pointer active:scale-95"
+                      title="View on Interactive Map"
+                    >
+                      <MapPin className="h-3.5 w-3.5 text-amber-600" />
+                      <span>{locale === 'hi' ? 'यात्रिवा नक्शा' : locale === 'mr' ? 'यात्रिवा नकाशा' : 'Yatriva Map'}</span>
+                    </Link>
+
+                    <a
+                      href={`https://maps.google.com/?q=${place.coordinates.lat},${place.coordinates.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-600 hover:bg-slate-700 text-white text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer"
+                    >
+                      <Navigation className="h-3.5 w-3.5" />
+                      <span>{locale === 'hi' ? 'नेविगेट' : locale === 'mr' ? 'मार्ग' : 'Navigate'}</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

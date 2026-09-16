@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useLocale } from 'next-intl';
 import {
   MapPin,
@@ -55,11 +56,27 @@ export default function LocationPickerModal({
   allPlaces = [],
 }: LocationPickerModalProps) {
   const locale = useLocale() as 'en' | 'hi' | 'mr';
+  const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResultItem[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock background scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isOpen]);
 
   // Realtime search: immediate local matches + 400ms debounced OpenStreetMap Nominatim geocoding
   useEffect(() => {
@@ -184,15 +201,24 @@ export default function LocationPickerModal({
     };
   }, [searchQuery, locale, allPlaces]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-[1000] flex items-center justify-center p-3 sm:p-5 bg-slate-950/60 backdrop-blur-xs animate-fade-in"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5 bg-slate-950/70 backdrop-blur-sm animate-fade-in"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100vw',
+        height: '100dvh',
+      }}
       onClick={onClose}
     >
       <div
-        className="w-full max-w-lg bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-3.5 shadow-2xl border border-slate-200/90 overflow-hidden animate-scale-up max-h-[85vh] flex flex-col"
+        className="w-full max-w-lg bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-3.5 shadow-2xl border border-slate-200/90 overflow-hidden animate-scale-up max-h-[85vh] flex flex-col relative z-10"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-labelledby="picker-title"
@@ -459,6 +485,7 @@ export default function LocationPickerModal({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
